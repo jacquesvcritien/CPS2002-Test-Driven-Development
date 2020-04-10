@@ -23,7 +23,7 @@ public class ShellCodeTest {
     public void testGetHelloWorld()
     {
         String actual = shellCode.getHelloWorld();
-        assertEquals("Asserting getting hello world string", "Hello World!", actual);
+        assertEquals("Asserting getting hello world string", "Hello World", actual);
     }
 
 }
