@@ -1,4 +1,3 @@
-import com.sun.media.jfxmedia.events.PlayerEvent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,10 +39,10 @@ public class PlayerTest {
     }
 
     /**
-     * Test for getter and setter
+     * Test for move
      */
     @Test
-    public void testMove() {
+    public void testMove(){
         Position position = new Position(0, 0);
         player.setPosition(position);
 
@@ -64,5 +63,17 @@ public class PlayerTest {
         //checking x coordinate after move left
         assertEquals("Asserting y position after move left", 0, player.getPosition().getxCoordinate());
 
+    }
+
+    /**
+     * Test for menu using bad direction just for coverage
+     */
+    @Test(expected = NullPointerException.class)
+    public void testMoveBadDirection() throws NullPointerException {
+        Position position = new Position(0, 0);
+        player.setPosition(position);
+        Direction nullType = null;
+        //move wrong position
+        player.move(nullType);
     }
 }
