@@ -65,15 +65,4 @@ public class PlayerTest {
 
     }
 
-    /**
-     * Test for menu using bad direction just for coverage
-     */
-    @Test(expected = NullPointerException.class)
-    public void testMoveBadDirection() throws NullPointerException {
-        Position position = new Position(0, 0);
-        player.setPosition(position);
-        Direction nullType = null;
-        //move wrong position
-        player.move(nullType);
-    }
 }
