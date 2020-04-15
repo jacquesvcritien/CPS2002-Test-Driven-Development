@@ -18,7 +18,6 @@ public class Player {
     /**
      *  Method to move player
      * @param direction direction to move
-     * @throws NullPointerException just for code coverage
      */
     public void move(Direction direction){
         //get x coordinate
