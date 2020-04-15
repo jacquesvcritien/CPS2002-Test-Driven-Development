@@ -20,7 +20,7 @@ public class Player {
      * @param direction direction to move
      * @throws NullPointerException just for code coverage
      */
-    public void move(Direction direction) throws NullPointerException {
+    public void move(Direction direction){
         //get x coordinate
         int x = position.getxCoordinate();
         //get y coordinate
@@ -31,8 +31,7 @@ public class Player {
             case RIGHT: setPosition(new Position(x+1, y));break;
             case LEFT: setPosition(new Position(x-1, y));break;
             case UP: setPosition(new Position(x, y+1));break;
-            case DOWN: setPosition(new Position(x, y-1));break;
-            default: throw new NullPointerException("Direction is not valid");
+            default: setPosition(new Position(x, y-1));break;
         }
     }
 
