@@ -5,12 +5,35 @@ public class Player {
     private Position position;
 
     /**
+     * Method to set position
+     * @param position position to set
+     * @return true if move was successful, else false
+     */
+    public boolean setPosition(Position position)
+    {
+        this.position = position;
+        return true;
+    }
+
+    /**
      *  Method to move player
      * @param direction direction to move
+     * @throws NullPointerException just for code coverage
      */
-    public void move(Direction direction)
-    {
+    public void move(Direction direction) throws NullPointerException {
+        //get x coordinate
+        int x = position.getxCoordinate();
+        //get y coordinate
+        int y = position.getyCoordinate();
 
+        switch (direction)
+        {
+            case RIGHT: setPosition(new Position(x+1, y));break;
+            case LEFT: setPosition(new Position(x-1, y));break;
+            case UP: setPosition(new Position(x, y+1));break;
+            case DOWN: setPosition(new Position(x, y-1));break;
+            default: throw new NullPointerException("Direction is not valid");
+        }
     }
 
     /**
@@ -19,13 +42,5 @@ public class Player {
      */
     public Position getPosition() {
         return position;
-    }
-
-    /**
-     * Setter for position
-     * @param position psoition to set
-     */
-    public void setPosition(Position position) {
-        this.position = position;
     }
 }
