@@ -100,4 +100,30 @@ public class MenuValidatorTest {
         assertTrue("Asserting a map size in range for players in range 5-8", result);
     }
 
+    /**
+     * Test a smaller direction value
+     */
+    @Test
+    public void smallerDirectionTest(){
+        boolean result = menuValidator.directionCheck(-1);
+        assertFalse("Asserting a smaller value for direction", result);
+    }
+
+    /**
+     * Test a larger direction value
+     */
+    @Test
+    public void largerDirectionTest(){
+        boolean result = menuValidator.directionCheck(5);
+        assertFalse("Asserting a larger value for direction", result);
+    }
+
+    /**
+     * Test a direction value in range
+     */
+    @Test
+    public void goodDirectionTest(){
+        boolean result = menuValidator.directionCheck(2);
+        assertTrue("Asserting a value in range for direction", result);
+    }
 }
