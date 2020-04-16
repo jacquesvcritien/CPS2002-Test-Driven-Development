@@ -1,5 +1,9 @@
 package map;
 
+import exceptions.MapNotSetException;
+
+import java.util.Random;
+
 public class Map {
     private static Map map = new Map();
     private int size;
@@ -41,46 +45,51 @@ public class Map {
     }
 
     /**
-     * Method to get random coordinate
-     * @return random coordinate
+     * Method to get random coordinates
+     * @return random coordinates
      */
-    public int getRandomCoordinate()
+    public int[] getRandomCoordinates(Random random)
     {
-        return  (int)(Math.random() * this.size);
+        int[] toReturn = new int[2];
+        toReturn[0] = random.nextInt(this.size);
+        toReturn[1] = random.nextInt(this.size);
+        return toReturn;
     }
 
     /**
      * Map generator
      */
-    public void generate() {
-        //variables to hold x and y coordinates
-        int x,y;
+    public void generate(Random random) throws MapNotSetException {
+        if(this.size ==0)
+            throw new MapNotSetException("Map size should be set before generating map");
+
+        //array to hold coordinates
+        int[] generatedCoordinates = new int[2];
 
         //set treasure tile
-        x = getRandomCoordinate();
-        y = getRandomCoordinate();
-        mapTiles[x][y] = new TreasureTile();
+
+        generatedCoordinates = getRandomCoordinates(random);
+        mapTiles[generatedCoordinates[0]][generatedCoordinates[1]] = new TreasureTile();
 
         //set water tiles
         //get number of blue tiles
-        int blueTilesAmt = (int) blueProbability * (this.size * this.size);
+        int blueTilesAmt = (int)(blueProbability * (this.size * this.size));
         //counter for blue tiles added
-        int blueTilesAdded = 0;
-        do {
+        int blueTilesAdded = 1;
+        while(blueTilesAdded < blueTilesAmt){
             //get new coordinates
-            x = getRandomCoordinate();
-            y = getRandomCoordinate();
+            generatedCoordinates = getRandomCoordinates(random);
 
             //if not set
-            if(mapTiles[x][y] == null)
+            if(mapTiles[generatedCoordinates[0]][generatedCoordinates[1]] == null)
             {
                 //set tile to blue
-                mapTiles[x][y] = new BlueTile();
+                mapTiles[generatedCoordinates[0]][generatedCoordinates[1]] = new BlueTile();
                 //increment tiles added counter
                 blueTilesAdded++;
             }
 
-        }while(blueTilesAdded < blueTilesAmt);
+        }
 
         //set green tiles
         for(int i=0; i < this.size; i++)
@@ -89,5 +98,14 @@ public class Map {
                 if(mapTiles[i][j] == null)
                     mapTiles[i][j] = new GreenTile();
                 
+    }
+
+    /**
+     * Method used just for testing
+     */
+    public void reset()
+    {
+        map.size = 0;
+        map.mapTiles = null;
     }
 }
