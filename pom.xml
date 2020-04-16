@@ -15,6 +15,11 @@
             <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -24,7 +29,7 @@
                 <version>0.8.5</version>
                 <configuration>
                     <excludes>
-                        <exclude></exclude>
+                        <exclude>files/Helper.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
