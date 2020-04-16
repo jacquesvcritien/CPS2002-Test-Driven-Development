@@ -39,10 +39,10 @@ public class PlayerTest {
     }
 
     /**
-     * Test for move
+     * Test for move up
      */
     @Test
-    public void testMove(){
+    public void testMoveUp(){
         Position position = new Position(0, 0);
         player.setPosition(position);
 
@@ -50,19 +50,49 @@ public class PlayerTest {
         player.move(Direction.UP);
         //checking x coordinate after move up
         assertEquals("Asserting y position after move up", 1, player.getPosition().getyCoordinate());
+
+    }
+
+    /**
+     * Test for move down
+     */
+    @Test
+    public void testMoveDown(){
+        Position position = new Position(0, 1);
+        player.setPosition(position);
+
         //move down
         player.move(Direction.DOWN);
         //checking x coordinate after move down
         assertEquals("Asserting y position after move down", 0, player.getPosition().getyCoordinate());
+    }
+
+    /**
+     * Test for move right
+     */
+    @Test
+    public void testMoveRight(){
+        Position position = new Position(0, 0);
+        player.setPosition(position);
+
         //move right
         player.move(Direction.RIGHT);
         //checking x coordinate after move right
         assertEquals("Asserting x position after move right", 1, player.getPosition().getxCoordinate());
+    }
+
+    /**
+     * Test for move left
+     */
+    @Test
+    public void testMoveLeft(){
+        Position position = new Position(1, 0);
+        player.setPosition(position);
+
         //move left
         player.move(Direction.LEFT);
         //checking x coordinate after move left
         assertEquals("Asserting y position after move left", 0, player.getPosition().getxCoordinate());
-
     }
 
 }
