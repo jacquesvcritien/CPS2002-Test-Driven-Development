@@ -13,7 +13,7 @@ public class MapTest {
     @Before
     public void setup()
     {
-        map = new Map(5);
+        map = Map.getMap();
     }
 
     @After
@@ -28,6 +28,7 @@ public class MapTest {
     @Test
     public void testGetSize()
     {
+        map.setSize(5);
         //test for get map size
         assertEquals("Asserting map size getter", 5, map.getSize());
     }
@@ -49,12 +50,13 @@ public class MapTest {
     @Test
     public void testGetTiles()
     {
+        map.setSize(5);
         Tile[][] tiles = map.getMapTiles();
 
         int actualSize =0;
         for(int i=0; i < tiles.length; i++)
             actualSize += tiles[i].length;
-        
+
         assertEquals("Asserting map size setter", 25, actualSize);
     }
 

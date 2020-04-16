@@ -1,17 +1,16 @@
 package map;
 
 public class Map {
+    private static Map map = new Map();
     private int size;
-    Tile[][] mapTiles;
+    private Tile[][] mapTiles;
 
     /**
-     * Constructor for map
-     * @param size map size
+     * method to return map instance
      */
-    public Map(int size)
+    public static Map getMap()
     {
-        this.size = size;
-        this.mapTiles = new Tile[size][size];
+        return map;
     }
 
     /**
@@ -20,6 +19,7 @@ public class Map {
      */
     public boolean setSize(int size) {
         this.size = size;
+        this.mapTiles = new Tile[size][size];
         return true;
     }
 
