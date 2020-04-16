@@ -38,4 +38,12 @@ public class MenuValidator {
         }
     }
 
+    /**
+     * Method to check the command entered by the user is acceptable
+     * @param direction value which states the direction of the user
+     * @return
+     */
+    public static boolean directionCheck(int direction){
+        return direction >= 1 && direction <= 4;
+    }
 }
