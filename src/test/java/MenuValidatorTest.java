@@ -38,56 +38,66 @@ public class MenuValidatorTest {
     }
 
     /**
-     * Test a smaller value than map size required for players 2-4
+     * Test the map size function with a smaller amount of player
      */
     @Test
-    public void lowerSmallMapSizeTest(){
-        boolean result = menuValidator.smallMapSize(4);
-        assertFalse("Asserting a lower map size", result);
+    public void smallerAmtPlayerMapSize(){
+        boolean result = menuValidator.mapSize(1,4);
+        assertFalse("Asserting a lower amount of players", result);
     }
 
     /**
-     * Test a larger value than map size required for players 2-4
+     * Testing a smaller value for map size with players 2-4
      */
     @Test
-    public void higherSmallMapSizeTest(){
-        boolean result = menuValidator.smallMapSize(51);
-        assertFalse("Asserting a larger map size", result);
+    public void smallValueSmallPlayersMapSizeTest(){
+        boolean result = menuValidator.mapSize(3,4);
+        assertFalse("Asserting a lower map size for players in range 2-4", result);
     }
 
     /**
-     * Test map size value in range for players 2-4
+     * Testing a larger value for map size with players 2-4
      */
     @Test
-    public void smallMapSizeTest(){
-        boolean result = menuValidator.smallMapSize(20);
-        assertTrue("Asserting a map size in range as expected", result);
+    public void largeValueSmallPlayerMapSizeTest(){
+        boolean result = menuValidator.mapSize(3,51);
+        assertFalse("Asserting a larger map size for players in range 2-4", result);
     }
 
     /**
-     * Test a smaller value than map size required for players 5-8
+     * Testing a value for map size in range with players 2-4
      */
     @Test
-    public void lowerLargeMapSizeTest(){
-        boolean result = menuValidator.bigMapSize(7);
-        assertFalse("Asserting a lower map size", result);
+    public void inRangeValueSmallPlayerMapSizeTest(){
+        boolean result = menuValidator.mapSize(3,25);
+        assertTrue("Asserting a map size in range for players in range 2-4", result);
     }
 
     /**
-     * Test a larger value than map size required for players 5-8
+     * Testing a smaller value for map size with players 5-8
      */
     @Test
-    public void higherLargeMapSizeTest(){
-        boolean result = menuValidator.bigMapSize(51);
-        assertFalse("Asserting a larger map size", result);
+    public void smallValueBigPlayerMapSizeTest(){
+        boolean result = menuValidator.mapSize(6,7);
+        assertFalse("Asserting a smaller map size for players in range 5-8", result);
     }
 
     /**
-     * Test map size value in range for players 5-8
+     * Testing a larger value for map size with players 5-8
      */
     @Test
-    public void bigMapSizeTest(){
-        boolean result = menuValidator.bigMapSize(25);
-        assertTrue("Asserting a map size in range as expected", result);
+    public void largeValueBigPlayerMapSizeTest(){
+        boolean result = menuValidator.mapSize(6,51);
+        assertFalse("Asserting a larger map size for players in range 5-8", result);
     }
+
+    /**
+     * Testing a value for map size in range with players 5-8
+     */
+    @Test
+    public void inRangeBigPlayerMapSizeTest(){
+        boolean result = menuValidator.mapSize(6,20);
+        assertTrue("Asserting a map size in range for players in range 5-8", result);
+    }
+
 }
