@@ -24,6 +24,7 @@
                 <version>0.8.5</version>
                 <configuration>
                     <excludes>
+                        <exclude></exclude>
                     </excludes>
                 </configuration>
                 <executions>
