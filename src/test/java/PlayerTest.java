@@ -1,3 +1,4 @@
+import map.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,8 @@ public class PlayerTest {
     @Before
     public void setup() {
         player = new Player();
+        Map map = Map.getMap();
+        map.setSize(5);
     }
 
     @After
@@ -48,7 +51,7 @@ public class PlayerTest {
 
         //move up
         player.move(Direction.UP);
-        //checking x coordinate after move up
+        //checking y coordinate after move up
         assertEquals("Asserting y position after move up", 1, player.getPosition().getyCoordinate());
 
     }
@@ -63,7 +66,7 @@ public class PlayerTest {
 
         //move down
         player.move(Direction.DOWN);
-        //checking x coordinate after move down
+        //checking y coordinate after move down
         assertEquals("Asserting y position after move down", 0, player.getPosition().getyCoordinate());
     }
 
@@ -93,6 +96,58 @@ public class PlayerTest {
         player.move(Direction.LEFT);
         //checking x coordinate after move left
         assertEquals("Asserting y position after move left", 0, player.getPosition().getxCoordinate());
+    }
+
+
+    /**
+     * Test for move up when cannot
+     */
+    @Test
+    public void testMoveUpBad(){
+        Position position = new Position(0, 5);
+        player.setPosition(position);
+
+        //checking if false is returned
+        assertFalse("Asserting false on move up", player.move(Direction.UP));
+
+    }
+
+    /**
+     * Test for move down when cannot
+     */
+    @Test
+    public void testMoveDownBad(){
+        Position position = new Position(0, 0);
+        player.setPosition(position);
+
+        //checking if false is returned
+        assertFalse("Asserting false on move down", player.move(Direction.DOWN));
+    }
+
+    /**
+     * Test for move right when cannot
+     */
+    @Test
+    public void testMoveRightBad(){
+        Position position = new Position(5, 6);
+        player.setPosition(position);
+
+        //checking if false is returned
+        assertFalse("Asserting false on move right", player.move(Direction.RIGHT));
+
+    }
+
+    /**
+     * Test for move left when cannot
+     */
+    @Test
+    public void testMoveLeftBad(){
+        Position position = new Position(0, 0);
+        player.setPosition(position);
+
+        //checking if false is returned
+        assertFalse("Asserting false on move left", player.move(Direction.LEFT));
+
     }
 
 }
