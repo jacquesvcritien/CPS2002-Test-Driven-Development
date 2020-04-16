@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class MenuValidatorTest {
 
-    MenuValidator menuValidator;
+    MenuValidator menuValidator = new MenuValidator();
 
     /**
      * Test for amount of players, one lower than range
