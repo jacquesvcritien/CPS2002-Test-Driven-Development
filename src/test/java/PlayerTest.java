@@ -12,10 +12,10 @@ public class PlayerTest {
 
     Player player;
 
+    Map map = Map.getMap();
     @Before
     public void setup() {
         player = new Player();
-        Map map = Map.getMap();
         map.setSize(5);
     }
 
@@ -46,6 +46,7 @@ public class PlayerTest {
      */
     @Test
     public void testMoveUp(){
+
         Position position = new Position(0, 0);
         player.setPosition(position);
 
@@ -75,6 +76,7 @@ public class PlayerTest {
      */
     @Test
     public void testMoveRight(){
+        map.setSize(5);
         Position position = new Position(0, 0);
         player.setPosition(position);
 
