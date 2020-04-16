@@ -76,7 +76,6 @@ public class PlayerTest {
      */
     @Test
     public void testMoveRight(){
-        map.setSize(5);
         Position position = new Position(0, 0);
         player.setPosition(position);
 
