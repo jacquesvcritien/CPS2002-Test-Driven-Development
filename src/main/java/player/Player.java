@@ -1,5 +1,7 @@
 package player;
 
+import map.Map;
+
 public class Player {
     //stores position for player
     private Position position;
@@ -19,7 +21,8 @@ public class Player {
      *  Method to move player
      * @param direction direction to move
      */
-    public void move(Direction direction){
+    public boolean move(Direction direction){
+        Map map = Map.getMap();
         //get x coordinate
         int x = position.getxCoordinate();
         //get y coordinate
@@ -27,11 +30,38 @@ public class Player {
 
         switch (direction)
         {
-            case RIGHT: setPosition(new Position(x+1, y));break;
-            case LEFT: setPosition(new Position(x-1, y));break;
-            case UP: setPosition(new Position(x, y+1));break;
-            default: setPosition(new Position(x, y-1));break;
+            case RIGHT:
+            {
+                //check if at the edge
+                if(position.getxCoordinate() == map.getSize())
+                    return false;
+                setPosition(new Position(x+1, y));
+            }break;
+            case LEFT:
+            {
+                //check if at the edge
+                if(position.getxCoordinate() == 0)
+                    return false;
+                setPosition(new Position(x-1, y));
+            }break;
+            case UP:
+            {
+                //check if at the edge
+                if(position.getyCoordinate() == map.getSize())
+                    return false;
+                setPosition(new Position(x, y+1));
+            }break;
+            default:
+            {
+
+                //check if at the edge
+                if(position.getyCoordinate() == 0)
+                    return false;
+                setPosition(new Position(x, y-1));
+            }break;
         }
+
+        return true;
     }
 
     /**
