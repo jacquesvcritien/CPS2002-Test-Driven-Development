@@ -32,9 +32,9 @@ public class MapTest {
      * Test for size getter
      */
     @Test
-    public void testGetSize()
-    {
-        map.setSize(5);
+    public void testGetSize() throws MapNotSetException {
+        int mapSize =5;
+        map.setSize(mapSize, new Random());
         //test for get map size
         assertEquals("Asserting map size getter", 5, map.getSize());
     }
@@ -43,10 +43,9 @@ public class MapTest {
      * Test for size setter
      */
     @Test
-    public void testSetSize()
-    {
-        //set size
-        map.setSize(7);
+    public void testSetSize() throws MapNotSetException {
+        int mapSize =7;
+        map.setSize(mapSize, new Random());
         assertEquals("Asserting map size setter", 7, map.getSize());
     }
 
@@ -54,9 +53,8 @@ public class MapTest {
      * Test for tiles getter
      */
     @Test
-    public void testGetTiles()
-    {
-        map.setSize(5);
+    public void testGetTiles() throws MapNotSetException {
+        map.setSize(5, new Random());
         Tile[][] tiles = map.getMapTiles();
 
         int actualSize =0;
@@ -71,9 +69,9 @@ public class MapTest {
      */
     @Test
     public void testGenerate() throws MapNotSetException {
-        map.setSize(5);
-        Mockito.when(randomMocked.nextInt(map.getSize())).thenReturn(1,1,1,1,2,2,2,3,4,2,1,0,1,2);
-        map.generate(randomMocked);
+        int mapSize =5;
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,1,2,2,2,3,4,2,1,0,1,2);
+        map.setSize(5, randomMocked);
 
     }
 
