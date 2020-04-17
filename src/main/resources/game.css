@@ -1,0 +1,162 @@
+@font-face
+{
+    font-family: bangers;
+    src: url(fonts/bangers.ttf);
+}
+
+@media only screen and (max-width:768px)
+{
+    .title
+    {
+        font-size: 10vw !important;
+    }
+
+    td
+    {
+
+        height: 30px !important;
+        width: 30px !important;
+    }
+}
+
+@media only screen and (max-width:769px)
+{
+
+}
+
+*
+{
+    font-family: bangers, 'cursive' !important;
+}
+
+body{
+    background-image: url(images/sand-back.jpg);
+}
+
+.title
+{
+    font-size: 4vw;
+    text-align: center;
+    margin: 40px auto;
+}
+
+.table-wrapper
+{
+    width: fit-content;
+    overflow: hidden;
+    margin: auto;
+    text-align: center;
+}
+
+.table-title
+{
+    font-size: 20px;
+    padding: 20px 0;
+    border: 2px solid black;
+    border-bottom: 0;
+    display: flow-root;
+    width: -webkit-fill-available;
+    text-align: center;
+}
+
+.tile-img
+{
+
+    height: 28px;
+    width: 28px;
+    margin: auto;
+}
+
+.table-div
+{
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    width: max-content;
+    margin-bottom: 5px;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+
+td
+{
+
+    border: 2px solid black;
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+}
+
+td img
+{
+    vertical-align:top; /* or bottom */
+}
+
+.back
+{
+    background-image: url(images/grass-tile.jpg);
+}
+
+.treasure
+{
+    background-image: url(images/grass-tile.jpg);
+}
+
+.grass-back
+{
+    background-image: url(images/grass-tile.jpg);
+    background-size: cover;
+}
+
+.water-back
+{
+    background-image: url(images/water-tile.jpg);
+    background-size: cover;
+}
+
+
+.table-div::-webkit-scrollbar
+{
+    width: 10px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track
+{
+    background: transparent;
+    margin-top: 10px;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: black;
+    border-radius: 50px;
+}
+
+p
+{
+    margin: 5px auto !important;
+    font-size: 20px;
+}
+
+.not-visited
+{
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.not-visited-img
+{
+    display: none;
+}
+
+.moves-wrapper
+{
+    text-align: center;
+}
