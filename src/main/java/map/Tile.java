@@ -1,7 +1,7 @@
 package map;
 
 public abstract class Tile {
-    private String html = "<td class=\"$class\"></td>";
+    private String html = "<td class=\"$class\">$player</td>";
 
     /**
      * Method to get html
