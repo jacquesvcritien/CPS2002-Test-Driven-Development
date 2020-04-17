@@ -8,7 +8,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import player.Direction;
 import player.Player;
+import player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -69,6 +71,30 @@ public class MapResultBuilderTest {
         Page page = mapResultBuilder.getPage();
         String html = mapResultBuilder.getPage().getHTML();
         Assert.assertEquals("Asserting number of </td> (table data cells ending tags)", 25, Helper.getOccurences(html, "/td"));
+    }
+
+    /**
+     * Test for build moves
+     */
+    @Test
+    public void testBuildMoves() throws IOException, URISyntaxException, MapNotSetException {
+        mapResultBuilder.init();
+        Map map = Map.getMap();
+        map.setSize(5, new Random());
+        Player player = new Player(new Random());
+        player.setPosition(new Position(0, 0));
+
+        player.move(Direction.UP);
+        player.move(Direction.UP);
+        player.move(Direction.RIGHT);
+        player.move(Direction.LEFT);
+        player.move(Direction.RIGHT);
+        player.move(Direction.DOWN);
+
+        mapResultBuilder.buildMoves(player);
+        Page page = mapResultBuilder.getPage();
+        Assert.assertEquals("Asserting number of right moves", 2, Helper.getOccurences(page.getHTML(), "p>RIGHT</p"));
+        Assert.assertEquals("Asserting number of left moves", 1, Helper.getOccurences(page.getHTML(), "p>LEFT</p"));
     }
 
 
