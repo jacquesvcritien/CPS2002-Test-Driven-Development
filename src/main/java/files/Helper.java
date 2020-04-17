@@ -97,4 +97,29 @@ public class Helper {
         FileUtils.deleteDirectory(new File(source));
     }
 
+    /**
+     * Method used by tests to check how many times a sequence occurs in a string
+     * @param string actual string
+     * @param sequence sequence to check for
+     * @return number of occurences
+     */
+    public static int getOccurences(String string, String sequence)
+    {
+        int occurences = 0;
+        string = string.replaceAll(" ","");
+
+        //get words
+        String words[] = string.split("><");
+
+
+        for (String word: words)
+        {
+            //if equal
+            if (sequence.equals(word))
+                occurences++;
+        }
+
+        return occurences;
+    }
+
 }
