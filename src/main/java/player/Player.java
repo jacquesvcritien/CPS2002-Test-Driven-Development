@@ -4,6 +4,7 @@ import map.Map;
 import map.Tile;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class Player {
@@ -13,9 +14,15 @@ public class Player {
     private Set<Tile> tilesVisited;
 
     //constructor
-    public Player()
+    public Player(Random r)
     {
+        //generate coordinates
+        int[] generatedCoordinates = Map.getMap().getRandomCoordinates(r);
+        //set position
+        this.start = new Position(generatedCoordinates[0], generatedCoordinates[1]);
+        this.position = this.start;
         tilesVisited = new HashSet<Tile>();
+        addVisitedTile(this.start);
     }
     /**
      * Method to set position
@@ -47,6 +54,15 @@ public class Player {
         return true;
     }
 
+    /**
+     * Add a new visited tile
+     * @param position position of tile to add to player's visited tiles
+     */
+    private void addVisitedTile(Position position)
+    {
+        tilesVisited.add(Map.getMap().getMapTile(position));
+    }
+
 
     /**
      *  Method to move player
@@ -66,21 +82,34 @@ public class Player {
                 //check if at the edge
                 if(position.getxCoordinate() == map.getSize())
                     return false;
-                setPosition(new Position(x+1, y));
+
+                Position newPosition = new Position(x+1, y);
+                //set new position
+                setPosition(newPosition);
+                //add tile
+                addVisitedTile(newPosition);
             }break;
             case LEFT:
             {
                 //check if at the edge
                 if(position.getxCoordinate() == 0)
                     return false;
-                setPosition(new Position(x-1, y));
+                Position newPosition = new Position(x-1, y);
+                //set new position
+                setPosition(newPosition);
+                //add tile
+                addVisitedTile(newPosition);
             }break;
             case UP:
             {
                 //check if at the edge
                 if(position.getyCoordinate() == map.getSize())
                     return false;
-                setPosition(new Position(x, y+1));
+                Position newPosition = new Position(x, y+1);
+                //set new position
+                setPosition(newPosition);
+                //add tile
+                addVisitedTile(newPosition);
             }break;
             default:
             {
@@ -88,7 +117,11 @@ public class Player {
                 //check if at the edge
                 if(position.getyCoordinate() == 0)
                     return false;
-                setPosition(new Position(x, y-1));
+                Position newPosition = new Position(x, y-1);
+                //set new position
+                setPosition(newPosition);
+                //add tile
+                addVisitedTile(newPosition);
             }break;
         }
 
