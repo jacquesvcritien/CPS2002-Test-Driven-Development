@@ -2,6 +2,9 @@ package files;
 
 import player.Player;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public abstract class Builder {
 
     /**
@@ -9,6 +12,11 @@ public abstract class Builder {
      * @return page
      */
     public abstract Page getPage();
+
+    /**
+     * Method to initialise page to template
+     */
+    public abstract void init() throws IOException, URISyntaxException;
 
     /**
      * Build player title

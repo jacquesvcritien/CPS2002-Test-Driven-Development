@@ -2,7 +2,7 @@ package files;
 
 public class Page {
 
-    String HTML;
+    private String HTML;
 
     /**
      * Method to return html
@@ -12,4 +12,12 @@ public class Page {
     {
         return HTML;
     };
+
+    /**
+     * HTML setter
+     * @param HTML
+     */
+    public void setHTML(String HTML) {
+        this.HTML = HTML;
+    }
 }
