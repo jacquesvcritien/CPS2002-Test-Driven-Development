@@ -67,9 +67,9 @@ public class TileTest {
     public void testGreenAndBlueGetHtml()
     {
         //test for green tile
-        assertEquals("Asserting green tile html", "<td class=\"$class\"></td>", greenTile.getHtml());
+        assertEquals("Asserting green tile html", "<td class=\"$class\">$player</td>", greenTile.getHtml());
         //test for blue tile
-        assertEquals("Asserting blue tile html", "<td class=\"$class\"></td>", blueTile.getHtml());
+        assertEquals("Asserting blue tile html", "<td class=\"$class\">$player</td>", blueTile.getHtml());
     }
 
 
@@ -80,7 +80,7 @@ public class TileTest {
     public void testTreasureGetHtml()
     {
         //test for treasure tile
-        assertEquals("Asserting treasure tile html", "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
+        assertEquals("Asserting treasure tile html", "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\">$player</td>", treasureTile.getHtml());
     }
 
     /**
