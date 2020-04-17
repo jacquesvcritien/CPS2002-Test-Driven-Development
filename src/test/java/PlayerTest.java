@@ -42,6 +42,23 @@ public class PlayerTest {
     }
 
     /**
+     * Test for getter and setter for start Position
+     */
+    @Test
+    public void testStartPositionGetterAndSetter() {
+        Position position = new Position(1, 0);
+        player.setStart(position);
+
+        //getting player actual coordinates
+        Position playerPos = player.getStart();
+
+        //checking x coordinate from get
+        assertEquals("Asserting x position coordinate", 1, playerPos.getxCoordinate());
+        //checking y coordinate from get
+        assertEquals("Asserting  y coordinate", 0, playerPos.getyCoordinate());
+    }
+
+    /**
      * Test for move up
      */
     @Test
