@@ -83,7 +83,35 @@ public class TileTest {
         assertEquals("Asserting treasure tile html", "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
     }
 
+    /**
+     * Test for green tile classname getter
+     */
+    @Test
+    public void testGetGreenClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting green tile class name", "grass-back", greenTile.getClassName());
+    }
 
+    /**
+     * Test for treasure tile classname getter
+     */
+    @Test
+    public void testGetTreasureClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting treasure tile class name", "grass-back", treasureTile.getClassName());
+    }
+
+    /**
+     * Test for blue tile classname getter
+     */
+    @Test
+    public void testGetBlueClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting blue tile class name", "water-back", blueTile.getClassName());
+    }
 
 
 }
