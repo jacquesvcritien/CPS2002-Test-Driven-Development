@@ -1,6 +1,7 @@
 package map;
 
 import exceptions.MapNotSetException;
+import player.Position;
 
 import java.util.Random;
 
@@ -22,9 +23,10 @@ public class Map {
      * Setter for map size
      * @param size size to set
      */
-    public boolean setSize(int size) {
+    public boolean setSize(int size, Random random) throws MapNotSetException {
         this.size = size;
         this.mapTiles = new Tile[size][size];
+        generate(random);
         return true;
     }
 
@@ -42,6 +44,15 @@ public class Map {
      */
     public Tile[][] getMapTiles() {
         return mapTiles;
+    }
+
+    /**
+     * Get map tile of position
+     * @param position position of tile
+     */
+    public Tile getMapTile(Position position)
+    {
+        return this.mapTiles[position.getxCoordinate()][position.getyCoordinate()];
     }
 
     /**
