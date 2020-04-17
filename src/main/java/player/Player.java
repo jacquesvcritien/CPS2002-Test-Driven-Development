@@ -2,6 +2,7 @@ package player;
 
 import map.Map;
 import map.Tile;
+import map.TileType;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -13,17 +14,19 @@ public class Player {
     private Position start;
     private Set<Tile> tilesVisited;
 
-    //constructor
-    public Player(Random r)
+    /**
+     * Constructor
+     * @param random
+     */
+    public Player(Random random)
     {
-        //generate coordinates
-        int[] generatedCoordinates = Map.getMap().getRandomCoordinates(r);
         //set position
-        this.start = new Position(generatedCoordinates[0], generatedCoordinates[1]);
+        generateStarting(random);
         this.position = this.start;
         tilesVisited = new HashSet<Tile>();
         addVisitedTile(this.start);
     }
+
     /**
      * Method to set position
      * @param position position to set
@@ -33,6 +36,27 @@ public class Player {
     {
         this.position = position;
         return true;
+    }
+
+    /**
+     * Method to generate a starting position
+     * @param random
+     */
+    private void generateStarting(Random random)
+    {
+        //generate coordinates
+        int[] generatedCoordinates;
+        //set position
+        Position newPosition;
+
+        //do while you find a valid position
+        do{
+            generatedCoordinates = Map.getMap().getRandomCoordinates(random);
+            newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
+        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN);
+
+        this.start = newPosition;
+
     }
 
     /**

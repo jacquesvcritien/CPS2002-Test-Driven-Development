@@ -61,24 +61,17 @@ public class TileTest {
     }
 
     /**
-     * Test for green tile html getter
+     * Test for green and blue tiles html getter
      */
     @Test
-    public void testGreenGetHtml()
+    public void testGreenAndBlueGetHtml()
     {
         //test for green tile
-        assertEquals("Asserting green tile html", "<td class=\"grass-back\"></td>", greenTile.getHtml());
+        assertEquals("Asserting green tile html", "<td class=\"$class\"></td>", greenTile.getHtml());
+        //test for blue tile
+        assertEquals("Asserting blue tile html", "<td class=\"$class\"></td>", blueTile.getHtml());
     }
 
-    /**
-     * Test for blue tile html getter
-     */
-    @Test
-    public void testBlueGetHtml()
-    {
-        //test for blue tile
-        assertEquals("Asserting blue tile html", "<td class=\"water-back\"></td>", blueTile.getHtml());
-    }
 
     /**
      * Test for treasure tile html getter
@@ -87,10 +80,38 @@ public class TileTest {
     public void testTreasureGetHtml()
     {
         //test for treasure tile
-        assertEquals("Asserting treasure tile html", "<td class=\"grass-back\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
+        assertEquals("Asserting treasure tile html", "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
     }
 
+    /**
+     * Test for green tile classname getter
+     */
+    @Test
+    public void testGetGreenClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting green tile class name", "grass-back", greenTile.getClassName());
+    }
 
+    /**
+     * Test for treasure tile classname getter
+     */
+    @Test
+    public void testGetTreasureClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting treasure tile class name", "grass-back", treasureTile.getClassName());
+    }
+
+    /**
+     * Test for blue tile classname getter
+     */
+    @Test
+    public void testGetBlueClassName()
+    {
+        //test for green tile
+        assertEquals("Asserting blue tile class name", "water-back", blueTile.getClassName());
+    }
 
 
 }
