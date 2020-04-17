@@ -1,13 +1,16 @@
+import exceptions.MapNotSetException;
 import map.Map;
 import map.Tile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import player.Direction;
 import player.Player;
 import player.Position;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -15,12 +18,15 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     Player player;
-
+    Random randomMocked;
     Map map = Map.getMap();
     @Before
-    public void setup() {
-        player = new Player();
-        map.setSize(5);
+    public void setup() throws MapNotSetException {
+        int mapSize =5;
+        randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3);
+        map.setSize(mapSize, randomMocked);
+        player = new Player(randomMocked);
     }
 
     @After
@@ -33,7 +39,6 @@ public class PlayerTest {
      */
     @Test
     public void testGetTilesVisitedBySize() {
-        Position position = new Position(0, 0);
         player.move(Direction.UP);
         player.move(Direction.RIGHT);
         player.move(Direction.DOWN);
