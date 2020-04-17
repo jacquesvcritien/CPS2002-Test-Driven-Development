@@ -1,6 +1,7 @@
 import exceptions.MapNotSetException;
 import map.Map;
 import map.Tile;
+import map.TileType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class PlayerTest {
     public void setup() throws MapNotSetException {
         int mapSize =5;
         randomMocked = Mockito.mock(Random.class);
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
         player = new Player(randomMocked);
     }
@@ -48,6 +49,15 @@ public class PlayerTest {
         Set<Tile> tilesVisited = player.getTilesVisited();
 
         assertEquals("Asserting number of tiles", 4, tilesVisited.size());
+    }
+
+    /**
+     * Test for starting position generation
+     */
+    @Test
+    public void testGenerateStart() {
+        Player player2 = new Player(new Random());
+        assertEquals("Assertuing type of starting tile", TileType.GREEN, map.getMapTile(player2.getStart()).getType());
     }
 
     /**
