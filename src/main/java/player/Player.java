@@ -3,6 +3,7 @@ package player;
 import map.Map;
 import map.Tile;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
@@ -11,6 +12,11 @@ public class Player {
     private Position start;
     private Set<Tile> tilesVisited;
 
+    //constructor
+    public Player()
+    {
+        tilesVisited = new HashSet<Tile>();
+    }
     /**
      * Method to set position
      * @param position position to set
