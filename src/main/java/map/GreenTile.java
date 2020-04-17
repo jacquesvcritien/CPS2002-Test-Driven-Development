@@ -3,7 +3,7 @@ package map;
 public class GreenTile implements Tile{
 
     private TileType type;
-    private final String html = "<td class=\"grass-back\"></td>";
+    private final String html = "<td class=\"grass-back $visited\"></td>";
 
     public GreenTile()
     {

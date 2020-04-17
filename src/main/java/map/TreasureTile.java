@@ -3,7 +3,7 @@ package map;
 public class TreasureTile implements Tile{
 
     private TileType type;
-    private final String html = "<td class=\"grass-back\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>";
+    private final String html = "<td class=\"grass-back $visited\"><img class=\"tile-img $visitedimg\" src=\"images/treasure.png\"></td>";
 
     public TreasureTile()
     {

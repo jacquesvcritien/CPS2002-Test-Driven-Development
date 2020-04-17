@@ -3,7 +3,7 @@ package map;
 public class BlueTile implements Tile{
 
     private TileType type;
-    private final String html = "<td class=\"water-back\"></td>";
+    private final String html = "<td class=\"water-back $visited\"></td>";
 
     public BlueTile()
     {
