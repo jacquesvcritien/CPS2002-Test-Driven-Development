@@ -1,27 +1,53 @@
+import exceptions.MapNotSetException;
 import map.Map;
+import map.Tile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import player.Direction;
 import player.Player;
 import player.Position;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
 public class PlayerTest {
 
     Player player;
-
+    Random randomMocked;
     Map map = Map.getMap();
     @Before
-    public void setup() {
-        player = new Player();
-        map.setSize(5);
+    public void setup() throws MapNotSetException {
+        int mapSize =5;
+        randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3);
+        map.setSize(mapSize, randomMocked);
+        player = new Player(randomMocked);
     }
 
     @After
     public void teardown() {
         player = null;
+    }
+
+    /**
+     * Test for getter for tiles visited
+     */
+    @Test
+    public void testGetTilesVisitedBySize() {
+        player.move(Direction.UP);
+        player.move(Direction.RIGHT);
+        player.move(Direction.DOWN);
+        player.move(Direction.LEFT);
+
+        //getting player actual coordinates
+        Set<Tile> tilesVisited = player.getTilesVisited();
+
+        assertEquals("Asserting number of tiles", 4, tilesVisited.size());
     }
 
     /**
@@ -34,6 +60,23 @@ public class PlayerTest {
 
         //getting player actual coordinates
         Position playerPos = player.getPosition();
+
+        //checking x coordinate from get
+        assertEquals("Asserting x position coordinate", 1, playerPos.getxCoordinate());
+        //checking y coordinate from get
+        assertEquals("Asserting  y coordinate", 0, playerPos.getyCoordinate());
+    }
+
+    /**
+     * Test for getter and setter for start Position
+     */
+    @Test
+    public void testStartPositionGetterAndSetter() {
+        Position position = new Position(1, 0);
+        player.setStart(position);
+
+        //getting player actual coordinates
+        Position playerPos = player.getStart();
 
         //checking x coordinate from get
         assertEquals("Asserting x position coordinate", 1, playerPos.getxCoordinate());
