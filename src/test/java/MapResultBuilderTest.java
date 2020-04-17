@@ -58,7 +58,7 @@ public class MapResultBuilderTest {
     }
 
     /**
-     * Test for build map
+     * Test for build map by checking that it has as much cell end tags as should be
      */
     @Test
     public void testBuildMap() throws IOException, URISyntaxException, MapNotSetException {
