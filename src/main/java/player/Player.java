@@ -5,6 +5,7 @@ import map.Map;
 public class Player {
     //stores position for player
     private Position position;
+    private Position start;
 
     /**
      * Method to set position
@@ -16,6 +17,18 @@ public class Player {
         this.position = position;
         return true;
     }
+
+    /**
+     * Method to set start position
+     * @param start position to set
+     * @return true if move was successful, else false
+     */
+    public boolean setStart(Position start)
+    {
+        this.start = start;
+        return true;
+    }
+
 
     /**
      *  Method to move player
@@ -70,5 +83,13 @@ public class Player {
      */
     public Position getPosition() {
         return position;
+    }
+
+    /**
+     * Getter for start position
+     * @return start position of player
+     */
+    public Position getStart() {
+        return start;
     }
 }
