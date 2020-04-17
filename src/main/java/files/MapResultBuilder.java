@@ -4,6 +4,7 @@ import map.Map;
 import map.Tile;
 import map.TileType;
 import player.Player;
+import player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -14,6 +15,7 @@ public class MapResultBuilder extends Builder
 {
     private Page mapResultsPage;
     private final String filename = "game.html";
+    private final String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
 
     @Override
     public Page getPage() {
@@ -48,6 +50,10 @@ public class MapResultBuilder extends Builder
         //get map tiles
         Tile[][] mapTiles=  map.getMapTiles();
 
+        //player position
+        Position playerPosition = player.getPosition();
+
+
         //iterate through tiles
         for(int i=0; i < size; i++)
         {
@@ -72,6 +78,10 @@ public class MapResultBuilder extends Builder
                 }
                 else
                     tileHtml = tileHtml.replace("$class", currentTile.getClassName());
+
+                //if player position, add position html, else remove '$player'
+                tileHtml = (i == playerPosition.getxCoordinate() && j == playerPosition.getyCoordinate()) ?
+                            tileHtml.replace("$player", playerPosHTML) : tileHtml.replace("$player", "");
 
                 //add html for tile
                 html.append(tileHtml);
