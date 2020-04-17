@@ -1,10 +1,14 @@
 import map.Map;
+import map.Tile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import player.Direction;
 import player.Player;
 import player.Position;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +26,23 @@ public class PlayerTest {
     @After
     public void teardown() {
         player = null;
+    }
+
+    /**
+     * Test for getter for tiles visited
+     */
+    @Test
+    public void testGetTilesVisitedBySize() {
+        Position position = new Position(0, 0);
+        player.move(Direction.UP);
+        player.move(Direction.RIGHT);
+        player.move(Direction.DOWN);
+        player.move(Direction.LEFT);
+
+        //getting player actual coordinates
+        Set<Tile> tilesVisited = player.getTilesVisited();
+
+        assertEquals("Asserting number of tiles", 4, tilesVisited.size());
     }
 
     /**
