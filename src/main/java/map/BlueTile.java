@@ -1,22 +1,33 @@
 package map;
 
-public class BlueTile implements Tile{
+public class BlueTile extends Tile{
 
     private TileType type;
-    private final String html = "<td class=\"water-back $visited\"></td>";
+    private String className;
 
     public BlueTile()
     {
+        this.className = "water-back";
         this.type = TileType.BLUE;
     }
 
-    @Override
-    public String getHtml() {
-        return html;
-    }
-
+    /**
+     * Getter for type
+     * @return type
+     */
     @Override
     public TileType getType() {
         return type;
     }
+
+    /**
+     * Getetr for class name
+     * @return class name
+     */
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+
 }

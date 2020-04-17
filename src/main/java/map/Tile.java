@@ -1,15 +1,26 @@
 package map;
 
-public interface Tile {
+public abstract class Tile {
+    private String html = "<td class=\"$class\"></td>";
+
     /**
      * Method to get html
      * @return html as string
      */
-    public abstract String getHtml();
+    public String getHtml()
+    {
+        return html;
+    }
 
     /**
-     * Method to get type
-     * @return type of tile
+     * Getetr for class name
+     * @return class name
      */
-    public TileType getType();
+    public abstract String getClassName();
+
+    /**
+     * Getter for type
+     * @return type
+     */
+    public abstract TileType getType();
 }
