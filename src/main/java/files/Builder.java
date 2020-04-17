@@ -14,11 +14,11 @@ public abstract class Builder {
      * Build player title
      * @param playerIndex index of player
      */
-    protected abstract void buildTitle(int playerIndex);
+    public abstract void buildTitle(int playerIndex);
 
     /**
      * Build map view
      * @param player whose data is to be built
      */
-    protected abstract void buildMapView(Player player);
+    public abstract void buildMapView(Player player);
 }
