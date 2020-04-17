@@ -67,7 +67,7 @@ public class TileTest {
     public void testGreenGetHtml()
     {
         //test for green tile
-        assertEquals("Asserting green tile html", "<td class=\"grass-back\"></td>", greenTile.getHtml());
+        assertEquals("Asserting green tile html", "<td class=\"grass-back $visited\"></td>", greenTile.getHtml());
     }
 
     /**
@@ -77,7 +77,7 @@ public class TileTest {
     public void testBlueGetHtml()
     {
         //test for blue tile
-        assertEquals("Asserting blue tile html", "<td class=\"water-back\"></td>", blueTile.getHtml());
+        assertEquals("Asserting blue tile html", "<td class=\"water-back $visited\"></td>", blueTile.getHtml());
     }
 
     /**
@@ -87,7 +87,7 @@ public class TileTest {
     public void testTreasureGetHtml()
     {
         //test for treasure tile
-        assertEquals("Asserting treasure tile html", "<td class=\"grass-back\"><img class=\"tile-img\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
+        assertEquals("Asserting treasure tile html", "<td class=\"grass-back $visited\"><img class=\"tile-img $visitedimg\" src=\"images/treasure.png\"></td>", treasureTile.getHtml());
     }
 
 

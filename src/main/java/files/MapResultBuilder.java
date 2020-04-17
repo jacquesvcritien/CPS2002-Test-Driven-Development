@@ -4,10 +4,13 @@ import player.Player;
 
 public class MapResultBuilder extends Builder
 {
-    private Page mapResultsPage = new Page();
+    private Page mapResultsPage;
 
     @Override
     public Page getPage() {
+        if(mapResultsPage == null)
+            mapResultsPage = new Page();
+        
         return mapResultsPage;
     }
 
