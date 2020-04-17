@@ -24,6 +24,7 @@ public class Director {
         {
             builder.buildTitle(i+1);
             builder.buildMapView(players[i]);
+            builder.buildMoves(players[i]);
         }
     }
 

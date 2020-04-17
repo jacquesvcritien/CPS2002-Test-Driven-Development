@@ -1,4 +1,5 @@
 import exceptions.MapNotSetException;
+import files.Director;
 import map.Map;
 import map.Tile;
 import map.TileType;
@@ -108,6 +109,28 @@ public class PlayerTest {
         //checking y coordinate after move up
         assertEquals("Asserting y position after move up", 1, player.getPosition().getyCoordinate());
 
+    }
+
+    /**
+     * Test for getting moves
+     */
+    @Test
+    public void testGetMoves(){
+
+        Position position = new Position(0, 0);
+        player.setPosition(position);
+
+        player.move(Direction.UP);
+        player.move(Direction.UP);
+        player.move(Direction.RIGHT);
+        player.move(Direction.LEFT);
+        player.move(Direction.RIGHT);
+        player.move(Direction.DOWN);
+
+        //asserting moves list
+        assertEquals("Asserting moves list size", 6, player.getMoves().size());
+        //asserting m1 move
+        assertEquals("Asserting move left", Direction.LEFT, player.getMoves().get(3));
     }
 
     /**

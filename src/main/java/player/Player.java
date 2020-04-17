@@ -4,6 +4,7 @@ import map.Map;
 import map.Tile;
 import map.TileType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -13,6 +14,7 @@ public class Player {
     private Position position;
     private Position start;
     private Set<Tile> tilesVisited;
+    private ArrayList<Direction> moves;
 
     /**
      * Constructor
@@ -24,6 +26,7 @@ public class Player {
         generateStarting(random);
         this.position = this.start;
         tilesVisited = new HashSet<Tile>();
+        this.moves = new ArrayList<Direction>();
         addVisitedTile(this.start);
     }
 
@@ -87,6 +90,13 @@ public class Player {
         tilesVisited.add(Map.getMap().getMapTile(position));
     }
 
+    /**
+     * Method to get moves
+     * @return list of moves
+     */
+    public ArrayList<Direction> getMoves() {
+        return moves;
+    }
 
     /**
      *  Method to move player
@@ -98,6 +108,7 @@ public class Player {
         int x = position.getxCoordinate();
         //get y coordinate
         int y = position.getyCoordinate();
+        this.moves.add(direction);
 
         switch (direction)
         {

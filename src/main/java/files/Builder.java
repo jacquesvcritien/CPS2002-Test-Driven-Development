@@ -29,4 +29,10 @@ public abstract class Builder {
      * @param player whose data is to be built
      */
     public abstract void buildMapView(Player player);
+
+    /**
+     * Build moves
+     * @param player whose data is to be built
+     */
+    public abstract void buildMoves(Player player);
 }

@@ -3,11 +3,13 @@ package files;
 import map.Map;
 import map.Tile;
 import map.TileType;
+import player.Direction;
 import player.Player;
 import player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.regex.Matcher;
 
@@ -94,6 +96,22 @@ public class MapResultBuilder extends Builder
         //replace placeholder
         String mapResult = mapResultsPage.getHTML().replace("$mapResult", html.toString());
         mapResultsPage.setHTML(mapResult);
+    }
+
+    @Override
+    public void buildMoves(Player player) {
+
+        ArrayList<Direction> playerMoves = player.getMoves();
+        StringBuilder html = new StringBuilder();
+        for (int i=0; i < playerMoves.size(); i++)
+        {
+            Direction direction = playerMoves.get(i);
+            html.append("<p>" + direction + "</p>");
+        }
+
+        String moves = mapResultsPage.getHTML().replace("$moves", html.toString());
+        mapResultsPage.setHTML(moves);
+
     }
 
 }
