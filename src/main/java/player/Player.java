@@ -1,11 +1,15 @@
 package player;
 
 import map.Map;
+import map.Tile;
+
+import java.util.Set;
 
 public class Player {
     //stores position for player
     private Position position;
     private Position start;
+    private Set<Tile> tilesVisited;
 
     /**
      * Method to set position
@@ -16,6 +20,14 @@ public class Player {
     {
         this.position = position;
         return true;
+    }
+
+    /**
+     * Method to get visited tiles
+     * @return set of visited tiles
+     */
+    public Set<Tile> getTilesVisited() {
+        return tilesVisited;
     }
 
     /**
