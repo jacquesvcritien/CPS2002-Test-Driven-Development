@@ -44,6 +44,12 @@ public class MenuValidator {
      * @return
      */
     public static boolean directionCheck(int direction){
-        return direction >= 1 && direction <= 4;
+        if(direction >= 1 && direction <= 4){
+            return true;
+        }
+        else{
+            System.out.println("Direction choice should be between 1-4");
+            return false;
+        }
     }
 }
