@@ -36,6 +36,7 @@
                 <configuration>
                     <excludes>
                         <exclude>files/Helper.*</exclude>
+                        <exclude>menu/Helper.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
