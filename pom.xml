@@ -37,6 +37,7 @@
                     <excludes>
                         <exclude>files/Helper.*</exclude>
                         <exclude>menu/Helper.*</exclude>
+                        <exclude>Game.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
