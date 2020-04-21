@@ -9,19 +9,22 @@
 </head>
 
 <body>
-<h1 class="title">WATER TILES GAME</h1>
-<div class="table-wrapper">
-    <div class="table-title">Player $index</div>
-    <div class="table-div">
-        <table class="table" cellpadding="0">
-            $mapResult
-        </table>
+    <div class="$winner-class">
+        <h1 class="title">WATER TILES GAME</h1>
+        $winner
+        <div class="table-wrapper">
+            <div class="table-title">Player $index</div>
+            <div class="table-div">
+                <table class="table" cellpadding="0">
+                    $mapResult
+                </table>
+            </div>
+        </div>
+        <div class="moves-wrapper">
+            <h1>Moves</h1>
+            $moves
+        </div>
     </div>
-</div>
-<div class="moves-wrapper">
-    <h1>Moves</h1>
-    $moves
-</div>
 </body>
 
 </html>
