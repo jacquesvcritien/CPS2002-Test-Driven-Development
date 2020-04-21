@@ -56,10 +56,16 @@ public class PlayerTest {
      * Test for starting position generation
      */
     @Test
-    public void testGenerateStart() {
-        Player player2 = new Player(new Random());
-        assertEquals("Assertuing type of starting tile", TileType.GREEN, map.getMapTile(player2.getStart()).getType());
+    public void testGenerateStart() throws MapNotSetException {
+        int mapSize = 5;
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(4,4,0,1,1,0,1,2,0,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        map.setSize(mapSize, randomMocked);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0, 0,1,3,2);
+        Player player2 = new Player(randomMocked);
+        player2.setPosition(new Position(4,4));
+        assertEquals("Asserting type of starting tile", TileType.GREEN, map.getMapTile(player2.getStart()).getType());
     }
+
 
     /**
      * Test for getter and setter
