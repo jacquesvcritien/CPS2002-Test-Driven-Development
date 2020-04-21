@@ -3,11 +3,9 @@ package player;
 import map.Map;
 import map.Tile;
 import map.TileType;
+import game.Game;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Player {
     //stores position for player
@@ -108,59 +106,116 @@ public class Player {
         int x = position.getxCoordinate();
         //get y coordinate
         int y = position.getyCoordinate();
-        this.moves.add(direction);
+
+        Position newPosition = new Position();
+        newPosition.setxCoordinate(x);
+        newPosition.setyCoordinate(y);
 
         switch (direction)
         {
             case RIGHT:
             {
                 //check if at the edge
-                if(position.getxCoordinate() == map.getSize())
+                if(position.getxCoordinate() == map.getSize()-1)
+                {
+                    System.out.println("You are on the edge, you cannot move right");
                     return false;
+                }
 
-                Position newPosition = new Position(x+1, y);
-                //set new position
-                setPosition(newPosition);
-                //add tile
-                addVisitedTile(newPosition);
-            }break;
+                newPosition.setxCoordinate(x+1);
+            };break;
             case LEFT:
             {
                 //check if at the edge
                 if(position.getxCoordinate() == 0)
+                {
+                    System.out.println("You are on the edge, you cannot move left");
                     return false;
-                Position newPosition = new Position(x-1, y);
-                //set new position
-                setPosition(newPosition);
-                //add tile
-                addVisitedTile(newPosition);
-            }break;
+                }
+
+                newPosition.setxCoordinate(x-1);
+            };break;
             case UP:
             {
                 //check if at the edge
-                if(position.getyCoordinate() == map.getSize())
+                if(position.getyCoordinate() == 0)
+                {
+                    System.out.println("You are on the edge, you cannot move up");
                     return false;
-                Position newPosition = new Position(x, y+1);
-                //set new position
-                setPosition(newPosition);
-                //add tile
-                addVisitedTile(newPosition);
-            }break;
+                }
+
+                newPosition.setyCoordinate(y-1);
+            };break;
             default:
             {
 
                 //check if at the edge
-                if(position.getyCoordinate() == 0)
+                if(position.getyCoordinate() == map.getSize()-1)
+                {
+                    System.out.println("You are on the edge, you cannot move down");
                     return false;
-                Position newPosition = new Position(x, y-1);
+                }
+
+                newPosition.setyCoordinate(y+1);
+
+            }break;
+        }
+
+        Tile newTile = map.getMapTile(newPosition);
+        TileType type = newTile.getType();
+
+        switch (type)
+        {
+            case TREASURE:
+            {
                 //set new position
                 setPosition(newPosition);
                 //add tile
                 addVisitedTile(newPosition);
+                //add to moves
+                this.moves.add(direction);
             }break;
+            case BLUE:
+            {
+                //add tile
+                addVisitedTile(newPosition);
+                //sent to start
+                setPosition(start);
+                //clear green visited tiles
+                clearVisitedGreenTiles();
+            };break;
+            default:
+            {
+                //set new position
+                setPosition(newPosition);
+                //add tile
+                addVisitedTile(newPosition);
+                //add to moves
+                this.moves.add(direction);
+            }
         }
 
+
+
+
         return true;
+    }
+
+    /**
+     * Method to clear green tiles from visited tiles
+     */
+    private void clearVisitedGreenTiles()
+    {
+
+        //loop through visited tiles
+        Iterator<Tile> iterator = tilesVisited.iterator();
+        while (iterator.hasNext()) {
+            Tile tile = iterator.next();
+            //if the tile is green and its not the starting tile, remove it
+            if (tile.getType() == TileType.GREEN && tile != map.Map.getMap().getMapTile(start)) {
+                iterator.remove();
+            }
+        }
     }
 
     /**

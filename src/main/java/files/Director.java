@@ -2,6 +2,9 @@ package files;
 
 import player.Player;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public class Director {
 
     Builder builder;
@@ -16,16 +19,13 @@ public class Director {
 
     /**
      * Method to construct html by calling builders
-     * @param players players for whom html will be created
+     * @param player player for whom html will be created
      */
-    public void construct(Player[] players) {
-
-        for(int i=0; i < players.length; i++)
-        {
-            builder.buildTitle(i+1);
-            builder.buildMapView(players[i]);
-            builder.buildMoves(players[i]);
-        }
+    public void construct(Player player, int index) throws IOException, URISyntaxException {
+        builder.init();
+        builder.buildTitle(index);
+        builder.buildMapView(player);
+        builder.buildMoves(player);
     }
 
 }

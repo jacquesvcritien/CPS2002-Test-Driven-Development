@@ -52,7 +52,7 @@ public class Map {
      */
     public Tile getMapTile(Position position)
     {
-        return this.mapTiles[position.getxCoordinate()][position.getyCoordinate()];
+        return this.mapTiles[position.getyCoordinate()][position.getxCoordinate()];
     }
 
     /**
@@ -108,7 +108,7 @@ public class Map {
                 //if does not exist
                 if(mapTiles[i][j] == null)
                     mapTiles[i][j] = new GreenTile();
-                
+
     }
 
     /**

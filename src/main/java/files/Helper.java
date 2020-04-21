@@ -87,14 +87,12 @@ public class Helper {
     }
 
     /**
-     * Method to delete directory
-     * @param source source
-     * @throws IOException
+     * Method to create directory
+     * @param directory new dir
      */
-    public static void deleteDirectory(String source) throws IOException {
-        File src = new File(source);
-
-        FileUtils.deleteDirectory(new File(source));
+    public static void createDirectory(String directory){
+        File file = new File(directory);
+        file.mkdir();
     }
 
     /**

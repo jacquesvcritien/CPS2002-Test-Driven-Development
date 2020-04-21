@@ -107,7 +107,7 @@ public class PlayerTest {
         //move up
         player.move(Direction.UP);
         //checking y coordinate after move up
-        assertEquals("Asserting y position after move up", 1, player.getPosition().getyCoordinate());
+        assertEquals("Asserting y position after move up", 0, player.getPosition().getyCoordinate());
 
     }
 
@@ -120,17 +120,11 @@ public class PlayerTest {
         Position position = new Position(0, 0);
         player.setPosition(position);
 
-        player.move(Direction.UP);
-        player.move(Direction.UP);
-        player.move(Direction.RIGHT);
-        player.move(Direction.LEFT);
-        player.move(Direction.RIGHT);
+        player.move(Direction.DOWN);
         player.move(Direction.DOWN);
 
         //asserting moves list
-        assertEquals("Asserting moves list size", 6, player.getMoves().size());
-        //asserting m1 move
-        assertEquals("Asserting move left", Direction.LEFT, player.getMoves().get(3));
+        assertEquals("Asserting moves list size", 2, player.getMoves().size());
     }
 
     /**
@@ -144,7 +138,7 @@ public class PlayerTest {
         //move down
         player.move(Direction.DOWN);
         //checking y coordinate after move down
-        assertEquals("Asserting y position after move down", 0, player.getPosition().getyCoordinate());
+        assertEquals("Asserting y position after move down", 2, player.getPosition().getyCoordinate());
     }
 
     /**
@@ -181,7 +175,7 @@ public class PlayerTest {
      */
     @Test
     public void testMoveUpBad(){
-        Position position = new Position(0, 5);
+        Position position = new Position(0, 0);
         player.setPosition(position);
 
         //checking if false is returned
@@ -194,7 +188,7 @@ public class PlayerTest {
      */
     @Test
     public void testMoveDownBad(){
-        Position position = new Position(0, 0);
+        Position position = new Position(0, 4);
         player.setPosition(position);
 
         //checking if false is returned
@@ -206,7 +200,7 @@ public class PlayerTest {
      */
     @Test
     public void testMoveRightBad(){
-        Position position = new Position(5, 6);
+        Position position = new Position(4, 6);
         player.setPosition(position);
 
         //checking if false is returned

@@ -10,8 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.verification.VerificationMode;
 import player.Player;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Random;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -50,14 +53,26 @@ public class DirectorTest {
      * Test for construct
      */
     @Test
-    public void testConstruct() throws MapNotSetException {
+    public void testConstruct() throws MapNotSetException, IOException, URISyntaxException {
+        Mockito.doNothing().when(builder).init();
         Mockito.doNothing().when(builder).buildTitle(anyInt());
         Mockito.doNothing().when(builder).buildMapView(any(Player.class));
+        Mockito.doNothing().when(builder).buildMoves(any(Player.class));
 
-        director.construct(players);
+        int amtOfPlayers = players.length;
+        int wantedNumberOfInvocations = 1 * amtOfPlayers;
+        VerificationMode mode = Mockito.times(wantedNumberOfInvocations);
 
-        Mockito.verify(builder, Mockito.times(numOfPlayers)).buildTitle(anyInt());
-        Mockito.verify(builder, Mockito.times(numOfPlayers)).buildMapView(any(Player.class));
+        for(int i=0; i < amtOfPlayers; i++)
+        {
+            director.construct(players[i], i+1);
+
+        }
+
+        Mockito.verify(builder, mode).init();
+        Mockito.verify(builder, mode).buildTitle(anyInt());
+        Mockito.verify(builder, mode).buildMapView(any(Player.class));
+        Mockito.verify(builder, mode).buildMoves(any(Player.class));
 
     }
 
