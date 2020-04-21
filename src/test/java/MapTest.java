@@ -3,10 +3,12 @@ import exceptions.MapNotSetException;
 import map.Map;
 import map.Tile;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
@@ -71,7 +73,15 @@ public class MapTest {
     public void testGenerate() throws MapNotSetException {
         int mapSize =5;
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,1,2,2,2,3,4,2,1,0,1,2);
-        map.setSize(5, randomMocked);
+        map.setSize(mapSize, randomMocked);
+
+        Tile[][] mapTiles = map.getMapTiles();
+        int counter = 0;
+        for(int i=0; i < mapTiles.length; i++)
+            for (int j=0; j < mapTiles[i].length; j++)
+                counter++;
+
+        Assert.assertEquals("Asserting tiles sizes", mapSize*mapSize, counter);
 
     }
 
