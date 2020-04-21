@@ -1,7 +1,6 @@
 
 import exceptions.MapNotSetException;
-import map.Map;
-import map.Tile;
+import map.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 public class MapTest {
 
@@ -91,7 +91,48 @@ public class MapTest {
     @Test(expected = MapNotSetException.class)
     public void testGenerateNotSet() throws MapNotSetException {
         map.reset();
+
         map.generate(new Random());
+    }
+
+    /**
+     * Test for good path when there is a path
+     */
+    @Test
+    public void testGoodPathExists(){
+        Tile[][] tiles =
+                {
+                {new GreenTile(), new BlueTile(), new GreenTile(), new GreenTile(), new GreenTile()},
+                {new GreenTile(), new GreenTile(), new GreenTile(), new GreenTile(), new BlueTile()},
+                {new GreenTile(), new GreenTile(), new TreasureTile(), new GreenTile(), new GreenTile()},
+                {new GreenTile(), new GreenTile(), new GreenTile(), new GreenTile(), new BlueTile()},
+                {new GreenTile(), new BlueTile(), new GreenTile(), new GreenTile(), new GreenTile()}
+                };
+
+        int startY =0;
+        int startX = 0;
+
+        assertTrue("Asserting there is a path", Map.goodPath(tiles, startY, startX));
+    }
+
+    /**
+     * Test for good path when there is no patj
+     */
+    @Test
+    public void testGoodPathNoPath(){
+        Tile[][] tiles =
+                {
+                    {new GreenTile(), new BlueTile(), new GreenTile(), new GreenTile(), new GreenTile()},
+                    {new BlueTile(), new BlueTile(), new GreenTile(), new GreenTile(), new BlueTile()},
+                    {new GreenTile(), new GreenTile(), new TreasureTile(), new GreenTile(), new GreenTile()},
+                    {new GreenTile(), new GreenTile(), new GreenTile(), new GreenTile(), new BlueTile()},
+                    {new GreenTile(), new BlueTile(), new GreenTile(), new GreenTile(), new GreenTile()}
+                };
+
+        int startY =0;
+        int startX = 0;
+
+        Assert.assertFalse("Asserting there is no path", Map.goodPath(tiles, startY, startX));
     }
 
 
