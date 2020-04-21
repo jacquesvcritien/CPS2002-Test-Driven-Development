@@ -3,6 +3,7 @@ package map;
 import exceptions.MapNotSetException;
 import player.Position;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Map {
@@ -118,5 +119,51 @@ public class Map {
     {
         map.size = 0;
         map.mapTiles = null;
+    }
+
+    /**
+     * Method to check path
+     * @param tiles matrix of tiles
+     * @param startY starting y position
+     * @param startX starting x position
+     * @return true if good
+     */
+    public static boolean goodPath(Tile[][] tiles, int startY, int startX)
+    {
+        ArrayList<Tile> visited = new ArrayList<Tile>();
+
+        return goodPath(tiles, startY, startX, visited);
+
+    }
+
+    /**
+     * Method to check path
+     * @param tiles matrix of tiles
+     * @param startY starting y position
+     * @param startX starting x position
+     * @param visited visited nodes
+     * @return true if good
+     */
+    public static boolean goodPath(Tile[][] tiles, int startY, int startX, ArrayList<Tile> visited)
+    {
+
+        if((startX < 0) || (startY < 0) ||  (startX > tiles.length-1) ||  (startY > tiles.length-1))
+            return false;
+
+        if(tiles[startY][startX].getType() == TileType.BLUE || visited.contains(tiles[startY][startX]))
+            return false;
+
+        visited.add(tiles[startY][startX]);
+
+        if(tiles[startY][startX].getType() == TileType.TREASURE)
+            return true;
+
+        if(goodPath(tiles, startY+1, startX, visited) ||
+                goodPath(tiles, startY-1, startX, visited) ||
+                goodPath(tiles, startY, startX+1, visited) ||
+                goodPath(tiles, startY, startX-1, visited))
+            return true;
+
+        return false;
     }
 }
