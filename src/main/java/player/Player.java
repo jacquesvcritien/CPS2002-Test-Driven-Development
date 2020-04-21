@@ -43,7 +43,7 @@ public class Player {
      * Method to generate a starting position
      * @param random
      */
-    private void generateStarting(Random random)
+    public void generateStarting(Random random)
     {
         //generate coordinates
         int[] generatedCoordinates;
@@ -56,7 +56,7 @@ public class Player {
             newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
             //check if it is a good path
             goodPath = Map.goodPath(Map.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
-        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN && !goodPath);
+        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
 
         this.start = newPosition;
 
