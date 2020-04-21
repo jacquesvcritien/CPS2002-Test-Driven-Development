@@ -49,12 +49,14 @@ public class Player {
         int[] generatedCoordinates;
         //set position
         Position newPosition;
+        boolean goodPath;
 
         //do while you find a valid position
-        do{
-            generatedCoordinates = Map.getMap().getRandomCoordinates(random);
+        do{ generatedCoordinates = Map.getMap().getRandomCoordinates(random);
             newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
-        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN);
+            //check if it is a good path
+            goodPath = Map.goodPath(Map.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
+        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN && !goodPath);
 
         this.start = newPosition;
 
