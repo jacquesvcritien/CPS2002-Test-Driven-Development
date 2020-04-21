@@ -10,8 +10,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 public class MapTest {
 
@@ -72,7 +71,7 @@ public class MapTest {
     @Test
     public void testGenerate() throws MapNotSetException {
         int mapSize =5;
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,1,2,2,2,3,4,2,1,0,1,2);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,0,0,1,1,2,2,1,2,2,2,3,4,2,1,0,1,2);
         map.setSize(mapSize, randomMocked);
 
         Tile[][] mapTiles = map.getMapTiles();
@@ -116,7 +115,69 @@ public class MapTest {
     }
 
     /**
-     * Test for good path when there is no patj
+     * Test for good position for treasure method when to check is not empty
+     */
+    @Test
+    public void testGoodPositionForTreasure(){
+        Tile[][] tiles =
+                {
+                        {null, new BlueTile(), null, null, null},
+                        {null, null, null, null, new BlueTile()},
+                        {null, null, null, null, null},
+                        {null, null, null, null, new BlueTile()},
+                        {null, new BlueTile(), null, null, null}
+                };
+
+        int startY =0;
+        int startX = 1;
+
+        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+    }
+
+    /**
+     * Test for good position for treasure method when position is not good
+     */
+    @Test
+    public void testGoodPositionForTreasureBadPosition(){
+        Tile[][] tiles =
+                {
+                        {null, new BlueTile(), null, null, null},
+                        {new BlueTile(), null, null, null, new BlueTile()},
+                        {null, null, null, null, null},
+                        {null, null, null, null, new BlueTile()},
+                        {null, new BlueTile(), null, null, null}
+                };
+
+        int startY =0;
+        int startX = 0;
+
+        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+    }
+
+    /**
+     * Test for good position for treasure method when position is not good
+     */
+    @Test
+    public void testGoodPositionForTreasureBadPosition2(){
+        Tile[][] tiles =
+                {
+                        {null, new BlueTile(), null, null, null},
+                        {null, null, null, null, new BlueTile()},
+                        {null, null, null, null, null},
+                        {null, null, null, null, new BlueTile()},
+                        {null, new BlueTile(), null, new BlueTile(), null}
+                };
+
+        int startY =4;
+        int startX = 4;
+
+        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+    }
+    
+    
+
+    /**
+     * Test for good path when there is no path
      */
     @Test
     public void testGoodPathNoPath(){
