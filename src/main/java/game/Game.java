@@ -1,4 +1,4 @@
-//package menu;
+package game;//package menu;
 import menu.Helper;
 import menu.MenuValidator;
 
