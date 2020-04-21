@@ -168,6 +168,8 @@ public class Player {
         {
             case TREASURE:
             {
+                //set winner
+                Game.setWinner(this);
                 //set new position
                 setPosition(newPosition);
                 //add tile

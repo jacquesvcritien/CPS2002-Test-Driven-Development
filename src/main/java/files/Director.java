@@ -26,6 +26,7 @@ public class Director {
         builder.buildTitle(index);
         builder.buildMapView(player);
         builder.buildMoves(player);
+        builder.buildWinner(player);
     }
 
 }

@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import player.Direction;
 import player.Player;
 import player.Position;
@@ -80,21 +81,63 @@ public class MapResultBuilderTest {
     public void testBuildMoves() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
         Map map = Map.getMap();
-        map.setSize(5, new Random());
-        Player player = new Player(new Random());
-        player.setPosition(new Position(0, 0));
-
-        player.move(Direction.UP);
-        player.move(Direction.UP);
-        player.move(Direction.RIGHT);
+        int mapSize =5;
+        Random randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        map.setSize(mapSize, randomMocked);
+        Player player = new Player(randomMocked);
+        player.setPosition(new Position(2, 4));
         player.move(Direction.LEFT);
+        player.move(Direction.LEFT);
+        player.move(Direction.RIGHT);
+        player.move(Direction.UP);
         player.move(Direction.RIGHT);
         player.move(Direction.DOWN);
 
         mapResultBuilder.buildMoves(player);
         Page page = mapResultBuilder.getPage();
         Assert.assertEquals("Asserting number of right moves", 2, Helper.getOccurences(page.getHTML(), "p>RIGHT</p"));
-        Assert.assertEquals("Asserting number of left moves", 1, Helper.getOccurences(page.getHTML(), "p>LEFT</p"));
+        Assert.assertEquals("Asserting number of left moves", 2, Helper.getOccurences(page.getHTML(), "p>LEFT</p"));
+    }
+
+    /**
+     * Test for build winner
+     */
+    @Test
+    public void testBuildWinner() throws IOException, URISyntaxException, MapNotSetException {
+        mapResultBuilder.init();
+        Map map = Map.getMap();
+        int mapSize =5;
+        Random randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        map.setSize(mapSize, randomMocked);
+        Player player = new Player(randomMocked);
+        player.setPosition(new Position(0, 1));
+
+        player.move(Direction.UP);
+        mapResultBuilder.buildWinner(player);
+        Page page = mapResultBuilder.getPage();
+        Assert.assertTrue("Asserting Congratulations", page.getHTML().contains("Congratulations"));
+    }
+
+    /**
+     * Test for build winner when nnot a winner
+     */
+    @Test
+    public void testBuildWinnerNoWinner() throws IOException, URISyntaxException, MapNotSetException {
+        mapResultBuilder.init();
+        Map map = Map.getMap();
+        int mapSize =5;
+        Random randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        map.setSize(mapSize, randomMocked);
+        Player player = new Player(randomMocked);
+        player.setPosition(new Position(0, 1));
+
+        player.move(Direction.DOWN);
+        mapResultBuilder.buildWinner(player);
+        Page page = mapResultBuilder.getPage();
+        Assert.assertFalse("Asserting no Congratulations", page.getHTML().contains("Congratulations"));
     }
 
 

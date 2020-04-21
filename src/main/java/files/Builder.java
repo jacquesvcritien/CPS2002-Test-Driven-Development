@@ -35,4 +35,10 @@ public abstract class Builder {
      * @param player whose data is to be built
      */
     public abstract void buildMoves(Player player);
+
+    /**
+     * Build winner
+     * @param player whose data is to be built
+     */
+    public abstract void buildWinner(Player player);
 }
