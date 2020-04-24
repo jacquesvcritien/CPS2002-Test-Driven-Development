@@ -66,8 +66,12 @@ public class Helper {
      * @param destinationFilename destination
      * @throws IOException
      */
-    public static void copyDirectory(String sourceFilename, String destinationFilename) throws IOException {
-        File src = new File(sourceFilename);
+    public static void copyDirectory(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
+        //get absolute path
+        URL url = Helper.class.getClassLoader().getResource(sourceFilename);
+        File file = Paths.get(url.toURI()).toFile();
+        String absolutePath = file.getAbsolutePath();
+        File src = new File(absolutePath);
         File dest = new File(destinationFilename);
 
         FileUtils.copyDirectory(src, dest);
@@ -79,8 +83,12 @@ public class Helper {
      * @param destinationFilename destination
      * @throws IOException
      */
-    public static void copyFile(String sourceFilename, String destinationFilename) throws IOException {
-        File src = new File(sourceFilename);
+    public static void copyFile(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
+        //get absolute path
+        URL url = Helper.class.getClassLoader().getResource(sourceFilename);
+        File file = Paths.get(url.toURI()).toFile();
+        String absolutePath = file.getAbsolutePath();
+        File src = new File(absolutePath);
         File dest = new File(destinationFilename);
 
         FileUtils.copyFile(src, dest);
