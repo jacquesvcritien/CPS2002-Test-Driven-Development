@@ -103,7 +103,6 @@ public class GameTest {
      * START AT POS (1,3) PLAYER 1
      * PLAYER 1 WINS
      * TREASURE AT (0,0)
-     *
      */
     @Test
     public void testMain() throws Exception {
@@ -113,8 +112,7 @@ public class GameTest {
         PowerMockito.mockStatic(Game.class);
         randomMocked = Mockito.mock(Random.class);
         int mapSize = 5;
-//        PowerMockito.spy(Game.class);
-        Game spy= Mockito.spy(Game.class);
+        PowerMockito.spy(Game.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
 
         Game.setRandom(randomMocked);
@@ -123,8 +121,8 @@ public class GameTest {
         PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt())).thenReturn(false,true);
         PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
         Mockito.doNothing().when(director).construct(any(Player.class), anyInt());
-//        PowerMockito.doCallRealMethod().when(Game.class, "generateHTMLfiles");
-        Mockito.doCallRealMethod().when(spy);
+        PowerMockito.doCallRealMethod().when(Game.class, "generateHTMLfiles");
+
         Game.main(new String[0]);
 
         PowerMockito.verifyStatic(menu.Helper.class, Mockito.times(14));
