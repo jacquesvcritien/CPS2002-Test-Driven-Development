@@ -12,6 +12,18 @@ public class Helper {
     private static BufferedWriter bufferedWriter;
 
     /**
+     * Method to returna n absolute path
+     * @param path path from resources
+     */
+    public static String getAbsPath(String path) throws URISyntaxException {
+        //get absolute path
+        URL url = Helper.class.getClassLoader().getResource(path);
+        File file = Paths.get(url.toURI()).toFile();
+        return file.getAbsolutePath();
+    }
+
+
+    /**
      * Reads file fromresources
      * @param filename filename to read
      * @return String of file contents
@@ -20,9 +32,7 @@ public class Helper {
      */
     public static String readResourcesFileAsString(String filename) throws IOException, URISyntaxException {
         //get absolute path
-        URL url = Helper.class.getClassLoader().getResource(filename);
-        File file = Paths.get(url.toURI()).toFile();
-        String absolutePath = file.getAbsolutePath();
+        String absolutePath =getAbsPath(filename);
 
         //read file
         Helper.fileReader = new FileReader(absolutePath);
@@ -68,9 +78,7 @@ public class Helper {
      */
     public static void copyDirectory(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
         //get absolute path
-        URL url = Helper.class.getClassLoader().getResource(sourceFilename);
-        File file = Paths.get(url.toURI()).toFile();
-        String absolutePath = file.getAbsolutePath();
+        String absolutePath =getAbsPath(sourceFilename);
         File src = new File(absolutePath);
         File dest = new File(destinationFilename);
 
@@ -85,9 +93,7 @@ public class Helper {
      */
     public static void copyFile(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
         //get absolute path
-        URL url = Helper.class.getClassLoader().getResource(sourceFilename);
-        File file = Paths.get(url.toURI()).toFile();
-        String absolutePath = file.getAbsolutePath();
+        String absolutePath =getAbsPath(sourceFilename);
         File src = new File(absolutePath);
         File dest = new File(destinationFilename);
 
