@@ -29,18 +29,26 @@ public class Game {
     private static Builder mapResultBuilder = new MapResultBuilder();
     private static Director director = new Director(mapResultBuilder);
 
+
     /**
      * Method to set and init players
      * @param amount number of plauers
      */
-    private static void setNumPlayers(int amount)
-    {
+    public static void setNumPlayers(int amount) throws MapNotSetException {
         players = new Player[amount];
 
         //init players
         for(int i=0; i < amount; i++)
             players[i] = new Player(random);
 
+    }
+
+    /**
+     * Method to return players
+     * @return players
+     */
+    public static Player[] getPlayers() {
+        return players;
     }
 
     /**
@@ -54,7 +62,7 @@ public class Game {
     /**
      * Method which generates players html files
      */
-    private static void generateHTMLfiles() throws IOException, URISyntaxException {
+    public static void generateHTMLfiles() throws IOException, URISyntaxException {
         for(int i=0; i < players.length; i++)
         {
             String files_name = "map_player_"+(i+1);
@@ -77,6 +85,48 @@ public class Game {
     public static boolean isAWinner(Player player)
     {
         return winners.contains(player);
+    }
+
+    /**
+     * Get map
+     * @return
+     */
+    public static Map getMap()
+    {
+        return map;
+    }
+
+
+    /**
+     * setter for director (FOR TESTING)
+     * @param director to set
+     */
+    public static void setDirector(Director director) {
+        Game.director = director;
+    }
+
+    /**Setter for random (JUST FOR TESTING)
+     * @param random random to set
+     */
+    public static void setRandom(Random random) {
+        Game.random = random;
+    }
+
+    /**
+     * For Testing purposes;
+     */
+    public static void reset()
+    {
+        map.reset();
+        //random number to use
+        random = new Random();
+        //array of players
+        players = null;
+        //list of winners
+        winners = new ArrayList<>();
+
+        mapResultBuilder = new MapResultBuilder();
+        director = new Director(mapResultBuilder);
     }
 
     public static void main(String args[]) throws MapNotSetException, IOException, URISyntaxException {
@@ -112,7 +162,7 @@ public class Game {
         //generate files
         generateHTMLfiles();
 
-        for(int i = 1; i <= playersAmt && !won; i++) {
+        for(int i = 1; !won; i++) {
             Player player = players[i-1];
             System.out.println("\nPlayer " + i);
             do {
@@ -136,14 +186,13 @@ public class Game {
 
             if(i == playersAmt){
                 //if there are winners
-                if(winners != null && winners.size()!=0)
+                if( winners.size()!=0)
                 {
                     for(int j=0; j < winners.size(); j++)
                     {
                         int index = Arrays.asList(players).indexOf(winners.get(j));
                         System.out.println("Player "+(index+1)+" is a winner!");
                         won = true;
-                        break;
                     }
                 }
 
