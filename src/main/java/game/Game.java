@@ -116,7 +116,7 @@ public class Game {
             Player player = players[i-1];
             System.out.println("\nPlayer " + i);
             do {
-                direction = Helper.integerVal(scanner, "Enter the next direction\n1. UP\n2. DOWN\n3. LEFT\n4.RIGHT", "Please input a number");
+                direction = Helper.integerVal(scanner, "Enter the next direction\n1. UP\n2. DOWN\n3. LEFT\n4. RIGHT", "Please input a number");
                 directionValid = MenuValidator.directionCheck(direction);
 
                 Direction actualDirection;
