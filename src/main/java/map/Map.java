@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Map {
     private static Map map = new Map();
-    private int size;
+    private int size =0;
     private Tile[][] mapTiles;
     private final double blueProbability = 0.2;
 
@@ -60,8 +60,10 @@ public class Map {
      * Method to get random coordinates
      * @return random coordinates
      */
-    public int[] getRandomCoordinates(Random random)
-    {
+    public int[] getRandomCoordinates(Random random) throws MapNotSetException {
+        if(this.size ==0)
+           throw new MapNotSetException("Map size is not set");
+
         int[] toReturn = new int[2];
         toReturn[0] = random.nextInt(this.size);
         toReturn[1] = random.nextInt(this.size);

@@ -1,5 +1,6 @@
 package player;
 
+import exceptions.MapNotSetException;
 import map.Map;
 import map.Tile;
 import map.TileType;
@@ -18,8 +19,7 @@ public class Player {
      * Constructor
      * @param random
      */
-    public Player(Random random)
-    {
+    public Player(Random random) throws MapNotSetException {
         //set position
         generateStarting(random);
         this.position = this.start;
@@ -43,8 +43,7 @@ public class Player {
      * Method to generate a starting position
      * @param random
      */
-    public void generateStarting(Random random)
-    {
+    public void generateStarting(Random random) throws MapNotSetException {
         //generate coordinates
         int[] generatedCoordinates;
         //set position
