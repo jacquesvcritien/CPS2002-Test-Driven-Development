@@ -196,6 +196,16 @@ public class MapTest {
         Assert.assertFalse("Asserting there is no path", Map.goodPath(tiles, startY, startX));
     }
 
+    /**
+     * Test for get random coordinates when size is 0
+     * */
+    @Test (expected = MapNotSetException.class)
+    public void testGetRandomCoordinatesSize0() throws MapNotSetException {
+        map.reset();
+        map.getRandomCoordinates(new Random());
+
+    }
+
 
 
 
