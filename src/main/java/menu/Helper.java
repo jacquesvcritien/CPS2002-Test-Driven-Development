@@ -21,8 +21,6 @@ public class Helper {
             try {
                 intInput = scanner.nextInt();
 
-                if(intInput == 0)
-                    break;
             }catch(InputMismatchException e) {
                 System.out.println(notANumberError);
                 scanner.next();
