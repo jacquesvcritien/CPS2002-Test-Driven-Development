@@ -54,7 +54,6 @@
                 <configuration>
                     <excludes>
                         <exclude>files/Helper.*</exclude>
-                        <exclude>menu/Helper.*</exclude>
                         <exclude>game/Game.*</exclude>
                     </excludes>
                 </configuration>
