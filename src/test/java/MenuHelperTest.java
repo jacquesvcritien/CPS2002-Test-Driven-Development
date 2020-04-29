@@ -50,8 +50,9 @@ public class MenuHelperTest {
         in = new ByteArrayInputStream("10\n".getBytes());
         System.setIn(in);
         scanner = new Scanner(System.in);
+        String expected = "Please enter a number".replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
         int value = Helper.integerVal(scanner, "Please enter a number", "This is not a number, please enter a correct number");
-        Assert.assertEquals("Asserting console output", "Please enter a number\r\n", output.toString());
+        Assert.assertEquals("Asserting console output", expected, output.toString().trim());
         assertEquals(10,value);
     }
 
@@ -64,9 +65,10 @@ public class MenuHelperTest {
         System.setIn(in);
         scanner = new Scanner(System.in);
         int value = Helper.integerVal(scanner, "Please enter a number", "This is not a number, please enter a correct number");
-        Assert.assertEquals("Asserting console output\r\n", "Please enter a number\r\n" +
-                                                                        "This is not a number, please enter a correct number\r\n" +
-                                                                        "Please enter a number\r\n", output.toString());
+        String expected = ("Please enter a number\n" +
+                "This is not a number, please enter a correct number\n" +
+                "Please enter a number").replaceAll("\\n|\\r\\n", System.getProperty("line.separator"));
+        Assert.assertEquals("Asserting console output",expected, output.toString().trim());
         assertEquals(10,value);
     }
 
