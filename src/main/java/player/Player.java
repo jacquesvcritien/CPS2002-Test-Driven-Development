@@ -184,8 +184,8 @@ public class Player {
                 addVisitedTile(newPosition);
                 //sent to start
                 setPosition(start);
-                //clear green visited tiles
-                clearVisitedGreenTiles();
+                //add to moves
+                this.moves.add(direction);
             };break;
             default:
             {
@@ -202,23 +202,6 @@ public class Player {
 
 
         return true;
-    }
-
-    /**
-     * Method to clear green tiles from visited tiles
-     */
-    private void clearVisitedGreenTiles()
-    {
-
-        //loop through visited tiles
-        Iterator<Tile> iterator = tilesVisited.iterator();
-        while (iterator.hasNext()) {
-            Tile tile = iterator.next();
-            //if the tile is green and its not the starting tile, remove it
-            if (tile.getType() == TileType.GREEN && tile != map.Map.getMap().getMapTile(start)) {
-                iterator.remove();
-            }
-        }
     }
 
     /**

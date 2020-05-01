@@ -49,7 +49,7 @@ public class PlayerTest {
         //getting player actual coordinates
         Set<Tile> tilesVisited = player.getTilesVisited();
 
-        assertEquals("Asserting number of tiles", 4, tilesVisited.size());
+        assertEquals("Asserting number of tiles", 5, tilesVisited.size());
     }
 
     /**
