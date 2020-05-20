@@ -3,6 +3,7 @@ import exceptions.MapNotSetException;
 import files.Helper;
 import files.MapResultBuilder;
 import files.Page;
+import game.Game;
 import map.Map;
 import org.junit.After;
 import org.junit.Assert;
@@ -66,7 +67,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMap() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         map.setSize(5, new Random());
         mapResultBuilder.buildMapView(new Player(new Random()));
         Page page = mapResultBuilder.getPage();
@@ -80,7 +81,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMoves() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
@@ -106,7 +107,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
@@ -126,7 +127,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinnerNoWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);

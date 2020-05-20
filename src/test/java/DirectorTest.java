@@ -2,6 +2,7 @@
 import exceptions.MapNotSetException;
 import files.Builder;
 import files.Director;
+import game.Game;
 import map.Map;
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class DirectorTest {
     public void setup() throws MapNotSetException {
         MockitoAnnotations.initMocks(this);
         numOfPlayers= 4;
-        map = Map.getMap();
+        map = Game.getMap();
         map.setSize(5, new Random());
         for(int i=0; i < numOfPlayers; i++)
             players[i] = new Player(new Random());
@@ -46,7 +47,7 @@ public class DirectorTest {
     @After
     public void teardown()
     {
-       director = null;
+        director = null;
     }
 
     /**

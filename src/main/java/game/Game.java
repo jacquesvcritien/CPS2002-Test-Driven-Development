@@ -1,4 +1,4 @@
-package game;//package menu;
+package game;
 import exceptions.MapNotSetException;
 import files.Builder;
 import files.Director;
@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class Game {
     //map
-    static Map map = Map.getMap();
+    static Map map;
     //random number to use
     private static Random random = new Random();
     //array of players

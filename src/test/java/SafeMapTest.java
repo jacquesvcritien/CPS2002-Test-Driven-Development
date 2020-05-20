@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class MapTest {
+public class SafeMapTest {
 
     SafeMap safeMap;
     Random randomMocked;
@@ -70,7 +70,7 @@ public class MapTest {
     @Test
     public void testGenerate() throws MapNotSetException {
         int mapSize =5;
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,0,0,1,1,2,2,1,2,2,2,3,4,2,1,0,1,2);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,1,0,0,1,1,2,2,1,2,2,2,3,4,2,1,0,1,2);
         safeMap.setSize(mapSize, randomMocked);
 
         Tile[][] mapTiles = safeMap.getMapTiles();
