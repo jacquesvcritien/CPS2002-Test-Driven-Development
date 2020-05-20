@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.regex.Matcher;
 
 public class MapResultBuilder extends Builder
 {
@@ -43,7 +42,7 @@ public class MapResultBuilder extends Builder
     @Override
     public void buildMapView(Player player) {
         //get map
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         //get map size
         int size = map.getSize();
         //get players visited tile

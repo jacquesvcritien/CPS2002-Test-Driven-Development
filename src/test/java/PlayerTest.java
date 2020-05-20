@@ -1,5 +1,6 @@
 import exceptions.MapNotSetException;
 import files.Director;
+import game.Game;
 import map.Map;
 import map.Tile;
 import map.TileType;
@@ -21,7 +22,7 @@ public class PlayerTest {
 
     Player player;
     Random randomMocked;
-    Map map = Map.getMap();
+    Map map = Game.getMap();
     @Before
     public void setup() throws MapNotSetException {
         int mapSize =5;
