@@ -7,26 +7,25 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+
 public class MapTest {
 
-    Map map;
+    SafeMap safeMap;
     Random randomMocked;
     @Before
     public void setup()
     {
-        map = Map.getMap();
+        safeMap = SafeMap.getMap();
         randomMocked = Mockito.mock(Random.class);
     }
 
     @After
     public void teardown()
     {
-       map = null;
+       safeMap = null;
     }
 
     /**
@@ -35,9 +34,9 @@ public class MapTest {
     @Test
     public void testGetSize() throws MapNotSetException {
         int mapSize =5;
-        map.setSize(mapSize, new Random());
+        safeMap.setSize(mapSize, new Random());
         //test for get map size
-        assertEquals("Asserting map size getter", 5, map.getSize());
+        assertEquals("Asserting map size getter", 5, safeMap.getSize());
     }
 
     /**
@@ -46,8 +45,8 @@ public class MapTest {
     @Test
     public void testSetSize() throws MapNotSetException {
         int mapSize =7;
-        map.setSize(mapSize, new Random());
-        assertEquals("Asserting map size setter", 7, map.getSize());
+        safeMap.setSize(mapSize, new Random());
+        assertEquals("Asserting map size setter", 7, safeMap.getSize());
     }
 
     /**
@@ -55,8 +54,8 @@ public class MapTest {
      */
     @Test
     public void testGetTiles() throws MapNotSetException {
-        map.setSize(5, new Random());
-        Tile[][] tiles = map.getMapTiles();
+        safeMap.setSize(5, new Random());
+        Tile[][] tiles = safeMap.getMapTiles();
 
         int actualSize =0;
         for(int i=0; i < tiles.length; i++)
@@ -72,9 +71,9 @@ public class MapTest {
     public void testGenerate() throws MapNotSetException {
         int mapSize =5;
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(1,1,1,0,0,1,1,2,2,1,2,2,2,3,4,2,1,0,1,2);
-        map.setSize(mapSize, randomMocked);
+        safeMap.setSize(mapSize, randomMocked);
 
-        Tile[][] mapTiles = map.getMapTiles();
+        Tile[][] mapTiles = safeMap.getMapTiles();
         int counter = 0;
         for(int i=0; i < mapTiles.length; i++)
             for (int j=0; j < mapTiles[i].length; j++)
@@ -89,9 +88,9 @@ public class MapTest {
      */
     @Test(expected = MapNotSetException.class)
     public void testGenerateNotSet() throws MapNotSetException {
-        map.reset();
+        safeMap.reset();
 
-        map.generate(new Random());
+        safeMap.generate(new Random());
     }
 
     /**
@@ -111,7 +110,7 @@ public class MapTest {
         int startY =0;
         int startX = 0;
 
-        assertTrue("Asserting there is a path", Map.goodPath(tiles, startY, startX));
+        assertTrue("Asserting there is a path", SafeMap.getMap().goodPath(tiles, startY, startX));
     }
 
     /**
@@ -131,7 +130,7 @@ public class MapTest {
         int startY =0;
         int startX = 1;
 
-        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+        assertFalse("Asserting it is not a good position", SafeMap.getMap().goodPositionForTreasure(tiles, startY, startX));
     }
 
     /**
@@ -151,7 +150,7 @@ public class MapTest {
         int startY =0;
         int startX = 0;
 
-        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+        assertFalse("Asserting it is not a good position", SafeMap.getMap().goodPositionForTreasure(tiles, startY, startX));
     }
 
     /**
@@ -171,7 +170,7 @@ public class MapTest {
         int startY =4;
         int startX = 4;
 
-        assertFalse("Asserting it is not a good position", Map.goodPositionForTreasure(tiles, startY, startX));
+        assertFalse("Asserting it is not a good position", SafeMap.getMap().goodPositionForTreasure(tiles, startY, startX));
     }
     
     
@@ -193,7 +192,7 @@ public class MapTest {
         int startY =0;
         int startX = 0;
 
-        Assert.assertFalse("Asserting there is no path", Map.goodPath(tiles, startY, startX));
+        Assert.assertFalse("Asserting there is no path", SafeMap.getMap().goodPath(tiles, startY, startX));
     }
 
     /**
@@ -201,8 +200,8 @@ public class MapTest {
      * */
     @Test (expected = MapNotSetException.class)
     public void testGetRandomCoordinatesSize0() throws MapNotSetException {
-        map.reset();
-        map.getRandomCoordinates(new Random());
+        safeMap.reset();
+        safeMap.getRandomCoordinates(new Random());
 
     }
 

@@ -129,6 +129,14 @@ public class Game {
         director = new Director(mapResultBuilder);
     }
 
+    /**
+     * Setter for map
+     * @param map map to set
+     */
+    public static void setMap(Map map) {
+        Game.map = map;
+    }
+
     public static void main(String args[]) throws MapNotSetException, IOException, URISyntaxException {
 
         Scanner scanner = new Scanner(System.in);

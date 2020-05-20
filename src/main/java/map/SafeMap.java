@@ -6,8 +6,8 @@ import player.Position;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Map {
-    private static Map map = new Map();
+public class Map2 {
+    private static Map2 map2 = new Map2();
     private int size =0;
     private Tile[][] mapTiles;
     private final double blueProbability = 0.2;
@@ -15,9 +15,9 @@ public class Map {
     /**
      * method to return map instance
      */
-    public static Map getMap()
+    public static Map2 getMap()
     {
-        return map;
+        return map2;
     }
 
     /**
@@ -163,8 +163,8 @@ public class Map {
      */
     public void reset()
     {
-        map.size = 0;
-        map.mapTiles = null;
+        map2.size = 0;
+        map2.mapTiles = null;
     }
 
     /**
