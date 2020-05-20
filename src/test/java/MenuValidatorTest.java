@@ -126,4 +126,31 @@ public class MenuValidatorTest {
         boolean result = menuValidator.directionCheck(2);
         assertTrue("Asserting a value in range for direction", result);
     }
+
+    /**
+     * Test a smaller value choice for game type
+     */
+    @Test
+    public void smallerGameTypeChoice(){
+        boolean result = menuValidator.checkGameType(0);
+        assertFalse("Asserting a smaller value for game type choice", result);
+    }
+
+    /**
+     * Test a larger value choice for game type
+     */
+    @Test
+    public void largerGameTypeChoice(){
+        boolean result = menuValidator.checkGameType(3);
+        assertFalse("Asserting a larger value for game type choice", result);
+    }
+
+    /**
+     * Test a value in range of choice for game type
+     */
+    @Test
+    public void goodGameTypeChoice(){
+        boolean result = menuValidator.checkGameType(1);
+        assertTrue("Asserting a value in range for game type choice", result);
+    }
 }
