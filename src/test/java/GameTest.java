@@ -1,30 +1,24 @@
 import exceptions.MapNotSetException;
-import files.Builder;
 import files.Director;
 import files.Helper;
 import game.Game;
+import map.Map;
+import map.MapFactory;
+import map.MapType;
 import menu.MenuValidator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.api.mockito.internal.stubbing.PowerMockCallRealMethod;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import player.Direction;
 import player.Player;
-import player.Position;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Random;
 
@@ -38,10 +32,14 @@ public class GameTest {
     Director director;
     Random randomMocked;
     Game game;
+    Map map;
+
     @Before
     public void setup() throws MapNotSetException {
         game = new Game();
-        Game.getMap().setSize(5, new Random());
+        map = MapFactory.getMap(MapType.SAFE);
+        map.setSize(5, new Random());
+        Game.setMap(map);
         director = Mockito.mock(Director.class);
     }
 
@@ -113,7 +111,7 @@ public class GameTest {
         randomMocked = Mockito.mock(Random.class);
         int mapSize = 5;
         PowerMockito.spy(Game.class);
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,4,4,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
 
         Game.setRandom(randomMocked);
         PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(1, 2, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
@@ -125,13 +123,13 @@ public class GameTest {
 
         Game.main(new String[0]);
 
-        PowerMockito.verifyStatic(menu.Helper.class, Mockito.times(14));
+        PowerMockito.verifyStatic(menu.Helper.class, Mockito.times(8));
         menu.Helper.integerVal(any(), anyString(), anyString());
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
         MenuValidator.mapSize(anyInt(), anyInt());
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
         MenuValidator.amtPlayersValidator(anyInt());
-        PowerMockito.verifyStatic(Game.class, Mockito.times(9));
+        PowerMockito.verifyStatic(Game.class, Mockito.times(5));
         Game.generateHTMLfiles();
 
     }
