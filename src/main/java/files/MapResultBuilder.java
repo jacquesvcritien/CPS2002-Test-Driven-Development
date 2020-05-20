@@ -13,11 +13,13 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * This is the actual class which builds the page showing the map for the player, in fact, it extends the builder class
+ */
 public class MapResultBuilder extends Builder
 {
+    //page
     private Page mapResultsPage;
-    private final String filename = "game.html";
-    private final String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
 
     @Override
     public Page getPage() {
@@ -30,6 +32,7 @@ public class MapResultBuilder extends Builder
     @Override
     public void init() throws IOException, URISyntaxException {
         mapResultsPage = new Page();
+        String filename = "game.html";
         mapResultsPage.setHTML(Helper.readResourcesFileAsString(filename));
     }
 
@@ -82,6 +85,7 @@ public class MapResultBuilder extends Builder
                     tileHtml = tileHtml.replace("$class", currentTile.getClassName());
 
                 //if player position, add position html, else remove '$player'
+                String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
                 tileHtml = (j == playerPosition.getxCoordinate() && i == playerPosition.getyCoordinate()) ?
                         tileHtml.replace("$player", playerPosHTML) : tileHtml.replace("$player", "");
 

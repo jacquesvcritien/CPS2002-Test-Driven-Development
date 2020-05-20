@@ -1,7 +1,7 @@
 package map;
 
 /**
- * Class for Safe Maze creator
+ * Factory class for hazardous map
  */
 public class HazardousMapFactory extends MapFactory {
 

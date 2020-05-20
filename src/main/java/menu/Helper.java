@@ -3,13 +3,16 @@ package menu;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This is a helper class for the menu
+ */
 public class Helper {
     /**
      * A validation that the input is integer
-     * @param scanner
-     * @param message
+     * @param scanner scanner instance to use
+     * @param message message to show before input
      * @param notANumberError message if the input is not an integer
-     * @return
+     * @return the integer entered
      */
     public static int integerVal(Scanner scanner, String message, String notANumberError)
     {

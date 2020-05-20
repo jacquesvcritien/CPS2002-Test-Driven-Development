@@ -1,11 +1,19 @@
 package map;
 
+/**
+ * This is a class which represents a treasure tile
+ */
 public class TreasureTile extends Tile{
 
     private TileType type;
+    //holds the class name
     private String className;
+    //this is the initial html for the treasure tile
     private final String html = "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\">$player</td>";
 
+    /**
+     * Constructor for a treasure tile
+     */
     public TreasureTile()
     {
         this.className = "grass-back";

@@ -1,5 +1,8 @@
 package map;
 
+/**
+ * This is a class which represents a blue tile
+ */
 public class BlueTile extends Tile{
 
     private TileType type;

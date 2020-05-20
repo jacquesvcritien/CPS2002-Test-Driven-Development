@@ -1,6 +1,10 @@
 package map;
 
+/**
+ * This is a class which represents a tile
+ */
 public abstract class Tile {
+    //This is the initial html code for a tile
     private String html = "<td class=\"$class\">$player</td>";
 
     /**

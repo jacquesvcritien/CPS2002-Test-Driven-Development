@@ -5,8 +5,12 @@ import player.Player;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * This is the class which is used to direct the builder
+ */
 public class Director {
 
+    //builder to use
     Builder builder;
 
     /**

@@ -18,18 +18,18 @@ public abstract class Map {
     /**
      * Setter for map size
      * @param size size to set
+     * @throws MapNotSetException if the map is not set
      */
-    public boolean setSize(int size, Random random) throws MapNotSetException {
+    public void setSize(int size, Random random) throws MapNotSetException {
         this.size = size;
         this.mapTiles = new Tile[size][size];
         generate(random);
-        return true;
     }
 
     /**
      * Method to generate map
      * @param random random number
-     * @throws MapNotSetException
+     * @throws MapNotSetException if the map is ot set
      */
     public abstract void generate(Random random) throws MapNotSetException;
 
@@ -131,7 +131,7 @@ public abstract class Map {
      */
     public boolean goodPath(Tile[][] tiles, int startY, int startX)
     {
-        ArrayList<Tile> visited = new ArrayList<Tile>();
+        ArrayList<Tile> visited = new ArrayList<>();
 
         return goodPath(tiles, startY, startX, visited);
 
@@ -159,13 +159,10 @@ public abstract class Map {
         if(tiles[startY][startX].getType() == TileType.TREASURE)
             return true;
 
-        if(goodPath(tiles, startY+1, startX, visited) ||
-                goodPath(tiles, startY-1, startX, visited) ||
-                goodPath(tiles, startY, startX+1, visited) ||
-                goodPath(tiles, startY, startX-1, visited))
-            return true;
-
-        return false;
+        return goodPath(tiles, startY + 1, startX, visited) ||
+                goodPath(tiles, startY - 1, startX, visited) ||
+                goodPath(tiles, startY, startX + 1, visited) ||
+                goodPath(tiles, startY, startX - 1, visited);
     }
 
 }

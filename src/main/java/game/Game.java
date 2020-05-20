@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This is the runner class which contains the runner main method for the game
+ */
 public class Game {
     //map
     static Map map;

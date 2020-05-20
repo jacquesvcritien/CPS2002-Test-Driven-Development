@@ -5,6 +5,9 @@ import player.Player;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * This is the builder class which is used to build the page
+ */
 public abstract class Builder {
 
     /**

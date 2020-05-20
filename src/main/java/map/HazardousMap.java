@@ -5,7 +5,7 @@ import exceptions.MapNotSetException;
 import java.util.Random;
 
 /**
- * Class for safe map
+ * Class for hazardous map
  */
 public class HazardousMap extends Map {
 
@@ -33,7 +33,7 @@ public class HazardousMap extends Map {
             throw new MapNotSetException("Map size should be set before generating map");
 
         //array to hold coordinates
-        int[] generatedCoordinates = new int[2];
+        int[] generatedCoordinates;
 
         //get treasure coordinates
         int[] treasureCoordinates = getRandomCoordinates(random);

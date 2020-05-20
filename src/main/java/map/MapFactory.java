@@ -1,7 +1,7 @@
 package map;
 
 /**
- * Class for Maze creator
+ * Class for Map factory
  */
 public abstract class MapFactory {
 

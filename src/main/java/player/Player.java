@@ -8,40 +8,44 @@ import game.Game;
 
 import java.util.*;
 
+/**
+ * Class which represents a position
+ */
 public class Player {
     //stores position for player
     private Position position;
+    //stores starting position
     private Position start;
+    //stores visited tiles
     private Set<Tile> tilesVisited;
+    //stores moves
     private ArrayList<Direction> moves;
 
     /**
      * Constructor
-     * @param random
+     * @param random random generator to use
      */
     public Player(Random random) throws MapNotSetException {
         //set position
         generateStarting(random);
         this.position = this.start;
-        tilesVisited = new HashSet<Tile>();
-        this.moves = new ArrayList<Direction>();
+        tilesVisited = new HashSet<>();
+        this.moves = new ArrayList<>();
         addVisitedTile(this.start);
     }
 
     /**
      * Method to set position
      * @param position position to set
-     * @return true if move was successful, else false
      */
-    public boolean setPosition(Position position)
+    public void setPosition(Position position)
     {
         this.position = position;
-        return true;
     }
 
     /**
      * Method to generate a starting position
-     * @param random
+     * @param random random generator to use
      */
     public void generateStarting(Random random) throws MapNotSetException {
         //generate coordinates
@@ -72,12 +76,10 @@ public class Player {
     /**
      * Method to set start position
      * @param start position to set
-     * @return true if move was successful, else false
      */
-    public boolean setStart(Position start)
+    public void setStart(Position start)
     {
         this.start = start;
-        return true;
     }
 
     /**
@@ -124,7 +126,8 @@ public class Player {
                 }
 
                 newPosition.setxCoordinate(x+1);
-            };break;
+            }
+            break;
             case LEFT:
             {
                 //check if at the edge
@@ -135,7 +138,8 @@ public class Player {
                 }
 
                 newPosition.setxCoordinate(x-1);
-            };break;
+            }
+            break;
             case UP:
             {
                 //check if at the edge
@@ -146,7 +150,8 @@ public class Player {
                 }
 
                 newPosition.setyCoordinate(y-1);
-            };break;
+            }
+            break;
             default:
             {
 
@@ -186,7 +191,8 @@ public class Player {
                 setPosition(start);
                 //add to moves
                 this.moves.add(direction);
-            };break;
+            }
+            break;
             default:
             {
                 //set new position
