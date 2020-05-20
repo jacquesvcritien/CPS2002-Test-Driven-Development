@@ -1,8 +1,6 @@
 import exceptions.MapNotSetException;
-import files.Director;
-import map.Map;
-import map.Tile;
-import map.TileType;
+import game.Game;
+import map.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import player.Direction;
 import player.Player;
 import player.Position;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
@@ -21,13 +18,15 @@ public class PlayerTest {
 
     Player player;
     Random randomMocked;
-    Map map = Map.getMap();
+
+    Map map = MapFactory.getMap(MapType.SAFE);
     @Before
     public void setup() throws MapNotSetException {
         int mapSize =5;
         randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
         player = new Player(randomMocked);
     }
 
@@ -42,9 +41,9 @@ public class PlayerTest {
     @Test
     public void testGetTilesVisitedBySize() {
         player.move(Direction.UP);
-        player.move(Direction.RIGHT);
-        player.move(Direction.DOWN);
         player.move(Direction.LEFT);
+        player.move(Direction.DOWN);
+        player.move(Direction.RIGHT);
 
         //getting player actual coordinates
         Set<Tile> tilesVisited = player.getTilesVisited();
@@ -69,6 +68,7 @@ public class PlayerTest {
         int mapSize = 5;
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(4,4,0,1,1,0,1,2,0,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0, 0,1,3,2);
         Player player2 = new Player(randomMocked);
         player2.setPosition(new Position(4,4));
@@ -167,7 +167,7 @@ public class PlayerTest {
         //move right
         player.move(Direction.RIGHT);
         //checking x coordinate after move right
-        assertEquals("Asserting x position after move right", 1, player.getPosition().getxCoordinate());
+        assertEquals("Asserting x position after move right", 2, player.getPosition().getxCoordinate());
     }
 
     /**

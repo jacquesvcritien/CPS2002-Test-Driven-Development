@@ -1,4 +1,4 @@
-package game;//package menu;
+package game;
 import exceptions.MapNotSetException;
 import files.Builder;
 import files.Director;
@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class Game {
     //map
-    static Map map = Map.getMap();
+    static Map map;
     //random number to use
     private static Random random = new Random();
     //array of players
@@ -127,6 +127,14 @@ public class Game {
 
         mapResultBuilder = new MapResultBuilder();
         director = new Director(mapResultBuilder);
+    }
+
+    /**
+     * Setter for map
+     * @param map map to set
+     */
+    public static void setMap(Map map) {
+        Game.map = map;
     }
 
     public static void main(String args[]) throws MapNotSetException, IOException, URISyntaxException {

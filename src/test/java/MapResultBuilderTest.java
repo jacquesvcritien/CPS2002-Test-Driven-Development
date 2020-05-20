@@ -3,7 +3,10 @@ import exceptions.MapNotSetException;
 import files.Helper;
 import files.MapResultBuilder;
 import files.Page;
+import game.Game;
 import map.Map;
+import map.MapFactory;
+import map.MapType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,6 +24,7 @@ import java.util.Random;
 public class MapResultBuilderTest {
 
     MapResultBuilder mapResultBuilder;
+
     @Before
     public void setup(){
         mapResultBuilder = new MapResultBuilder();
@@ -66,8 +70,10 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMap() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = MapFactory.getMap(MapType.SAFE);
         map.setSize(5, new Random());
+        Game.setMap(map);
+
         mapResultBuilder.buildMapView(new Player(new Random()));
         Page page = mapResultBuilder.getPage();
         String html = mapResultBuilder.getPage().getHTML();
@@ -80,11 +86,13 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMoves() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = MapFactory.getMap(MapType.SAFE);
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
+
         Player player = new Player(randomMocked);
         player.setPosition(new Position(2, 4));
         player.move(Direction.LEFT);
@@ -106,11 +114,12 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = MapFactory.getMap(MapType.SAFE);
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
         Player player = new Player(randomMocked);
         player.setPosition(new Position(0, 1));
 
@@ -126,11 +135,12 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinnerNoWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = Map.getMap();
+        Map map = MapFactory.getMap(MapType.SAFE);
         int mapSize =5;
         Random randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
         Player player = new Player(randomMocked);
         player.setPosition(new Position(0, 1));
 

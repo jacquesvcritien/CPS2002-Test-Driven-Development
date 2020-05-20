@@ -51,11 +51,11 @@ public class Player {
         boolean goodPath;
 
         //do while you find a valid position
-        do{ generatedCoordinates = Map.getMap().getRandomCoordinates(random);
+        do{ generatedCoordinates = Game.getMap().getRandomCoordinates(random);
             newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
             //check if it is a good path
-            goodPath = Map.goodPath(Map.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
-        }while(Map.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
+            goodPath = Game.getMap().goodPath(Game.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
+        }while(Game.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
 
         this.start = newPosition;
 
@@ -86,7 +86,7 @@ public class Player {
      */
     private void addVisitedTile(Position position)
     {
-        tilesVisited.add(Map.getMap().getMapTile(position));
+        tilesVisited.add(Game.getMap().getMapTile(position));
     }
 
     /**
@@ -102,7 +102,7 @@ public class Player {
      * @param direction direction to move
      */
     public boolean move(Direction direction){
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         //get x coordinate
         int x = position.getxCoordinate();
         //get y coordinate
