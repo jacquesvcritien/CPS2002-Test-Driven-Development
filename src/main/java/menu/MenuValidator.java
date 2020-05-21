@@ -74,4 +74,14 @@ public class MenuValidator {
         return gameType == 2;
     }
 
+    /**
+     * Method to check that number of teams is greater than zero and smaller than number of players
+     * @param players
+     * @param teams
+     * @return
+     */
+    public static boolean amtOfTeamsValid(int players, int teams){
+        return teams < players && teams > 0;
+    }
+
 }
