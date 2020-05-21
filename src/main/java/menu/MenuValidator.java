@@ -55,16 +55,6 @@ public class MenuValidator {
         }
     }
 
-
-    /**
-     * Method to check if the game type is Collaborative
-     * @param gameType
-     * @return
-     */
-    public static boolean checkCollab(int gameType){
-        return gameType == 2;
-    }
-
     /**
      * Method to check that number of teams is greater than zero and smaller than number of players
      * @param players amount of players

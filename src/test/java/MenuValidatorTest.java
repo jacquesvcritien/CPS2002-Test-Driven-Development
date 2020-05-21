@@ -122,27 +122,9 @@ public class MenuValidatorTest {
      * Test a direction value in range
      */
     @Test
-    public void goodDirectionTest(){
+    public void goodDirectionTest() {
         boolean result = menuValidator.directionCheck(2);
         assertTrue("Asserting a value in range for direction", result);
-    }
-
-    /**
-     * Testing when game type is not collaborative
-     */
-    @Test
-    public void wrongCollabChoice(){
-        boolean result = menuValidator.checkCollab(1);
-        assertFalse("Asserting a wrong choice for a Collaborative mode", result);
-    }
-
-    /**
-     * Testing when game type is collaborative
-     */
-    @Test
-    public void goodCollabChoice(){
-        boolean result = menuValidator.checkCollab(2);
-        assertTrue("Asserting a good choice for a Collaborative mode", result);
     }
 
     /**
