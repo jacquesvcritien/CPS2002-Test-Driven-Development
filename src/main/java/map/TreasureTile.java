@@ -9,7 +9,7 @@ public class TreasureTile extends Tile{
     //holds the class name
     private String className;
     //this is the initial html for the treasure tile
-    private final String html = "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\">$player</td>";
+    private final String html = "<td class=\"$class\"><img class=\"tile-img\" src=\"images/treasure.png\">$team.player</td>";
 
     /**
      * Constructor for a treasure tile

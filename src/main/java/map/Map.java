@@ -1,7 +1,8 @@
 package map;
 
 import exceptions.MapNotSetException;
-import player.Position;
+import game.Game;
+import team.player.Position;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,6 +25,14 @@ public abstract class Map {
         this.size = size;
         this.mapTiles = new Tile[size][size];
         generate(random);
+    }
+
+    /**
+     * Setter for map tiles - FOR TESTING
+     * @param mapTiles map tiles to set
+     */
+    public void setMapTiles(Tile[][] mapTiles) {
+        this.mapTiles = mapTiles;
     }
 
     /**
@@ -163,6 +172,31 @@ public abstract class Map {
                 goodPath(tiles, startY - 1, startX, visited) ||
                 goodPath(tiles, startY, startX + 1, visited) ||
                 goodPath(tiles, startY, startX - 1, visited);
+    }
+
+    /**
+     * Method to generate a starting position
+     *
+     * @param random random generator to use
+     * @return starting position
+     */
+    public static Position generateStarting(Random random) throws MapNotSetException {
+        //generate coordinates
+        int[] generatedCoordinates;
+        //set position
+        Position newPosition;
+        boolean goodPath;
+
+        //do while you find a valid position
+        do {
+            generatedCoordinates = Game.getMap().getRandomCoordinates(random);
+            newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
+            //check if it is a good path
+            goodPath = Game.getMap().goodPath(Game.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
+        } while (Game.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
+
+        return newPosition;
+
     }
 
 }

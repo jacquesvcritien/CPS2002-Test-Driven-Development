@@ -38,7 +38,7 @@ public class MenuValidatorTest {
     }
 
     /**
-     * Test the map size function with a smaller amount of player
+     * Test the map size function with a smaller amount of team.player
      */
     @Test
     public void smallerAmtPlayerMapSize(){

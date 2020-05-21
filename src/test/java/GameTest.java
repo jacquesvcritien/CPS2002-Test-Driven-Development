@@ -16,7 +16,7 @@ import org.mockito.verification.VerificationMode;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -54,9 +54,9 @@ public class GameTest {
      */
     @Test
     public void testSetWinner() throws MapNotSetException {
-        Player player = new Player(new Random());
+        Player player = new Player(new Random(), 1);
         Game.setWinner(player);
-        assertTrue("Asserting player is in winners", Game.isAWinner(player));
+        assertTrue("Asserting team.player is in winners", Game.isAWinner(player));
     }
 
     /**
@@ -75,7 +75,7 @@ public class GameTest {
     @Test
     public void testGenerateHTMLfiles() throws MapNotSetException, IOException, URISyntaxException {
         PowerMockito.mockStatic(Helper.class);
-        Mockito.doNothing().when(director).construct(any(Player.class), anyInt());
+        Mockito.doNothing().when(director).construct(any(Player.class));
 
         Game.setDirector(director);
         int noplayers = 2;
@@ -120,7 +120,7 @@ public class GameTest {
         PowerMockito.when(MenuValidator.assert1or2(anyInt())).thenReturn(false,true, false, true);
         PowerMockito.when(MenuValidator.amtOfTeamsValid(anyInt(), anyInt())).thenReturn(false,true);
         PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
-        Mockito.doNothing().when(director).construct(any(Player.class), anyInt());
+        Mockito.doNothing().when(director).construct(any(Player.class));
         PowerMockito.doCallRealMethod().when(Game.class, "generateHTMLfiles");
 
         Game.main(new String[0]);

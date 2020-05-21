@@ -6,8 +6,9 @@ import files.MapResultBuilder;
 import map.Map;
 import menu.Helper;
 import menu.MenuValidator;
-import player.Direction;
-import player.Player;
+import team.Team;
+import team.player.Direction;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -42,7 +43,7 @@ public class Game {
 
         //init players
         for(int i=0; i < amount; i++)
-            players[i] = new Player(random);
+            players[i] = new Player(random, (i+1));
 
     }
 
@@ -75,14 +76,28 @@ public class Game {
             files.Helper.copyFile("game.css", files_name+"/game.css");
 
             //create page
-            director.construct(players[i], i+1);
+            director.construct(players[i]);
             files.Helper.writeFile(files_name, "game.html", mapResultBuilder.getPage().getHTML());
         }
     }
 
     /**
-     * Method to check if a player is a winner or not
-     * @param player player to check
+     * Method to set player to team
+     * @param team team to set
+     * @param player player to set
+     */
+    public static void setPlayerToTeam(Team team, Player player)
+    {
+        //attach player to team
+        team.attach(player);
+        //setup player with team's starting position
+        player.setup(team.getStart(), team);
+
+    }
+
+    /**
+     * Method to check if a team.player is a winner or not
+     * @param player team.player to check
      * @return
      */
     public static boolean isAWinner(Player player)

@@ -10,11 +10,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -43,7 +42,7 @@ public class DirectorTest {
         Game.setMap(map);
 
         for(int i=0; i < numOfPlayers; i++)
-            players[i] = new Player(new Random());
+            players[i] = new Player(new Random(), i+1);
 
         director = new Director(builder);
     }
@@ -70,7 +69,7 @@ public class DirectorTest {
 
         for(int i=0; i < amtOfPlayers; i++)
         {
-            director.construct(players[i], i+1);
+            director.construct(players[i]);
 
         }
 
