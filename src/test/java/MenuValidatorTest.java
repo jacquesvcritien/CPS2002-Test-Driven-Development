@@ -190,13 +190,20 @@ public class MenuValidatorTest {
         assertFalse("Asserting a smaller value than 1 or 2 is false", result);
     }
 
-
-
     /**
-     * Test a assert 1 or 2 method
+     * Test a assert 1 or 2 method when 1
      */
     @Test
-    public void goodAssert1or2(){
+    public void goodAssert1or2When1(){
+        boolean result = menuValidator.assert1or2(1);
+        assertTrue("Asserting true for a good value", result);
+    }
+
+    /**
+     * Test a assert 1 or 2 method when 2
+     */
+    @Test
+    public void goodAssert1or2When2(){
         boolean result = menuValidator.assert1or2(2);
         assertTrue("Asserting true for a good value", result);
     }

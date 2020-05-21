@@ -76,7 +76,7 @@ public class MenuValidator {
     }
 
     /**
-     * Method o check if the input is a 1 or 2
+     * Method to check if the input is a 1 or 2
      * @param input choice of map type or game mode
      * @return
      */
