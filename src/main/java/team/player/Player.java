@@ -23,6 +23,8 @@ public class Player extends Observer{
     private ArrayList<Direction> moves;
     //stores team
     private Team team;
+    //stores idnex
+    private int index;
 
     /**
      * Empty constructor
@@ -33,10 +35,32 @@ public class Player extends Observer{
      * Constructor
      *
      * @param random random generator to use
+     * @param index index
      */
-    public Player(Random random) throws MapNotSetException {
+    public Player(Random random, int index) throws MapNotSetException {
         //set position
         this.start = Game.getMap().generateStarting(random);
+        this.position = this.start;
+        //init tiles visited
+        tilesVisited = new HashSet<>();
+        //init moves
+        this.moves = new ArrayList<>();
+        //add starting tile to tiles visited
+        addVisitedTile(this.start);
+        //set index
+        this.index = index;
+    }
+
+    /**
+     * This method prepares the player by setting the teams starting position
+     * @param teamStart team's starting position
+     */
+    public void setup(Position teamStart, Team team)
+    {
+        //set team
+        this.team = team;
+        //set position
+        this.start = teamStart;
         this.position = this.start;
         //init tiles visited
         tilesVisited = new HashSet<>();
@@ -55,6 +79,13 @@ public class Player extends Observer{
         this.position = position;
     }
 
+    /**
+     * Getter for index
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
 
     /**
      * Method to get visited tiles
@@ -90,6 +121,16 @@ public class Player extends Observer{
      */
     public ArrayList<Direction> getMoves() {
         return moves;
+    }
+
+    /**
+     * Method to update player
+     */
+    @Override
+    public void update()
+    {
+        //get direction and move to that direction
+        move(this.team.getDirectionState());
     }
 
     /**
@@ -218,35 +259,5 @@ public class Player extends Observer{
     public Position getStart() {
         return start;
     }
-
-    /**
-     * Method to update player
-     */
-    @Override
-    public void update()
-    {
-        //get direction and move to that direction
-        move(this.team.getDirectionState());
-    }
-
-    /**
-     * This method prepares the player by setting the teams starting position
-     * @param teamStart team's starting position
-     */
-    public void setup(Position teamStart, Team team)
-    {
-        //set team
-        this.team = team;
-        //set position
-        this.start = teamStart;
-        this.position = this.start;
-        //init tiles visited
-        tilesVisited = new HashSet<>();
-        //init moves
-        this.moves = new ArrayList<>();
-        //add starting tile to tiles visited
-        addVisitedTile(this.start);
-    }
-
 
 }

@@ -25,9 +25,9 @@ public class Director {
      * Method to construct html by calling builders
      * @param player team.player for whom html will be created
      */
-    public void construct(Player player, int index) throws IOException, URISyntaxException {
+    public void construct(Player player) throws IOException, URISyntaxException {
         builder.init();
-        builder.buildTitle(index);
+        builder.buildTitle(player.getIndex());
         builder.buildMapView(player);
         builder.buildMoves(player);
         builder.buildWinner(player);

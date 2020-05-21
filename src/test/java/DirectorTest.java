@@ -42,7 +42,7 @@ public class DirectorTest {
         Game.setMap(map);
 
         for(int i=0; i < numOfPlayers; i++)
-            players[i] = new Player(new Random());
+            players[i] = new Player(new Random(), i+1);
 
         director = new Director(builder);
     }
@@ -69,7 +69,7 @@ public class DirectorTest {
 
         for(int i=0; i < amtOfPlayers; i++)
         {
-            director.construct(players[i], i+1);
+            director.construct(players[i]);
 
         }
 

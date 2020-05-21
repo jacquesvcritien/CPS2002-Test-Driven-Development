@@ -74,7 +74,7 @@ public class MapResultBuilderTest {
         map.setSize(5, new Random());
         Game.setMap(map);
 
-        mapResultBuilder.buildMapView(new Player(new Random()));
+        mapResultBuilder.buildMapView(new Player(new Random(), 1));
         Page page = mapResultBuilder.getPage();
         String html = mapResultBuilder.getPage().getHTML();
         Assert.assertEquals("Asserting number of </td> (table data cells ending tags)", 25, Helper.getOccurences(html, "/td"));
@@ -93,7 +93,7 @@ public class MapResultBuilderTest {
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
 
-        Player player = new Player(randomMocked);
+        Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(2, 4));
         player.move(Direction.LEFT);
         player.move(Direction.LEFT);
@@ -120,7 +120,7 @@ public class MapResultBuilderTest {
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
-        Player player = new Player(randomMocked);
+        Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(0, 1));
 
         player.move(Direction.UP);
@@ -141,7 +141,7 @@ public class MapResultBuilderTest {
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
-        Player player = new Player(randomMocked);
+        Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(0, 1));
 
         player.move(Direction.DOWN);

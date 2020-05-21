@@ -43,7 +43,7 @@ public class Game {
 
         //init players
         for(int i=0; i < amount; i++)
-            players[i] = new Player(random);
+            players[i] = new Player(random, (i+1));
 
     }
 
@@ -76,7 +76,7 @@ public class Game {
             files.Helper.copyFile("game.css", files_name+"/game.css");
 
             //create page
-            director.construct(players[i], i+1);
+            director.construct(players[i]);
             files.Helper.writeFile(files_name, "game.html", mapResultBuilder.getPage().getHTML());
         }
     }
