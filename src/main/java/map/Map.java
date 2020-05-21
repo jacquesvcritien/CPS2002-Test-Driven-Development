@@ -27,6 +27,14 @@ public abstract class Map {
     }
 
     /**
+     * Setter for map tiles - FOR TESTING
+     * @param mapTiles map tiles to set
+     */
+    public void setMapTiles(Tile[][] mapTiles) {
+        this.mapTiles = mapTiles;
+    }
+
+    /**
      * Method to generate map
      * @param random random number
      * @throws MapNotSetException if the map is ot set
