@@ -16,7 +16,7 @@ import org.mockito.verification.VerificationMode;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -56,7 +56,7 @@ public class GameTest {
     public void testSetWinner() throws MapNotSetException {
         Player player = new Player(new Random());
         Game.setWinner(player);
-        assertTrue("Asserting player is in winners", Game.isAWinner(player));
+        assertTrue("Asserting team.player is in winners", Game.isAWinner(player));
     }
 
     /**

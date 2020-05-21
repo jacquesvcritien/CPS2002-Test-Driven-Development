@@ -12,9 +12,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import player.Direction;
-import player.Player;
-import player.Position;
+import team.player.Direction;
+import team.player.Player;
+import team.player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

@@ -5,9 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import player.Direction;
-import player.Player;
-import player.Position;
+import team.player.Direction;
+import team.player.Player;
+import team.player.Position;
 
 import java.util.Random;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class PlayerTest {
         player.move(Direction.DOWN);
         player.move(Direction.RIGHT);
 
-        //getting player actual coordinates
+        //getting team.player actual coordinates
         Set<Tile> tilesVisited = player.getTilesVisited();
 
         assertEquals("Asserting number of tiles", 5, tilesVisited.size());
@@ -84,7 +84,7 @@ public class PlayerTest {
         Position position = new Position(1, 0);
         player.setPosition(position);
 
-        //getting player actual coordinates
+        //getting team.player actual coordinates
         Position playerPos = player.getPosition();
 
         //checking x coordinate from get
@@ -101,7 +101,7 @@ public class PlayerTest {
         Position position = new Position(1, 0);
         player.setStart(position);
 
-        //getting player actual coordinates
+        //getting team.player actual coordinates
         Position playerPos = player.getStart();
 
         //checking x coordinate from get
