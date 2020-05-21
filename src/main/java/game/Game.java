@@ -141,22 +141,48 @@ public class Game {
     }
 
     public static void main(String args[]) throws MapNotSetException, IOException, URISyntaxException {
-
         Scanner scanner = new Scanner(System.in);
         boolean amtOfPlayerValid;
         boolean mapSizeValid;
         boolean directionValid;
+        boolean gameTypeValid;
+        boolean mapTypeValid;
+        boolean amtOfTeamsValid;
         boolean moved;
-        boolean won = false;
         int playersAmt; //amount of players
         int mapSize; //length of map size (square size map)
         int direction; //user direction for moving Up, Down, Left or Right
+        int gameType; //game type; 1.single, 2.collaborative
+        int numOfTeams; //number of teams
+        int mapType; //map type; 1.safe, 2.hazardous
+        boolean won = false;
+
+        ///game type
+        do{
+            gameType = Helper.integerVal(scanner, "Game Type:\n1. Single\n2. Collaborative\nEnter your choice: ","Please input a number");
+            gameTypeValid = MenuValidator.assert1or2(gameType);
+        }while(!gameTypeValid);
 
         //read number of players
         do {
             playersAmt = Helper.integerVal(scanner, "Enter amount of players [2-8]", "Please input a number");
             amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt);
         }while(!amtOfPlayerValid);
+
+        //if collab
+        //read number of teams
+        if (MenuValidator.checkCollab(gameType)) {
+            do {
+                numOfTeams = Helper.integerVal(scanner, "Enter amount of teams", "Please input a number");
+                amtOfTeamsValid = MenuValidator.amtOfTeamsValid(playersAmt, numOfTeams);
+            }while(!amtOfTeamsValid);
+        }
+
+        //map type (safe or hazardous)
+        do{
+            mapType = Helper.integerVal(scanner, "Map Type:\n1. Safe\n2. Hazardous\nEnter your choice: ","Please input a number");
+            mapTypeValid = MenuValidator.assert1or2(mapType);
+        }while(!mapTypeValid);
 
         //get map size
         do {
