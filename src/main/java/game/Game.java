@@ -6,6 +6,7 @@ import files.MapResultBuilder;
 import map.Map;
 import menu.Helper;
 import menu.MenuValidator;
+import team.Team;
 import team.player.Direction;
 import team.player.Player;
 
@@ -78,6 +79,20 @@ public class Game {
             director.construct(players[i], i+1);
             files.Helper.writeFile(files_name, "game.html", mapResultBuilder.getPage().getHTML());
         }
+    }
+
+    /**
+     * Method to set player to team
+     * @param team team to set
+     * @param player player to set
+     */
+    public static void setPlayerToTeam(Team team, Player player)
+    {
+        //attach player to team
+        team.attach(player);
+        //setup player with team's starting position
+        player.setup(team.getStart(), team);
+
     }
 
     /**

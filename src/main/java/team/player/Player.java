@@ -5,13 +5,14 @@ import map.Map;
 import map.Tile;
 import map.TileType;
 import game.Game;
+import team.Team;
 
 import java.util.*;
 
 /**
  * Class which represents a position
  */
-public class Player {
+public class Player extends Observer{
     //stores position for team.player
     private Position position;
     //stores starting position
@@ -20,53 +21,44 @@ public class Player {
     private Set<Tile> tilesVisited;
     //stores moves
     private ArrayList<Direction> moves;
+    //stores team
+    private Team team;
+
+    /**
+     * Empty constructor
+     */
+    public Player(){}
 
     /**
      * Constructor
+     *
      * @param random random generator to use
      */
     public Player(Random random) throws MapNotSetException {
         //set position
-        generateStarting(random);
+        this.start = Game.getMap().generateStarting(random);
         this.position = this.start;
+        //init tiles visited
         tilesVisited = new HashSet<>();
+        //init moves
         this.moves = new ArrayList<>();
+        //add starting tile to tiles visited
         addVisitedTile(this.start);
     }
 
     /**
      * Method to set position
+     *
      * @param position position to set
      */
-    public void setPosition(Position position)
-    {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
-    /**
-     * Method to generate a starting position
-     * @param random random generator to use
-     */
-    public void generateStarting(Random random) throws MapNotSetException {
-        //generate coordinates
-        int[] generatedCoordinates;
-        //set position
-        Position newPosition;
-        boolean goodPath;
-
-        //do while you find a valid position
-        do{ generatedCoordinates = Game.getMap().getRandomCoordinates(random);
-            newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
-            //check if it is a good path
-            goodPath = Game.getMap().goodPath(Game.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
-        }while(Game.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
-
-        this.start = newPosition;
-
-    }
 
     /**
      * Method to get visited tiles
+     *
      * @return set of visited tiles
      */
     public Set<Tile> getTilesVisited() {
@@ -75,24 +67,25 @@ public class Player {
 
     /**
      * Method to set start position
+     *
      * @param start position to set
      */
-    public void setStart(Position start)
-    {
+    public void setStart(Position start) {
         this.start = start;
     }
 
     /**
      * Add a new visited tile
+     *
      * @param position position of tile to add to team.player's visited tiles
      */
-    private void addVisitedTile(Position position)
-    {
+    private void addVisitedTile(Position position) {
         tilesVisited.add(Game.getMap().getMapTile(position));
     }
 
     /**
      * Method to get moves
+     *
      * @return list of moves
      */
     public ArrayList<Direction> getMoves() {
@@ -100,7 +93,7 @@ public class Player {
     }
 
     /**
-     *  Method to move team.player
+     * Method to move player
      * @param direction direction to move
      */
     public boolean move(Direction direction){
@@ -225,4 +218,35 @@ public class Player {
     public Position getStart() {
         return start;
     }
+
+    /**
+     * Method to update player
+     */
+    @Override
+    public void update()
+    {
+        //get direction and move to that direction
+        move(this.team.getDirectionState());
+    }
+
+    /**
+     * This method prepares the player by setting the teams starting position
+     * @param teamStart team's starting position
+     */
+    public void setup(Position teamStart, Team team)
+    {
+        //set team
+        this.team = team;
+        //set position
+        this.start = teamStart;
+        this.position = this.start;
+        //init tiles visited
+        tilesVisited = new HashSet<>();
+        //init moves
+        this.moves = new ArrayList<>();
+        //add starting tile to tiles visited
+        addVisitedTile(this.start);
+    }
+
+
 }
