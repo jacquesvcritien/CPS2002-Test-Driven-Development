@@ -128,33 +128,6 @@ public class MenuValidatorTest {
     }
 
     /**
-     * Test a smaller value choice for game type
-     */
-    @Test
-    public void smallerGameTypeChoice(){
-        boolean result = menuValidator.checkGameType(0);
-        assertFalse("Asserting a smaller value for game type choice", result);
-    }
-
-    /**
-     * Test a larger value choice for game type
-     */
-    @Test
-    public void largerGameTypeChoice(){
-        boolean result = menuValidator.checkGameType(3);
-        assertFalse("Asserting a larger value for game type choice", result);
-    }
-
-    /**
-     * Test a value in range of choice for game type
-     */
-    @Test
-    public void goodGameTypeChoice(){
-        boolean result = menuValidator.checkGameType(1);
-        assertTrue("Asserting a value in range for game type choice", result);
-    }
-
-    /**
      * Testing when game type is not collaborative
      */
     @Test
@@ -209,30 +182,23 @@ public class MenuValidatorTest {
     }
 
     /**
-     * Test a smaller value choice for game type
+     * Test a smaller value than 1 or 2
      */
     @Test
-    public void smallerMapTypeChoice(){
-        boolean result = menuValidator.checkMapType(0);
-        assertFalse("Asserting a smaller value for map type choice", result);
+    public void smallerThan1or2(){
+        boolean result = menuValidator.assert1or2(0);
+        assertFalse("Asserting a smaller value than 1 or 2 is false", result);
     }
 
-    /**
-     * Test a larger value choice for game type
-     */
-    @Test
-    public void largerMapTypeChoice(){
-        boolean result = menuValidator.checkMapType(3);
-        assertFalse("Asserting a larger value for map type choice", result);
-    }
+
 
     /**
-     * Test a value in range of choice for game type
+     * Test a assert 1 or 2 method
      */
     @Test
-    public void goodMapTypeChoice(){
-        boolean result = menuValidator.checkMapType(2);
-        assertTrue("Asserting a value in range for map type choice", result);
+    public void goodAssert1or2(){
+        boolean result = menuValidator.assert1or2(2);
+        assertTrue("Asserting true for a good value", result);
     }
 
 }

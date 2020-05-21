@@ -114,7 +114,7 @@ public class GameTest {
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,4,4,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
 
         Game.setRandom(randomMocked);
-        PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(1, 2, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
+        PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(1, 1, 2, 1, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
         PowerMockito.when(MenuValidator.directionCheck(anyInt())).thenReturn(true, true, true, true, true, false, true);
         PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt())).thenReturn(false,true);
         PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
