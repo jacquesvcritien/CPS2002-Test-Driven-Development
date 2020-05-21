@@ -57,8 +57,8 @@ public class MenuValidator {
 
 
     /**
-     * Method to check the game type choice is either 1 or 2
-     * @param gameType 1 = Single, 2 = Collaborative
+     * Method to check the game type choice is either 1 = Single, 2 = Collaborative
+     * @param gameType choice of game type
      * @return
      */
     public static boolean checkGameType(int gameType) {
@@ -76,12 +76,20 @@ public class MenuValidator {
 
     /**
      * Method to check that number of teams is greater than zero and smaller than number of players
-     * @param players
-     * @param teams
+     * @param players amount of players
+     * @param teams amount of teams
      * @return
      */
     public static boolean amtOfTeamsValid(int players, int teams){
         return teams < players && teams > 0;
     }
 
+    /**
+     * Method to check that map type is either of 2 choices, 1 = Safe, 2 = Hazardous
+     * @param mapType choice of map type
+     * @return
+     */
+    public static boolean checkMapType(int mapType){
+        return mapType == 1 || mapType == 2;
+    }
 }
