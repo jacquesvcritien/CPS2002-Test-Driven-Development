@@ -169,9 +169,8 @@ public class Game {
             amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt);
         }while(!amtOfPlayerValid);
 
-        //if collab
-        //read number of teams
-        if (MenuValidator.checkCollab(gameType)) {
+        //if collaborative mode, check amount of players
+        if (gameType == 2) {
             do {
                 numOfTeams = Helper.integerVal(scanner, "Enter amount of teams", "Please input a number");
                 amtOfTeamsValid = MenuValidator.amtOfTeamsValid(playersAmt, numOfTeams);
