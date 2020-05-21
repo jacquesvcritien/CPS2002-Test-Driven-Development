@@ -1,4 +1,4 @@
-package player;
+package team.player;
 
 import exceptions.MapNotSetException;
 import map.Map;
@@ -12,7 +12,7 @@ import java.util.*;
  * Class which represents a position
  */
 public class Player {
-    //stores position for player
+    //stores position for team.player
     private Position position;
     //stores starting position
     private Position start;
@@ -84,7 +84,7 @@ public class Player {
 
     /**
      * Add a new visited tile
-     * @param position position of tile to add to player's visited tiles
+     * @param position position of tile to add to team.player's visited tiles
      */
     private void addVisitedTile(Position position)
     {
@@ -100,7 +100,7 @@ public class Player {
     }
 
     /**
-     *  Method to move player
+     *  Method to move team.player
      * @param direction direction to move
      */
     public boolean move(Direction direction){
@@ -212,7 +212,7 @@ public class Player {
 
     /**
      * Getter for position
-     * @return position of player
+     * @return position of team.player
      */
     public Position getPosition() {
         return position;
@@ -220,7 +220,7 @@ public class Player {
 
     /**
      * Getter for start position
-     * @return start position of player
+     * @return start position of team.player
      */
     public Position getStart() {
         return start;

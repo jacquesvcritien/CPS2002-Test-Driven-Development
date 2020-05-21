@@ -6,8 +6,8 @@ import files.MapResultBuilder;
 import map.Map;
 import menu.Helper;
 import menu.MenuValidator;
-import player.Direction;
-import player.Player;
+import team.player.Direction;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -81,8 +81,8 @@ public class Game {
     }
 
     /**
-     * Method to check if a player is a winner or not
-     * @param player player to check
+     * Method to check if a team.player is a winner or not
+     * @param player team.player to check
      * @return
      */
     public static boolean isAWinner(Player player)

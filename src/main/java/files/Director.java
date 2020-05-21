@@ -1,6 +1,6 @@
 package files;
 
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,7 +23,7 @@ public class Director {
 
     /**
      * Method to construct html by calling builders
-     * @param player player for whom html will be created
+     * @param player team.player for whom html will be created
      */
     public void construct(Player player, int index) throws IOException, URISyntaxException {
         builder.init();

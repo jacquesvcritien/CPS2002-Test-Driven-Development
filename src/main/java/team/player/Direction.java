@@ -1,4 +1,4 @@
-package player;
+package team.player;
 
 /**
  * Enum for direction

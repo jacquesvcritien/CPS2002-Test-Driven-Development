@@ -1,7 +1,7 @@
 package map;
 
 import exceptions.MapNotSetException;
-import player.Position;
+import team.player.Position;
 
 import java.util.ArrayList;
 import java.util.Random;

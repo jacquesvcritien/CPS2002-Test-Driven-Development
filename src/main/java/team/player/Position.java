@@ -1,4 +1,4 @@
-package player;
+package team.player;
 
 public class Position {
     private int xCoordinate;

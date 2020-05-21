@@ -4,9 +4,9 @@ import game.Game;
 import map.Map;
 import map.Tile;
 import map.TileType;
-import player.Direction;
-import player.Player;
-import player.Position;
+import team.player.Direction;
+import team.player.Player;
+import team.player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 /**
- * This is the actual class which builds the page showing the map for the player, in fact, it extends the builder class
+ * This is the actual class which builds the page showing the map for the team.player, in fact, it extends the builder class
  */
 public class MapResultBuilder extends Builder
 {
@@ -55,7 +55,7 @@ public class MapResultBuilder extends Builder
         //get map tiles
         Tile[][] mapTiles=  map.getMapTiles();
 
-        //player position
+        //team.player position
         Position playerPosition = player.getPosition();
 
 
@@ -84,10 +84,10 @@ public class MapResultBuilder extends Builder
                 else
                     tileHtml = tileHtml.replace("$class", currentTile.getClassName());
 
-                //if player position, add position html, else remove '$player'
+                //if team.player position, add position html, else remove '$team.player'
                 String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
                 tileHtml = (j == playerPosition.getxCoordinate() && i == playerPosition.getyCoordinate()) ?
-                        tileHtml.replace("$player", playerPosHTML) : tileHtml.replace("$player", "");
+                        tileHtml.replace("$team.player", playerPosHTML) : tileHtml.replace("$team.player", "");
 
                 //add html for tile
                 html.append(tileHtml);
@@ -125,7 +125,7 @@ public class MapResultBuilder extends Builder
     public void buildWinner(Player player) {
 
         final String winnerHTML = "<h2 class=\"winner\">Congratulations, You found the treasure!</h2>";
-        //if the player is a winner
+        //if the team.player is a winner
         if(Game.isAWinner(player))
         {
             String winner = mapResultsPage.getHTML().replace("$winner-class", "winner-bg");

@@ -1,6 +1,6 @@
 package files;
 
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,8 +22,8 @@ public abstract class Builder {
     public abstract void init() throws IOException, URISyntaxException;
 
     /**
-     * Build player title
-     * @param playerIndex index of player
+     * Build team.player title
+     * @param playerIndex index of team.player
      */
     public abstract void buildTitle(int playerIndex);
 
