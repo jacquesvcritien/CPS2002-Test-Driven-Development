@@ -207,4 +207,32 @@ public class MenuValidatorTest {
         boolean result = menuValidator.amtOfTeamsValid(4,0);
         assertFalse("Asserting a number of teams equal to zero",result);
     }
+
+    /**
+     * Test a smaller value choice for game type
+     */
+    @Test
+    public void smallerMapTypeChoice(){
+        boolean result = menuValidator.checkMapType(0);
+        assertFalse("Asserting a smaller value for map type choice", result);
+    }
+
+    /**
+     * Test a larger value choice for game type
+     */
+    @Test
+    public void largerMapTypeChoice(){
+        boolean result = menuValidator.checkMapType(3);
+        assertFalse("Asserting a larger value for map type choice", result);
+    }
+
+    /**
+     * Test a value in range of choice for game type
+     */
+    @Test
+    public void goodMapTypeChoice(){
+        boolean result = menuValidator.checkMapType(2);
+        assertTrue("Asserting a value in range for map type choice", result);
+    }
+
 }
