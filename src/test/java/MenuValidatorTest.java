@@ -171,4 +171,40 @@ public class MenuValidatorTest {
         boolean result = menuValidator.checkCollab(2);
         assertTrue("Asserting a good choice for a Collaborative mode", result);
     }
+
+    /**
+     * Test when number of teams is greater than players
+     */
+    @Test
+    public void teamsGreaterThanPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,5);
+        assertFalse("Asserting a larger amount of teams than players",result);
+    }
+
+    /**
+     * Test when number of teams equal to number of players
+     */
+    @Test
+    public void teamsEqualToPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,4);
+        assertFalse("Asserting an equal amount of teams to players",result);
+    }
+
+    /**
+     * Test when number of teams is smaller than players
+     */
+    @Test
+    public void teamsSmallerThanPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,3);
+        assertTrue("Asserting an smaller amount of teams than players",result);
+    }
+
+    /**
+     * Test when number of teams equal to zero
+     */
+    @Test
+    public void teamsEqualToZero(){
+        boolean result = menuValidator.amtOfTeamsValid(4,0);
+        assertFalse("Asserting a number of teams equal to zero",result);
+    }
 }
