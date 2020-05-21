@@ -57,12 +57,21 @@ public class MenuValidator {
 
 
     /**
-     * Method to check the game type
-     *
+     * Method to check the game type choice is either 1 or 2
      * @param gameType 1 = Single, 2 = Collaborative
      * @return
      */
     public static boolean checkGameType(int gameType) {
         return gameType == 1 || gameType == 2;
     }
+
+    /**
+     * Method to check if the game type is Collaborative
+     * @param gameType
+     * @return
+     */
+    public static boolean checkCollab(int gameType){
+        return gameType == 2;
+    }
+
 }
