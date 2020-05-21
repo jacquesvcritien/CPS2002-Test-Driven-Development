@@ -122,8 +122,72 @@ public class MenuValidatorTest {
      * Test a direction value in range
      */
     @Test
-    public void goodDirectionTest(){
+    public void goodDirectionTest() {
         boolean result = menuValidator.directionCheck(2);
         assertTrue("Asserting a value in range for direction", result);
     }
+
+    /**
+     * Test when number of teams is greater than players
+     */
+    @Test
+    public void teamsGreaterThanPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,5);
+        assertFalse("Asserting a larger amount of teams than players",result);
+    }
+
+    /**
+     * Test when number of teams equal to number of players
+     */
+    @Test
+    public void teamsEqualToPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,4);
+        assertFalse("Asserting an equal amount of teams to players",result);
+    }
+
+    /**
+     * Test when number of teams is smaller than players
+     */
+    @Test
+    public void teamsSmallerThanPlayer(){
+        boolean result = menuValidator.amtOfTeamsValid(4,3);
+        assertTrue("Asserting an smaller amount of teams than players",result);
+    }
+
+    /**
+     * Test when number of teams equal to zero
+     */
+    @Test
+    public void teamsEqualToZero(){
+        boolean result = menuValidator.amtOfTeamsValid(4,0);
+        assertFalse("Asserting a number of teams equal to zero",result);
+    }
+
+    /**
+     * Test a smaller value than 1 or 2
+     */
+    @Test
+    public void smallerThan1or2(){
+        boolean result = menuValidator.assert1or2(0);
+        assertFalse("Asserting a smaller value than 1 or 2 is false", result);
+    }
+
+    /**
+     * Test a assert 1 or 2 method when 1
+     */
+    @Test
+    public void goodAssert1or2When1(){
+        boolean result = menuValidator.assert1or2(1);
+        assertTrue("Asserting true for a good value", result);
+    }
+
+    /**
+     * Test a assert 1 or 2 method when 2
+     */
+    @Test
+    public void goodAssert1or2When2(){
+        boolean result = menuValidator.assert1or2(2);
+        assertTrue("Asserting true for a good value", result);
+    }
+
 }
