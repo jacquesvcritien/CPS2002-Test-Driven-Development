@@ -57,15 +57,6 @@ public class MenuValidator {
 
 
     /**
-     * Method to check the game type choice is either 1 = Single, 2 = Collaborative
-     * @param gameType choice of game type
-     * @return
-     */
-    public static boolean checkGameType(int gameType) {
-        return gameType == 1 || gameType == 2;
-    }
-
-    /**
      * Method to check if the game type is Collaborative
      * @param gameType
      * @return
@@ -85,11 +76,11 @@ public class MenuValidator {
     }
 
     /**
-     * Method to check that map type is either of 2 choices, 1 = Safe, 2 = Hazardous
-     * @param mapType choice of map type
+     * Method o check if the input is a 1 or 2
+     * @param input choice of map type or game mode
      * @return
      */
-    public static boolean checkMapType(int mapType){
-        return mapType == 1 || mapType == 2;
+    public static boolean assert1or2(int input){
+        return input == 1 || input == 2;
     }
 }
