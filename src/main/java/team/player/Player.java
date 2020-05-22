@@ -1,13 +1,14 @@
 package team.player;
 
-        import exceptions.MapNotSetException;
-        import map.Map;
-        import map.Tile;
-        import map.TileType;
-        import game.Game;
-        import team.Team;
+import exceptions.MapNotSetException;
+import game.GameMode;
+import map.Map;
+import map.Tile;
+import map.TileType;
+import game.Game;
+import team.Team;
 
-        import java.util.*;
+import java.util.*;
 
 /**
  * Class which represents a position
@@ -265,6 +266,13 @@ public class Player extends Observer{
     public Position getStart() {
         return start;
     }
-    
+
+    /**
+     * Getter for team
+     * @return team
+     */
+    public Team getTeam() {
+        return team;
+    }
 
 }
