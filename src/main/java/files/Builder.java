@@ -23,9 +23,9 @@ public abstract class Builder {
 
     /**
      * Build team.player title
-     * @param playerIndex index of team.player
+     * @param player to build index for
      */
-    public abstract void buildTitle(int playerIndex);
+    public abstract void buildTitle(Player player);
 
     /**
      * Build map view
