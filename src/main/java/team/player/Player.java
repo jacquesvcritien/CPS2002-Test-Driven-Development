@@ -1,13 +1,13 @@
 package team.player;
 
-import exceptions.MapNotSetException;
-import map.Map;
-import map.Tile;
-import map.TileType;
-import game.Game;
-import team.Team;
+        import exceptions.MapNotSetException;
+        import map.Map;
+        import map.Tile;
+        import map.TileType;
+        import game.Game;
+        import team.Team;
 
-import java.util.*;
+        import java.util.*;
 
 /**
  * Class which represents a position
@@ -23,23 +23,26 @@ public class Player extends Observer{
     private ArrayList<Direction> moves;
     //stores team
     private Team team;
-    //stores idnex
-    private int index;
+    //stores id
+    private int id;
 
     /**
-     * Empty constructor
+     * Constructor with id
+     * @param id id to set
      */
-    public Player(){}
+    public Player(int id){
+        this.id = id;
+    }
 
     /**
      * Constructor
      *
      * @param random random generator to use
-     * @param index index
+     * @param id id
      */
-    public Player(Random random, int index) throws MapNotSetException {
+    public Player(Random random, int id) throws MapNotSetException {
         //set position
-        this.start = Game.getMap().generateStarting(random);
+        this.start = Map.generateStarting(random);
         this.position = this.start;
         //init tiles visited
         tilesVisited = new HashSet<>();
@@ -48,7 +51,7 @@ public class Player extends Observer{
         //add starting tile to tiles visited
         addVisitedTile(this.start);
         //set index
-        this.index = index;
+        this.id = id;
     }
 
     /**
@@ -80,11 +83,11 @@ public class Player extends Observer{
     }
 
     /**
-     * Getter for index
-     * @return index
+     * Getter for id
+     * @return id
      */
-    public int getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
     /**
@@ -125,17 +128,19 @@ public class Player extends Observer{
 
     /**
      * Method to update player
+     * @return if the move is successful
      */
     @Override
-    public void update()
+    public boolean update()
     {
         //get direction and move to that direction
-        move(this.team.getDirectionState());
+        return move(this.team.getDirectionState());
     }
 
     /**
      * Method to move player
      * @param direction direction to move
+     * @return if the move is successful
      */
     public boolean move(Direction direction){
         Map map = Game.getMap();
@@ -210,6 +215,7 @@ public class Player extends Observer{
             {
                 //set winner
                 Game.setWinner(this);
+
                 //set new position
                 setPosition(newPosition);
                 //add tile
@@ -259,5 +265,6 @@ public class Player extends Observer{
     public Position getStart() {
         return start;
     }
+    
 
 }
