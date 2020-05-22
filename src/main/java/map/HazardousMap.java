@@ -16,6 +16,10 @@ public class HazardousMap extends Map {
     //for singleton
     private static HazardousMap hazardousMap = new HazardousMap();
 
+    /**
+     * private constructor
+     */
+    private HazardousMap(){}
 
     /**
      * method to return map instance

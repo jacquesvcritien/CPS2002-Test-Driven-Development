@@ -16,6 +16,10 @@ public class SafeMap extends Map {
     //for singleton
     private static SafeMap safeMap = new SafeMap();
 
+    /**
+     * private constructor
+     */
+    private SafeMap(){}
 
     /**
      * method to return map instance
