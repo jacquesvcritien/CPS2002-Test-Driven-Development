@@ -155,22 +155,82 @@ public class Game {
         Game.map = map;
     }
 
+    /**
+     * Method to print winners
+     */
+    public static void printWinners()
+    {
+        for(int j=0; j < winners.size(); j++)
+        {
+            int index = Arrays.asList(players).indexOf(winners.get(j));
+            System.out.println("Player "+(index+1)+" is a winner!");
+        }
+
+    }
+
+    /**
+     * Method to play rounds
+     * @param scanner scanner for input
+     * @throws IOException thrown when there is problem when reading or writing to a file
+     * @throws URISyntaxException thrown when there is a problem with reading from a file
+     */
+    public static void playRounds(Scanner scanner) throws IOException, URISyntaxException {
+        boolean won = false;
+        boolean directionValid;
+        int direction; //user direction for moving Up, Down, Left or Right
+        boolean moved;
+
+        for(int i = 1; !won; i++) {
+            Player player = players[i-1];
+            System.out.println("\nPlayer " + i);
+            do {
+                direction = Helper.integerVal(scanner, "Enter the next direction\n1. UP\n2. DOWN\n3. LEFT\n4. RIGHT", "Please input a number");
+                directionValid = MenuValidator.directionCheck(direction);
+
+                Direction actualDirection;
+
+                switch(direction)
+                {
+                    case 1: actualDirection = Direction.UP;break;
+                    case 2: actualDirection = Direction.DOWN;break;
+                    case 3: actualDirection = Direction.LEFT;break;
+                    default: actualDirection = Direction.RIGHT;break;
+                }
+                moved = player.move(actualDirection);
+
+
+            } while (!directionValid || !moved);
+
+
+            if(i == players.length){
+                //if there are winners
+                if( winners.size()!=0)
+                {
+                    printWinners();
+                    won = true;
+                }
+
+                i = 0;
+            }
+
+            //regenerate files
+            generateHTMLfiles();
+        }
+    }
+
     public static void main(String args[]) throws MapNotSetException, IOException, URISyntaxException {
         Scanner scanner = new Scanner(System.in);
         boolean amtOfPlayerValid;
         boolean mapSizeValid;
-        boolean directionValid;
         boolean gameTypeValid;
         boolean mapTypeValid;
         boolean amtOfTeamsValid;
-        boolean moved;
         int playersAmt; //amount of players
         int mapSize; //length of map size (square size map)
         int direction; //user direction for moving Up, Down, Left or Right
         int gameType; //game type; 1.single, 2.collaborative
         int numOfTeams; //number of teams
         int mapType; //map type; 1.safe, 2.hazardous
-        boolean won = false;
 
         ///game type
         do{
@@ -213,46 +273,9 @@ public class Game {
         //generate files
         generateHTMLfiles();
 
-        for(int i = 1; !won; i++) {
-            Player player = players[i-1];
-            System.out.println("\nPlayer " + i);
-            do {
-                direction = Helper.integerVal(scanner, "Enter the next direction\n1. UP\n2. DOWN\n3. LEFT\n4. RIGHT", "Please input a number");
-                directionValid = MenuValidator.directionCheck(direction);
-
-                Direction actualDirection;
-
-                switch(direction)
-                {
-                    case 1: actualDirection = Direction.UP;break;
-                    case 2: actualDirection = Direction.DOWN;break;
-                    case 3: actualDirection = Direction.LEFT;break;
-                    default: actualDirection = Direction.RIGHT;break;
-                }
-                moved = player.move(actualDirection);
+        playRounds(scanner);
 
 
-            } while (!directionValid || !moved);
-
-
-            if(i == playersAmt){
-                //if there are winners
-                if( winners.size()!=0)
-                {
-                    for(int j=0; j < winners.size(); j++)
-                    {
-                        int index = Arrays.asList(players).indexOf(winners.get(j));
-                        System.out.println("Player "+(index+1)+" is a winner!");
-                        won = true;
-                    }
-                }
-
-                i = 0;
-            }
-
-            //regenerate files
-            generateHTMLfiles();
-        }
     }
 
 }
