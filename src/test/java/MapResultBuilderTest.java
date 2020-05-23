@@ -73,6 +73,24 @@ public class MapResultBuilderTest {
         Assert.assertTrue("Asserting page html contains title as it should", page.getHTML().contains("<div class=\"table-title\">Player 1</div>"));
     }
 
+    /**
+     * Test for build title collaborative
+     */
+    @Test
+    public void testBuildTitleCollaborative() throws IOException, URISyntaxException, MapNotSetException {
+        //create player
+        Player player = new Player(1);
+        //create team
+        Team team = new Team(randomMocked, 1);
+        Game.setPlayerToTeam(team, player);
+        Game.setGameMode(GameMode.COLLABORATIVE);
+
+        mapResultBuilder.init();
+        mapResultBuilder.buildTitle(player);
+        Page page = mapResultBuilder.getPage();
+        Assert.assertTrue("Asserting page html contains team title as it should", page.getHTML().contains("<div class=\"table-title\">Team 1</div>"));
+        Assert.assertTrue("Asserting page html contains player title as it should", page.getHTML().contains("<div class=\"table-title\">Player 1</div>"));
+    }
 
     /**
      * Test for build map by checking that it has as much cell end tags as should be

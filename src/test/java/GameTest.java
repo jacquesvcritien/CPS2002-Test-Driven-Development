@@ -96,14 +96,14 @@ public class GameTest {
     }
 
     /**
-     * Test for main
+     * Test for main - SOLO
      *
      * START AT POS (1,3) PLAYER 1
      * PLAYER 1 WINS
      * TREASURE AT (0,0)
      */
     @Test
-    public void testMain() throws Exception {
+    public void testMainSolo() throws Exception {
         Game.reset();
         PowerMockito.mockStatic(MenuValidator.class);
         PowerMockito.mockStatic(menu.Helper.class);
@@ -126,6 +126,49 @@ public class GameTest {
         Game.main(new String[0]);
 
         PowerMockito.verifyStatic(menu.Helper.class, Mockito.times(12));
+        menu.Helper.integerVal(any(), anyString(), anyString());
+        PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
+        MenuValidator.mapSize(anyInt(), anyInt());
+        PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
+        MenuValidator.amtPlayersValidator(anyInt());
+        PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(4));
+        MenuValidator.assert1or2(anyInt());
+        PowerMockito.verifyStatic(Game.class, Mockito.times(5));
+        Game.generateHTMLfiles();
+
+    }
+
+    /**
+     * Test for main - COLLABORATIVE
+     *
+     * START AT POS (1,3) TEAM 1
+     * TEAM 1 WINS
+     * TREASURE AT (0,0)
+     */
+    @Test
+    public void testMainCollaborative() throws Exception {
+        Game.reset();
+        PowerMockito.mockStatic(MenuValidator.class);
+        PowerMockito.mockStatic(menu.Helper.class);
+        PowerMockito.mockStatic(Game.class);
+        randomMocked = Mockito.mock(Random.class);
+        int mapSize = 5;
+        PowerMockito.spy(Game.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,4,4,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+
+        Game.setRandom(randomMocked);
+        PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(0,2, 1, 3, 0,2, 0,1, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
+        PowerMockito.when(MenuValidator.directionCheck(anyInt())).thenReturn(true, true, true, true, true, false, true);
+        PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt())).thenReturn(false,true);
+        PowerMockito.when(MenuValidator.assert1or2(anyInt())).thenReturn(false,true, false, true);
+        PowerMockito.when(MenuValidator.amtOfTeamsValid(anyInt(), anyInt())).thenReturn(false,true);
+        PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
+        Mockito.doNothing().when(director).construct(any(Player.class));
+        PowerMockito.doCallRealMethod().when(Game.class, "generateHTMLfiles");
+
+        Game.main(new String[0]);
+
+        PowerMockito.verifyStatic(menu.Helper.class, Mockito.times(14));
         menu.Helper.integerVal(any(), anyString(), anyString());
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
         MenuValidator.mapSize(anyInt(), anyInt());

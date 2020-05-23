@@ -49,8 +49,9 @@ public class Game {
 
         //init players
         for(int i=0; i < amount; i++)
-            players[i] = new Player(random, (i+1));
-
+            //if collaborative, create empty player
+            //if solo, create player with index
+            players[i] = (gameMode == GameMode.COLLABORATIVE) ? new Player(i+1) : new Player(random, (i+1));
     }
 
     /**
@@ -272,10 +273,28 @@ public class Game {
      */
     public static void printWinners()
     {
-        for(int j=0; j < winners.size(); j++)
+        if(gameMode == GameMode.COLLABORATIVE)
         {
-            int index = Arrays.asList(players).indexOf(winners.get(j));
-            System.out.println("Player "+(index+1)+" is a winner!");
+            System.out.println("\n=================================\n");
+            for (Team winnersTeam : winnersTeams) {
+                int index = Arrays.asList(teams).indexOf(winnersTeam);
+                System.out.println("Team " + (index + 1) + " is a winner!");
+
+                //get winning team's players
+                ArrayList<Player> winningPlayers = (ArrayList<Player>) teams[index].getPlayers();
+                //print players
+                for (Player winningPlayer : winningPlayers) {
+                    System.out.println("Player " + winningPlayer.getId() + " is a winner!");
+                }
+                System.out.println("\n=================================\n");
+            }
+        }
+        else
+        {
+            for (Player winner : winners) {
+                int index = Arrays.asList(players).indexOf(winner);
+                System.out.println("Player " + (index + 1) + " is a winner!");
+            }
         }
 
     }
@@ -294,8 +313,22 @@ public class Game {
 
         //go on until someone wins
         for(int i = 1; !won; i++) {
-            Player player = players[i-1];
-            System.out.println("\nPlayer " + i);
+            Player player = null;
+            Team team = null;
+
+            //if game mode is collaborative
+            if(gameMode == GameMode.COLLABORATIVE)
+            {
+                team = teams[i-1];
+                System.out.println("\nTeam " + i + ": Player "+team.getNextPlayerTurn());
+            }
+            //if solo
+            else
+            {
+                player = players[i-1];
+                System.out.println("\nPlayer " + i);
+            }
+
             do {
                 direction = Helper.integerVal(scanner, "Enter the next direction\n1. UP\n2. DOWN\n3. LEFT\n4. RIGHT", "Please input a number");
                 directionValid = MenuValidator.directionCheck(direction);
@@ -309,13 +342,20 @@ public class Game {
                     case 3: actualDirection = Direction.LEFT;break;
                     default: actualDirection = Direction.RIGHT;break;
                 }
-                moved = player.move(actualDirection);
 
+                //if collaborative, move team
+                //if solo move player
+                moved = (gameMode == GameMode.COLLABORATIVE) ? team.setState(actualDirection) : player.move(actualDirection);
 
             } while (!directionValid || !moved);
 
 
-            if(i == players.length){
+            //checker length
+            //if collaborative get number of teams
+            //if solo get number of players
+            int checkerSize = (gameMode == GameMode.COLLABORATIVE) ? teams.length : players.length;
+
+            if(i == checkerSize){
                 //if there are winners
                 if( winners.size()!=0)
                 {
@@ -341,7 +381,7 @@ public class Game {
         int playersAmt; //amount of players
         int mapSize; //length of map size (square size map)
         int gameType; //game type; 1.single, 2.collaborative
-        int numOfTeams; //number of teams
+        int numOfTeams = 0; //number of teams
         int mapType; //map type; 1.safe, 2.hazardous
 
         ///game type
@@ -374,6 +414,9 @@ public class Game {
             mapTypeValid = MenuValidator.assert1or2(mapType);
         }while(!mapTypeValid);
 
+        //set map
+        map = MapFactory.getMap(getMapType(mapType));
+
         //get map size
         do {
             mapSize = Helper.integerVal(scanner, "Enter length of map size ", "Please input a number");
@@ -385,6 +428,10 @@ public class Game {
 
         //init players
         setNumPlayers(playersAmt);
+
+        //if collaborative, init teams
+        if(gameMode == GameMode.COLLABORATIVE)
+            initTeams(numOfTeams);
 
         //generate files
         generateHTMLfiles();

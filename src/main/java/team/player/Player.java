@@ -217,6 +217,10 @@ public class Player extends Observer{
                 //set winner
                 Game.setWinner(this);
 
+                //if collaborative, set winning team
+                if(Game.getGameMode() == GameMode.COLLABORATIVE)
+                    Game.setWinningTeam(team);
+
                 //set new position
                 setPosition(newPosition);
                 //add tile

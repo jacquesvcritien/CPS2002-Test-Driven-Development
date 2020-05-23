@@ -40,6 +40,9 @@ public class MapResultBuilder extends Builder
     @Override
     public void buildTitle(Player player) {
         String newHtml = mapResultsPage.getHTML().replace("$index", String.valueOf(player.getId()));
+        //if collaborative fill team index, else remove it
+        newHtml = (Game.getGameMode() == GameMode.COLLABORATIVE) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getIndex()+"</div>") : newHtml.replace("$teamTitle", "");
+
         mapResultsPage.setHTML(newHtml);
     }
 
