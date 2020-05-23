@@ -4,6 +4,8 @@ import files.Builder;
 import files.Director;
 import files.MapResultBuilder;
 import map.Map;
+import map.MapFactory;
+import map.MapType;
 import menu.Helper;
 import menu.MenuValidator;
 import team.Team;
@@ -12,10 +14,7 @@ import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This is the runner class which contains the runner main method for the game
@@ -27,8 +26,15 @@ public class Game {
     private static Random random = new Random();
     //array of players
     private static Player[] players;
-    //list of winners
+    //array of teams
+    private static Team[] teams;
+    //list of winners players
     private static ArrayList<Player> winners = new ArrayList<>();
+    //list of winners teams
+    private static ArrayList<Team> winnersTeams = new ArrayList<>();
+    //game mode
+    private static GameMode gameMode;
+
 
     private static Builder mapResultBuilder = new MapResultBuilder();
     private static Director director = new Director(mapResultBuilder);
@@ -64,6 +70,24 @@ public class Game {
     }
 
     /**
+     * Method to set a winning team
+     * @param winner team to set
+     */
+    public static void setWinningTeam(Team winner) {
+        //if not already added, add it
+        if(!winnersTeams.contains(winner))
+            Game.winnersTeams.add(winner);
+    }
+
+    /**
+     * Setter for game mode - for testing
+     * @param gameMode
+     */
+    public static void setGameMode(GameMode gameMode) {
+        Game.gameMode = gameMode;
+    }
+
+    /**
      * Method which generates players html files
      */
     public static void generateHTMLfiles() throws IOException, URISyntaxException {
@@ -77,7 +101,7 @@ public class Game {
 
             //create page
             director.construct(players[i]);
-            files.Helper.writeFile(files_name, "game.html", mapResultBuilder.getPage().getHTML());
+            files.Helper.writeFile(files_name, files_name+".html", mapResultBuilder.getPage().getHTML());
         }
     }
 
@@ -96,9 +120,70 @@ public class Game {
     }
 
     /**
+     * Getter for game mode
+     * @return game mode
+     */
+    public static GameMode getGameMode() {
+        return gameMode;
+    }
+
+    /**
+     * Method to init teams
+     * @param numOfTeams number of teams
+     */
+    private static void initTeams(int numOfTeams) throws MapNotSetException {
+        //init teams
+        teams = new Team[numOfTeams];
+
+        for(int i=0; i < numOfTeams; i++)
+            teams[i] = new Team(random, (i+1));
+
+        //get all players into an arraylist
+        List<Player> playersCopy = new ArrayList(Arrays.asList(players));
+
+        //loop for amount of players
+        for(int i=0; i < players.length; i++)
+        {
+            //get team index for this player
+            int teamIndex = i % numOfTeams;
+
+            //get random player index
+            int playerIndex = random.nextInt(playersCopy.size());
+            //get that player
+            Player playerToAdd =playersCopy.get(playerIndex);
+            //add player to the team
+            setPlayerToTeam(teams[teamIndex], playerToAdd);
+            //remove player from that list
+            playersCopy.remove(playerToAdd);
+        }
+
+        printTeams();
+    }
+
+    /**
+     * Method to print teams
+     */
+    public static void printTeams()
+    {
+
+        System.out.println("\n-----------------------\n");
+        //traverse all teams
+        for(int i=0; i < teams.length; i++)
+        {
+            System.out.println("TEAM "+(i+1)+"\n");
+            //get teams players
+            ArrayList<Player> players = (ArrayList<Player>) teams[i].getPlayers();
+            for(Player player : players)
+                System.out.println("PLAYER "+player.getId());
+
+            System.out.println("\n-----------------------\n");
+        }
+    }
+
+    /**
      * Method to check if a team.player is a winner or not
      * @param player team.player to check
-     * @return
+     * @return if a player is winner
      */
     public static boolean isAWinner(Player player)
     {
@@ -107,7 +192,7 @@ public class Game {
 
     /**
      * Get map
-     * @return
+     * @return map
      */
     public static Map getMap()
     {
@@ -129,6 +214,33 @@ public class Game {
     public static void setRandom(Random random) {
         Game.random = random;
     }
+
+    /**
+     * Method to get game mode form choice
+     * @param choice choice of input
+     * @return SOLO or COLLABORATIVE
+     */
+    public static GameMode getGameMode(int choice)
+    {
+        if(choice == 1)
+            return GameMode.SOLO;
+        else
+            return GameMode.COLLABORATIVE;
+    }
+
+    /**
+     * Method to get map type form choice
+     * @param choice choice of input
+     * @return SAFE or HAZARDOUS
+     */
+    public static MapType getMapType(int choice)
+    {
+        if(choice == 1)
+            return MapType.SAFE;
+        else
+            return MapType.HAZARDOUS;
+    }
+
 
     /**
      * For Testing purposes;
@@ -180,6 +292,7 @@ public class Game {
         int direction; //user direction for moving Up, Down, Left or Right
         boolean moved;
 
+        //go on until someone wins
         for(int i = 1; !won; i++) {
             Player player = players[i-1];
             System.out.println("\nPlayer " + i);
@@ -227,16 +340,19 @@ public class Game {
         boolean amtOfTeamsValid;
         int playersAmt; //amount of players
         int mapSize; //length of map size (square size map)
-        int direction; //user direction for moving Up, Down, Left or Right
         int gameType; //game type; 1.single, 2.collaborative
         int numOfTeams; //number of teams
         int mapType; //map type; 1.safe, 2.hazardous
 
         ///game type
         do{
+            //get game type
             gameType = Helper.integerVal(scanner, "Game Type:\n1. Single\n2. Collaborative\nEnter your choice: ","Please input a number");
             gameTypeValid = MenuValidator.assert1or2(gameType);
         }while(!gameTypeValid);
+
+        //set game mode
+        gameMode = getGameMode(gameType);
 
         //read number of players
         do {
@@ -245,7 +361,7 @@ public class Game {
         }while(!amtOfPlayerValid);
 
         //if collaborative mode, check amount of players
-        if (gameType == 2) {
+        if (gameMode == GameMode.COLLABORATIVE) {
             do {
                 numOfTeams = Helper.integerVal(scanner, "Enter amount of teams", "Please input a number");
                 amtOfTeamsValid = MenuValidator.amtOfTeamsValid(playersAmt, numOfTeams);
@@ -274,7 +390,6 @@ public class Game {
         generateHTMLfiles();
 
         playRounds(scanner);
-
 
     }
 
