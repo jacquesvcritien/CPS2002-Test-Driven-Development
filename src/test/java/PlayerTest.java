@@ -1,10 +1,14 @@
 import exceptions.MapNotSetException;
 import game.Game;
 import map.*;
+import map.Tile;
+import map.TileType;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import team.Team;
 import team.player.Direction;
 import team.player.Player;
 import team.player.Position;
@@ -235,5 +239,23 @@ public class PlayerTest {
         assertFalse("Asserting false on move left", player.move(Direction.LEFT));
 
     }
+
+    /**
+     * Test for get team
+     */
+    @Test
+    public void testGetTeam() throws MapNotSetException {
+        int teamIndex = 1;
+        //create new team
+        Team team = new Team(randomMocked, teamIndex);
+        //set player to team
+        Game.setPlayerToTeam(team, player);
+
+        //assert team index
+        Assert.assertEquals("Asserting player's team index", teamIndex, player.getTeam().getIndex());
+
+
+    }
+
 
 }

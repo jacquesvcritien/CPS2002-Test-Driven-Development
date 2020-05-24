@@ -4,6 +4,7 @@ import files.Helper;
 import files.MapResultBuilder;
 import files.Page;
 import game.Game;
+import game.GameMode;
 import map.Map;
 import map.MapFactory;
 import map.MapType;
@@ -12,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import team.Team;
 import team.player.Direction;
 import team.player.Player;
 import team.player.Position;
@@ -24,9 +26,16 @@ import java.util.Random;
 public class MapResultBuilderTest {
 
     MapResultBuilder mapResultBuilder;
-
+    Random randomMocked;
+    Map map;
     @Before
-    public void setup(){
+    public void setup() throws MapNotSetException {
+        Map map = MapFactory.getMap(MapType.SAFE);
+        int mapSize =5;
+        randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        map.setSize(mapSize, randomMocked);
+        Game.setMap(map);
         mapResultBuilder = new MapResultBuilder();
     }
 
@@ -54,14 +63,33 @@ public class MapResultBuilderTest {
     }
 
     /**
-     * Test for build title
+     * Test for build title solo
      */
     @Test
-    public void testBuildTitle() throws IOException, URISyntaxException {
+    public void testBuildTitleSolo() throws IOException, URISyntaxException {
         mapResultBuilder.init();
-        mapResultBuilder.buildTitle(1);
+        mapResultBuilder.buildTitle(new Player(1));
         Page page = mapResultBuilder.getPage();
         Assert.assertTrue("Asserting page html contains title as it should", page.getHTML().contains("<div class=\"table-title\">Player 1</div>"));
+    }
+
+    /**
+     * Test for build title collaborative
+     */
+    @Test
+    public void testBuildTitleCollaborative() throws IOException, URISyntaxException, MapNotSetException {
+        //create player
+        Player player = new Player(1);
+        //create team
+        Team team = new Team(randomMocked, 1);
+        Game.setPlayerToTeam(team, player);
+        Game.setGameMode(GameMode.COLLABORATIVE);
+
+        mapResultBuilder.init();
+        mapResultBuilder.buildTitle(player);
+        Page page = mapResultBuilder.getPage();
+        Assert.assertTrue("Asserting page html contains team title as it should", page.getHTML().contains("<div class=\"table-title\">Team 1</div>"));
+        Assert.assertTrue("Asserting page html contains player title as it should", page.getHTML().contains("<div class=\"table-title\">Player 1</div>"));
     }
 
     /**
@@ -70,9 +98,6 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMap() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = MapFactory.getMap(MapType.SAFE);
-        map.setSize(5, new Random());
-        Game.setMap(map);
 
         mapResultBuilder.buildMapView(new Player(new Random(), 1));
         Page page = mapResultBuilder.getPage();
@@ -86,12 +111,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildMoves() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = MapFactory.getMap(MapType.SAFE);
-        int mapSize =5;
-        Random randomMocked = Mockito.mock(Random.class);
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
-        map.setSize(mapSize, randomMocked);
-        Game.setMap(map);
+
 
         Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(2, 4));
@@ -114,12 +134,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = MapFactory.getMap(MapType.SAFE);
-        int mapSize =5;
-        Random randomMocked = Mockito.mock(Random.class);
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
-        map.setSize(mapSize, randomMocked);
-        Game.setMap(map);
+
         Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(0, 1));
 
@@ -135,12 +150,7 @@ public class MapResultBuilderTest {
     @Test
     public void testBuildWinnerNoWinner() throws IOException, URISyntaxException, MapNotSetException {
         mapResultBuilder.init();
-        Map map = MapFactory.getMap(MapType.SAFE);
-        int mapSize =5;
-        Random randomMocked = Mockito.mock(Random.class);
-        Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
-        map.setSize(mapSize, randomMocked);
-        Game.setMap(map);
+
         Player player = new Player(randomMocked, 1);
         player.setPosition(new Position(0, 1));
 

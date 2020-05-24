@@ -27,7 +27,7 @@ public class Director {
      */
     public void construct(Player player) throws IOException, URISyntaxException {
         builder.init();
-        builder.buildTitle(player.getIndex());
+        builder.buildTitle(player);
         builder.buildMapView(player);
         builder.buildMoves(player);
         builder.buildWinner(player);

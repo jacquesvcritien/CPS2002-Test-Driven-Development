@@ -62,7 +62,7 @@ public class MenuValidator {
      * @return
      */
     public static boolean amtOfTeamsValid(int players, int teams){
-        return teams < players && teams > 0;
+        return teams < players && teams > 1;
     }
 
     /**

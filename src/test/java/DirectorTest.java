@@ -59,7 +59,7 @@ public class DirectorTest {
     @Test
     public void testConstruct() throws MapNotSetException, IOException, URISyntaxException {
         Mockito.doNothing().when(builder).init();
-        Mockito.doNothing().when(builder).buildTitle(anyInt());
+        Mockito.doNothing().when(builder).buildTitle(any(Player.class));
         Mockito.doNothing().when(builder).buildMapView(any(Player.class));
         Mockito.doNothing().when(builder).buildMoves(any(Player.class));
 
@@ -74,7 +74,7 @@ public class DirectorTest {
         }
 
         Mockito.verify(builder, mode).init();
-        Mockito.verify(builder, mode).buildTitle(anyInt());
+        Mockito.verify(builder, mode).buildTitle(any(Player.class));
         Mockito.verify(builder, mode).buildMapView(any(Player.class));
         Mockito.verify(builder, mode).buildMoves(any(Player.class));
 

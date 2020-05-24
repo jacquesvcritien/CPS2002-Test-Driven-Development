@@ -11,6 +11,7 @@ public abstract class Observer {
 
     /**
      * Method used to update all observers
+     * @return if the update was successful
      */
-    public abstract void update();
+    public abstract boolean update();
 }

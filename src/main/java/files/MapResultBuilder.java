@@ -1,6 +1,7 @@
 package files;
 
 import game.Game;
+import game.GameMode;
 import map.Map;
 import map.Tile;
 import map.TileType;
@@ -37,8 +38,11 @@ public class MapResultBuilder extends Builder
     }
 
     @Override
-    public void buildTitle(int player) {
-        String newHtml = mapResultsPage.getHTML().replace("$index", String.valueOf(player));
+    public void buildTitle(Player player) {
+        String newHtml = mapResultsPage.getHTML().replace("$index", String.valueOf(player.getId()));
+        //if collaborative fill team index, else remove it
+        newHtml = (Game.getGameMode() == GameMode.COLLABORATIVE) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getIndex()+"</div>") : newHtml.replace("$teamTitle", "");
+
         mapResultsPage.setHTML(newHtml);
     }
 
@@ -110,10 +114,8 @@ public class MapResultBuilder extends Builder
         StringBuilder html = new StringBuilder();
 
         //add moves
-        for (int i=0; i < playerMoves.size(); i++)
-        {
-            Direction direction = playerMoves.get(i);
-            html.append("<p>" + direction + "</p>");
+        for (Direction direction : playerMoves) {
+            html.append("<p>").append(direction).append("</p>");
         }
 
         String moves = mapResultsPage.getHTML().replace("$moves", html.toString());

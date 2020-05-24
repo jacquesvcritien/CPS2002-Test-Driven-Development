@@ -1,8 +1,7 @@
 package team;
 
 import exceptions.MapNotSetException;
-import files.Director;
-import game.Game;
+import map.Map;
 import team.player.Direction;
 import team.player.Player;
 import team.player.Position;
@@ -22,16 +21,21 @@ public class Team {
     private Direction directionState;
     //this holds the starting position o the team
     private Position start;
-    //holds random number
-    private Random random;
+    //holds current player index for turn
+    int nextPlayerTurn;
+    //holds team's index
+    int index;
 
     /**
      * Constructor which sets the random and the starting position
-     * @throws MapNotSetException
+     * @param index index
+     * @param random random number
+     * @throws MapNotSetException thrown when map is not set and generate starting is called
      */
-    public Team(Random random) throws MapNotSetException {
-        random = random;
-        this.start = Game.getMap().generateStarting(random);
+    public Team(Random random, int index) throws MapNotSetException {
+        //holds random number
+        this.index = index;
+        this.start = Map.generateStarting(random);
     }
     /**
      * Method to get state
@@ -45,10 +49,41 @@ public class Team {
     /**
      * Method to set state (direction)
      * @param state direction to set as state
+     * @return if state is possible
      */
-    public void setState(Direction state) {
+    public boolean setState(Direction state) {
         this.directionState = state;
-        notifyAllPlayers();
+        //if move was successful, increment next player turn counter and return true
+        if(notifyAllPlayers())
+        {
+            //check if next index is out of bounds
+            if(nextPlayerTurn == players.size()-1)
+                nextPlayerTurn = 0;
+            else
+                nextPlayerTurn++;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Getter for next player turn
+     * @return next player's index
+     */
+    public int getNextPlayerTurn() {
+        return players.get(nextPlayerTurn).getId();
+    }
+
+    /**
+     * Getter for players
+     * @return players
+     */
+    public List<Player> getPlayers() {
+        return players;
     }
 
     /**
@@ -61,11 +96,15 @@ public class Team {
 
     /**
      * Method to notify all players and update them
+     * @return if state is possible
      */
-    public void notifyAllPlayers(){
+    public boolean notifyAllPlayers(){
         for (Player player : players) {
-            player.update();
+            //if the state is not correct, return false immediately
+            if(!player.update())
+                return false;
         }
+        return true;
     }
 
     /**
@@ -74,5 +113,13 @@ public class Team {
      */
     public Position getStart() {
         return start;
+    }
+
+    /**
+     * Getter for index
+     * @return index
+     */
+    public int getIndex() {
+        return index;
     }
 }
