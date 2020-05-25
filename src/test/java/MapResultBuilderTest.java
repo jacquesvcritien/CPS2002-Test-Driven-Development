@@ -83,7 +83,6 @@ public class MapResultBuilderTest {
         //create team
         Team team = new Team(randomMocked, 1);
         Game.setPlayerToTeam(team, player);
-        Game.setGameMode(GameMode.COLLABORATIVE);
 
         mapResultBuilder.init();
         mapResultBuilder.buildTitle(player);

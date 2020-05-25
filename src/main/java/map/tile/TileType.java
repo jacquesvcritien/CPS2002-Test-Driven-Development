@@ -1,4 +1,4 @@
-package map;
+package map.tile;
 
 /**
  * This is an enum which represents the tile type

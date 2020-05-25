@@ -1,17 +1,17 @@
-package map;
+package map.tile;
 
 /**
- * This is a class which represents a blue tile
+ * This is a class which represents a green tile
  */
-public class BlueTile extends Tile{
+public class GreenTile extends Tile{
 
     private TileType type;
     private String className;
 
-    public BlueTile()
+    public GreenTile()
     {
-        this.className = "water-back";
-        this.type = TileType.BLUE;
+        this.className = "grass-back";
+        this.type = TileType.GREEN;
     }
 
     /**
@@ -31,6 +31,4 @@ public class BlueTile extends Tile{
     public String getClassName() {
         return className;
     }
-
-
 }

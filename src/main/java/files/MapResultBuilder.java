@@ -1,10 +1,9 @@
 package files;
 
 import game.Game;
-import game.GameMode;
 import map.Map;
-import map.Tile;
-import map.TileType;
+import map.tile.Tile;
+import map.tile.TileType;
 import team.player.Direction;
 import team.player.Player;
 import team.player.Position;
@@ -40,8 +39,8 @@ public class MapResultBuilder extends Builder
     @Override
     public void buildTitle(Player player) {
         String newHtml = mapResultsPage.getHTML().replace("$index", String.valueOf(player.getId()));
-        //if collaborative fill team index, else remove it
-        newHtml = (Game.getGameMode() == GameMode.COLLABORATIVE) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getIndex()+"</div>") : newHtml.replace("$teamTitle", "");
+        //if player does not have a team, then the game mode is collaborative and if so fill team index, else remove it
+        newHtml = (player.getTeam() != null) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getIndex()+"</div>") : newHtml.replace("$teamTitle", "");
 
         mapResultsPage.setHTML(newHtml);
     }

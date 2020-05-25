@@ -1,8 +1,8 @@
 import exceptions.MapNotSetException;
 import game.Game;
 import map.*;
-import map.Tile;
-import map.TileType;
+import map.tile.Tile;
+import map.tile.TileType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

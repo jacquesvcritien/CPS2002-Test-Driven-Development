@@ -2,6 +2,8 @@ package map;
 
 import exceptions.MapNotSetException;
 import game.Game;
+import map.tile.Tile;
+import map.tile.TileType;
 import team.player.Position;
 
 import java.util.ArrayList;

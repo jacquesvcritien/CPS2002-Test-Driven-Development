@@ -1,6 +1,9 @@
 package map;
 
 import exceptions.MapNotSetException;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.TreasureTile;
 
 import java.util.Random;
 

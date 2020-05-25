@@ -1,10 +1,9 @@
 package team.player;
 
 import exceptions.MapNotSetException;
-import game.GameMode;
 import map.Map;
-import map.Tile;
-import map.TileType;
+import map.tile.Tile;
+import map.tile.TileType;
 import game.Game;
 import team.Team;
 
@@ -218,7 +217,7 @@ public class Player extends Observer{
                 Game.setWinner(this);
 
                 //if collaborative, set winning team
-                if(Game.getGameMode() == GameMode.COLLABORATIVE)
+                if(team != null)
                     Game.setWinningTeam(team);
 
                 //set new position

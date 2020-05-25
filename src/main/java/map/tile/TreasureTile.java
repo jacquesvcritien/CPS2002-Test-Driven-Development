@@ -1,4 +1,4 @@
-package map;
+package map.tile;
 
 /**
  * This is a class which represents a treasure tile

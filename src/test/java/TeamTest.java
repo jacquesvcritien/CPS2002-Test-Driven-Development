@@ -1,10 +1,10 @@
 import exceptions.MapNotSetException;
 import game.Game;
 import map.*;
-import map.BlueTile;
-import map.GreenTile;
-import map.Tile;
-import map.TreasureTile;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.Tile;
+import map.tile.TreasureTile;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
