@@ -10,6 +10,9 @@ import java.net.URISyntaxException;
  */
 public abstract class Builder {
 
+    //page
+    protected Page page;
+
     /**
      * Method to get page
      * @return page
