@@ -24,7 +24,7 @@ public class BlueTile extends Tile{
     }
 
     /**
-     * Getetr for class name
+     * Getter for class name
      * @return class name
      */
     @Override

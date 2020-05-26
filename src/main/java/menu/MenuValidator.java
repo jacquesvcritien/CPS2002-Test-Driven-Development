@@ -59,7 +59,7 @@ public class MenuValidator {
      * Method to check that number of teams is greater than zero and smaller than number of players
      * @param players amount of players
      * @param teams amount of teams
-     * @return
+     * @return true if the input is correct
      */
     public static boolean amtOfTeamsValid(int players, int teams){
         return teams < players && teams > 1;
@@ -68,7 +68,7 @@ public class MenuValidator {
     /**
      * Method to check if the input is a 1 or 2
      * @param input choice of map type or game mode
-     * @return
+     * @return true if the input is correct
      */
     public static boolean assert1or2(int input){
         return input == 1 || input == 2;
