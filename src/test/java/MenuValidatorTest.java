@@ -1,3 +1,4 @@
+import game.GameMode;
 import menu.MenuValidator;
 import org.junit.After;
 import org.junit.Before;
@@ -11,29 +12,56 @@ public class MenuValidatorTest {
     MenuValidator menuValidator = new MenuValidator();
 
     /**
-     * Test for amount of players, one lower than range
+     * Test for amount of players, one lower than range - SOLO MODE
      */
     @Test
-    public void lowerAmtPlayersValTest(){
-        boolean result = menuValidator.amtPlayersValidator(1);
+    public void lowerAmtPlayersValSOLOTest(){
+        boolean result = menuValidator.amtPlayersValidator(1, GameMode.SOLO);
         assertFalse("Asserting a lower amount of players", result);
     }
 
     /**
-     * Test for amount of players, one higher than range
+     * Test for amount of players, one higher than range - SOLO MODE
      */
     @Test
-    public void higherAmtPlayersValTest(){
-        boolean result = menuValidator.amtPlayersValidator(9);
+    public void higherAmtPlayersValSOLOTest(){
+        boolean result = menuValidator.amtPlayersValidator(9, GameMode.SOLO);
         assertFalse("Asserting a higher amount of players", result);
     }
 
     /**
-     * Test for amount of players with in the range for example 5
+     * Test for amount of players with in the range for example 5 - SOLO MODE
      */
     @Test
-    public void amtPlayersValTest(){
-        boolean result = menuValidator.amtPlayersValidator(5);
+    public void amtPlayersValSOLOTest(){
+        boolean result = menuValidator.amtPlayersValidator(5, GameMode.SOLO);
+        assertTrue("Asserting an amount of players in the range", result);
+    }
+
+    /**
+     * Test for amount of players, one lower than range - COLLABORATIVE MODE
+     */
+    @Test
+    public void lowerAmtPlayersValCOLLABORATIVETest(){
+        boolean result = menuValidator.amtPlayersValidator(2, GameMode.COLLABORATIVE);
+        assertFalse("Asserting a lower amount of players", result);
+    }
+
+    /**
+     * Test for amount of players, one higher than range - COLLABORATIVE MODE
+     */
+    @Test
+    public void higherAmtPlayersValCOLLABORATIVETest(){
+        boolean result = menuValidator.amtPlayersValidator(9, GameMode.COLLABORATIVE);
+        assertFalse("Asserting a higher amount of players", result);
+    }
+
+    /**
+     * Test for amount of players with in the range for example 5 - COLLABORATIVE MODE
+     */
+    @Test
+    public void amtPlayersValCOLLABORATIVETest(){
+        boolean result = menuValidator.amtPlayersValidator(5, GameMode.COLLABORATIVE);
         assertTrue("Asserting an amount of players in the range", result);
     }
 

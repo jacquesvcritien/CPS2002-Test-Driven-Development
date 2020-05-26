@@ -397,7 +397,7 @@ public class Game {
         //read number of players
         do {
             playersAmt = Helper.integerVal(scanner, "Enter amount of players [2-8]", "Please input a number");
-            amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt);
+            amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt, gameMode);
         }while(!amtOfPlayerValid);
 
         //if collaborative mode, check amount of players

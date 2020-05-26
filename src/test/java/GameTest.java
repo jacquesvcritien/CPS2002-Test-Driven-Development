@@ -2,6 +2,7 @@ import exceptions.MapNotSetException;
 import files.Director;
 import files.Helper;
 import game.Game;
+import game.GameMode;
 import map.Map;
 import map.MapFactory;
 import map.MapType;
@@ -116,7 +117,7 @@ public class GameTest {
         Game.setRandom(randomMocked);
         PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(0,1, 1, 2, 0,1, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
         PowerMockito.when(MenuValidator.directionCheck(anyInt())).thenReturn(true, true, true, true, true, false, true);
-        PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt())).thenReturn(false,true);
+        PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt(), any(GameMode.class))).thenReturn(false,true);
         PowerMockito.when(MenuValidator.assert1or2(anyInt())).thenReturn(false,true, false, true);
         PowerMockito.when(MenuValidator.amtOfTeamsValid(anyInt(), anyInt())).thenReturn(false,true);
         PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
@@ -130,7 +131,7 @@ public class GameTest {
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
         MenuValidator.mapSize(anyInt(), anyInt());
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
-        MenuValidator.amtPlayersValidator(anyInt());
+        MenuValidator.amtPlayersValidator(anyInt(), any(GameMode.class));
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(4));
         MenuValidator.assert1or2(anyInt());
         PowerMockito.verifyStatic(Game.class, Mockito.times(5));
@@ -159,7 +160,7 @@ public class GameTest {
         Game.setRandom(randomMocked);
         PowerMockito.when(menu.Helper.integerVal(any(), anyString(), anyString())).thenReturn(0,2, 1, 3, 0,2, 0,1, 1, mapSize,1,2,3,4,1,2,1,3,1,3);
         PowerMockito.when(MenuValidator.directionCheck(anyInt())).thenReturn(true, true, true, true, true, false, true);
-        PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt())).thenReturn(false,true);
+        PowerMockito.when(MenuValidator.amtPlayersValidator(anyInt(), any(GameMode.class))).thenReturn(false,true);
         PowerMockito.when(MenuValidator.assert1or2(anyInt())).thenReturn(false,true, false, true);
         PowerMockito.when(MenuValidator.amtOfTeamsValid(anyInt(), anyInt())).thenReturn(false,true);
         PowerMockito.when(MenuValidator.mapSize(anyInt(), anyInt())).thenReturn(false, true);
@@ -173,7 +174,7 @@ public class GameTest {
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
         MenuValidator.mapSize(anyInt(), anyInt());
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(2));
-        MenuValidator.amtPlayersValidator(anyInt());
+        MenuValidator.amtPlayersValidator(anyInt(), any(GameMode.class));
         PowerMockito.verifyStatic(MenuValidator.class, Mockito.times(4));
         MenuValidator.assert1or2(anyInt());
         PowerMockito.verifyStatic(Game.class, Mockito.times(5));

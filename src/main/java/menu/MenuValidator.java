@@ -1,5 +1,7 @@
 package menu;
 
+import game.GameMode;
+
 /**
  * This is a class to validate menu input
  */
@@ -9,10 +11,15 @@ public class MenuValidator {
      * Method to check the amount of players between 2 & 8
      *
      * @param players amount of players
+     * @param gameMode gamemode
      * @return if the amount of players is valid
      */
-    public static boolean amtPlayersValidator(int players) {
-        return players >= 2 && players <= 8;
+    public static boolean amtPlayersValidator(int players, GameMode gameMode) {
+        //if collaborative, players cannot be 2
+        if(gameMode == GameMode.COLLABORATIVE)
+            return players >= 3 && players <= 8;
+        else
+            return players >= 2 && players <= 8;
     }
 
     /**
