@@ -132,7 +132,7 @@ public class Player extends Observer{
     public boolean update()
     {
         //get direction and move to that direction
-        return move(this.team.getState());
+        return move(((Team)this.team).getState());
     }
 
     /**
