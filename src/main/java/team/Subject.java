@@ -15,34 +15,22 @@ import java.util.List;
  */
 public abstract class Subject {
     //this holds the players
-    protected List<Observer> players = new ArrayList<>();
-    //this variable holds the direction as a state
-    protected Direction directionState;
-
-    /**
-     * Method to get state
-     * @return team's direction
-     */
-    public Direction getDirectionState()
-    {
-        return directionState;
-    }
-
+    protected List<Observer> observers = new ArrayList<>();
 
     /**
      * Method to attach a player to the team
      * @param observer player to attach
      */
     public void attach(Observer observer){
-        players.add(observer);
+        observers.add(observer);
     }
 
     /**
      * Method to notify all players and update them
      * @return if state is possible
      */
-    public boolean notifyAllPlayers(){
-        for (Observer player : players) {
+    public boolean notifyAllObservers(){
+        for (Observer player : observers) {
             //if the state is not correct, return false immediately
             if(!player.update())
                 return false;
@@ -54,8 +42,8 @@ public abstract class Subject {
      * Getter for players
      * @return players
      */
-    public List<Observer> getPlayers() {
-        return players;
+    public List<Observer> getObservers() {
+        return observers;
     }
 
 }

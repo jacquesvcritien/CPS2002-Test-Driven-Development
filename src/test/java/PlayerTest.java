@@ -252,7 +252,7 @@ public class PlayerTest {
         Game.setPlayerToTeam(team, player);
 
         //assert team index
-        Assert.assertEquals("Asserting player's team index", teamIndex, player.getTeam().getId());
+        Assert.assertEquals("Asserting player's team index", teamIndex, ((Team)player.getTeam()).getId());
 
 
     }

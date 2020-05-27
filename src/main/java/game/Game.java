@@ -158,7 +158,7 @@ public class Game {
         {
             System.out.println("TEAM "+(i+1)+"\n");
             //get teams players
-            ArrayList<Observer> players = (ArrayList<Observer>) teams[i].getPlayers();
+            ArrayList<Observer> players = (ArrayList<Observer>) teams[i].getObservers();
             for(Observer player : players)
                 System.out.println("PLAYER "+ ((Player)player).getId());
 
@@ -266,7 +266,7 @@ public class Game {
                 System.out.println("Team " + (index + 1) + " is a winner!");
 
                 //get winning team's players
-                ArrayList<Observer> winningPlayers = (ArrayList<Observer>) teams[index].getPlayers();
+                ArrayList<Observer> winningPlayers = (ArrayList<Observer>) teams[index].getObservers();
                 //print players
                 for (Observer winningPlayer : winningPlayers) {
                     System.out.println("Player " + ((Player)winningPlayer).getId() + " is a winner!");

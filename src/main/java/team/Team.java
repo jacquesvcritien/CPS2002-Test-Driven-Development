@@ -22,6 +22,8 @@ import java.util.Random;
         int nextPlayerTurn;
         //holds team's id
         int id;
+        //this variable holds the direction as a state
+        protected Direction state;
 
         /**
          * Constructor which sets the random and the starting position
@@ -39,7 +41,7 @@ import java.util.Random;
          * @return team's direction
          */
         public int getNextPlayerTurn() {
-            return ((Player)players.get(nextPlayerTurn)).getId();
+            return ((Player)observers.get(nextPlayerTurn)).getId();
         }
 
         /**
@@ -48,12 +50,12 @@ import java.util.Random;
          * @return if state is possible
          */
         public boolean setState(Direction state) {
-            this.directionState = state;
+            this.state = state;
             //if move was successful, increment next player turn counter and return true
-            if(notifyAllPlayers())
+            if(notifyAllObservers())
             {
                 //check if next index is out of bounds
-                if(nextPlayerTurn == players.size()-1)
+                if(nextPlayerTurn == observers.size()-1)
                     nextPlayerTurn = 0;
                 else
                     nextPlayerTurn++;
@@ -80,5 +82,14 @@ import java.util.Random;
          */
         public int getId() {
             return id;
+        }
+
+        /**
+         * Method to get state
+         * @return team's direction
+         */
+        public Direction getState()
+        {
+            return state;
         }
     }

@@ -15,4 +15,11 @@ public abstract class Observer {
      */
     public abstract boolean update();
 
+    /**
+     * Getter for team
+     * @return team
+     */
+    public Subject getTeam() {
+        return team;
+    }
 }
