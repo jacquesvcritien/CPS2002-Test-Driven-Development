@@ -21,8 +21,6 @@ public class Player extends Observer{
     private Set<Tile> tilesVisited;
     //stores moves
     private ArrayList<Direction> moves;
-    //stores team
-    private Team team;
     //stores id
     private int id;
 
@@ -218,7 +216,7 @@ public class Player extends Observer{
 
                 //if collaborative, set winning team
                 if(team != null)
-                    Game.setWinningTeam(team);
+                    Game.setWinningTeam((Team)team);
 
                 //set new position
                 setPosition(newPosition);
@@ -275,7 +273,7 @@ public class Player extends Observer{
      * @return team
      */
     public Team getTeam() {
-        return team;
+        return (Team)team;
     }
 
 }

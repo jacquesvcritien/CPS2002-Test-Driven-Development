@@ -1,17 +1,18 @@
 package team.player;
 
-import team.Team;
+import team.Subject;
 
 /**
  * Observer class
  */
 public abstract class Observer {
     //subject
-    protected Team team;
+    protected Subject team;
 
     /**
      * Method used to update all observers
      * @return if the update was successful
      */
     public abstract boolean update();
+
 }

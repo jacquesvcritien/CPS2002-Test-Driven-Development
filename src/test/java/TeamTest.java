@@ -188,7 +188,7 @@ public class TeamTest {
      */
     @Test
     public void testGetIndex(){
-        Assert.assertEquals("Asserting index", 1, team.getIndex());
+        Assert.assertEquals("Asserting index", 1, team.getId());
     }
 
 }

@@ -38,7 +38,7 @@ public class MapResultBuilder extends Builder
     public void buildTitle(Player player) {
         String newHtml = page.getHTML().replace("$index", String.valueOf(player.getId()));
         //if player does not have a team, then the game mode is collaborative and if so fill team index, else remove it
-        newHtml = (player.getTeam() != null) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getIndex()+"</div>") : newHtml.replace("$teamTitle", "");
+        newHtml = (player.getTeam() != null) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+player.getTeam().getId()+"</div>") : newHtml.replace("$teamTitle", "");
 
         page.setHTML(newHtml);
     }
