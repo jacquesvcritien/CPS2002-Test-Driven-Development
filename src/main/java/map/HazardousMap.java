@@ -35,6 +35,7 @@ public class HazardousMap extends Map {
     /**
      * Map generator
      */
+    @Override
     public void generate(Random random) throws MapNotSetException {
         if(this.size ==0)
             throw new MapNotSetException("Map size should be set before generating map");
