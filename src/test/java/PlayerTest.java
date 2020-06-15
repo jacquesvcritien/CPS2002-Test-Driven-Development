@@ -23,12 +23,14 @@ public class PlayerTest {
     Player player;
     Random randomMocked;
 
-    Map map = MapFactory.getMap(MapType.SAFE);
+    Map map;
     @Before
     public void setup() throws MapNotSetException {
         int mapSize =5;
         randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.999999999999);
+        map = MapFactory.getMap(MapType.SAFE, randomMocked);
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
         player = new Player(randomMocked, 1);

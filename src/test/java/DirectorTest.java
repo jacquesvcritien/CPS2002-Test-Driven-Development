@@ -37,7 +37,9 @@ public class DirectorTest {
     public void setup() throws MapNotSetException {
         MockitoAnnotations.initMocks(this);
         numOfPlayers= 4;
-        map = MapFactory.getMap(MapType.SAFE);
+        Random randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.999999999999);
+        map = MapFactory.getMap(MapType.SAFE, randomMocked);
         map.setSize(5, new Random());
         Game.setMap(map);
 

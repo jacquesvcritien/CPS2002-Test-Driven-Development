@@ -45,6 +45,12 @@ public abstract class Map {
     public abstract void generate(Random random) throws MapNotSetException;
 
     /**
+     * Method to set probability
+     * @param random random number ot set probability
+     */
+    protected abstract void setProbability(Random random);
+
+    /**
      * Getter for map type
      * @return type of map
      */

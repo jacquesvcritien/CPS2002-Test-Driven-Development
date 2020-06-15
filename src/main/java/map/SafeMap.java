@@ -13,7 +13,9 @@ import java.util.Random;
 public class SafeMap extends Map {
 
     //probability for blue tiles
-    private final double probability = 0.1;
+    private final double maxProbability = 0.1;
+    //probability for blue tiles
+    private double probability = 0.1;
     //probability for blue tiles
     public final MapType mapType = MapType.SAFE;
     //for singleton
@@ -30,6 +32,12 @@ public class SafeMap extends Map {
     public static SafeMap getMap()
     {
         return safeMap;
+    }
+
+    @Override
+    protected void setProbability(Random random)
+    {
+        this.probability = random.nextDouble() * maxProbability;
     }
 
     /**

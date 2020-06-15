@@ -30,10 +30,13 @@ public class MapResultBuilderTest {
     Map map;
     @Before
     public void setup() throws MapNotSetException {
-        Map map = MapFactory.getMap(MapType.SAFE);
         int mapSize =5;
         randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.999999999999);
+
+        Map map = MapFactory.getMap(MapType.SAFE, randomMocked);
+
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
         mapResultBuilder = new MapResultBuilder();

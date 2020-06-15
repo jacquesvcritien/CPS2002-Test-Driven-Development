@@ -400,7 +400,7 @@ public class Game {
         }while(!mapTypeValid);
 
         //set map
-        map = MapFactory.getMap(getMapType(mapType));
+        map = MapFactory.getMap(getMapType(mapType), random);
 
         //get map size
         do {

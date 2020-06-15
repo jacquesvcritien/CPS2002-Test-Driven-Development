@@ -13,7 +13,8 @@ import java.util.Random;
 public class HazardousMap extends Map {
 
     //probability for blue tiles
-    private final double probability = 0.35;
+    private final double maxProbability = 0.35;
+    private double probability = 0.35;
     //probability for blue tiles
     public final MapType mapType = MapType.HAZARDOUS;
     //for singleton
@@ -30,6 +31,12 @@ public class HazardousMap extends Map {
     public static HazardousMap getMap()
     {
         return hazardousMap;
+    }
+
+    @Override
+    protected void setProbability(Random random)
+    {
+        this.probability = random.nextDouble()*(maxProbability-0.25)+0.25;
     }
 
     /**

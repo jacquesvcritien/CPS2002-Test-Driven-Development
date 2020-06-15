@@ -1,14 +1,18 @@
 package map;
 
+import java.util.Random;
+
 /**
  * Class for Safe Map creator
  */
 public class SafeMapFactory extends MapFactory {
 
     @Override
-    public Map createMap()
+    public Map createMap(Random random)
     {
-        return SafeMap.getMap();
+        SafeMap map = SafeMap.getMap();
+        map.setProbability(random);
+        return map;
     }
 
 }
