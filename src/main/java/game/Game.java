@@ -96,9 +96,9 @@ public class Game {
         {
             String files_name = "map_player_"+(i+1);
             files.Helper.createDirectory(files_name);
-            files.Helper.copyDirectory("fonts", files_name+"/fonts");
+            files.Helper.copyDirectory("template/fonts", files_name+ "/template/fonts");
             files.Helper.copyDirectory("images", files_name+"/images");
-            files.Helper.copyFile("game.css", files_name+"/game.css");
+            files.Helper.copyFile("template/game.css", files_name+ "/template/game.css");
 
             //create page
             director.construct(players[i]);
