@@ -2,6 +2,8 @@ package map;
 
 import exceptions.MapNotSetException;
 import game.Game;
+import map.tile.Tile;
+import map.tile.TileType;
 import team.player.Position;
 
 import java.util.ArrayList;
@@ -41,6 +43,12 @@ public abstract class Map {
      * @throws MapNotSetException if the map is ot set
      */
     public abstract void generate(Random random) throws MapNotSetException;
+
+    /**
+     * Method to set probability
+     * @param random random number ot set probability
+     */
+    public abstract void setProbability(Random random);
 
     /**
      * Getter for map type

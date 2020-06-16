@@ -1,8 +1,8 @@
 import exceptions.MapNotSetException;
 import game.Game;
 import map.*;
-import map.Tile;
-import map.TileType;
+import map.tile.Tile;
+import map.tile.TileType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,12 +23,14 @@ public class PlayerTest {
     Player player;
     Random randomMocked;
 
-    Map map = MapFactory.getMap(MapType.SAFE);
+    Map map;
     @Before
     public void setup() throws MapNotSetException {
         int mapSize =5;
         randomMocked = Mockito.mock(Random.class);
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,0,0,0,1,1,1,2,2,3,3,2, 2, 1, 3, 1, 2, 3, 1, 2, 3, 1, 0, 0, 1,2,1, 0, 3);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.999999999999);
+        map = MapFactory.getMap(MapType.SAFE, randomMocked);
         map.setSize(mapSize, randomMocked);
         Game.setMap(map);
         player = new Player(randomMocked, 1);
@@ -252,7 +254,7 @@ public class PlayerTest {
         Game.setPlayerToTeam(team, player);
 
         //assert team index
-        Assert.assertEquals("Asserting player's team index", teamIndex, player.getTeam().getIndex());
+        Assert.assertEquals("Asserting player's team index", teamIndex, ((Team)player.getTeam()).getId());
 
 
     }

@@ -19,7 +19,7 @@ public class MapFactoryTest {
     @Test
     public void testGetSafeMap(){
         MapType mapType = MapType.SAFE;
-        Map map = MapFactory.getMap(mapType);
+        Map map = MapFactory.getMap(mapType, new Random());
         assertEquals("Asserting map type", mapType, map.getMapType());
     }
 
@@ -29,7 +29,7 @@ public class MapFactoryTest {
     @Test
     public void testGetHazardousMap(){
         MapType mapType = MapType.HAZARDOUS;
-        Map map = MapFactory.getMap(mapType);
+        Map map = MapFactory.getMap(mapType, new Random());
         assertEquals("Asserting map type", mapType, map.getMapType());
     }
 

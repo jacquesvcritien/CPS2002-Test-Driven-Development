@@ -1,7 +1,7 @@
-import map.BlueTile;
-import map.GreenTile;
-import map.TileType;
-import map.TreasureTile;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.TileType;
+import map.tile.TreasureTile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

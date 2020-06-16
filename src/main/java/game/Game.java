@@ -10,6 +10,7 @@ import menu.Helper;
 import menu.MenuValidator;
 import team.Team;
 import team.player.Direction;
+import team.player.Observer;
 import team.player.Player;
 
 import java.io.IOException;
@@ -81,14 +82,6 @@ public class Game {
     }
 
     /**
-     * Setter for game mode - for testing
-     * @param gameMode
-     */
-    public static void setGameMode(GameMode gameMode) {
-        Game.gameMode = gameMode;
-    }
-
-    /**
      * Method which generates players html files
      */
     public static void generateHTMLfiles() throws IOException, URISyntaxException {
@@ -96,9 +89,10 @@ public class Game {
         {
             String files_name = "map_player_"+(i+1);
             files.Helper.createDirectory(files_name);
-            files.Helper.copyDirectory("template/fonts", files_name+ "/template/fonts");
-            files.Helper.copyDirectory("images", files_name+"/images");
-            files.Helper.copyFile("template/game.css", files_name+ "/template/game.css");
+
+            files.Helper.copyDirectory("template/fonts", files_name+"/fonts");
+            files.Helper.copyDirectory("template/images", files_name+"/images");
+            files.Helper.copyFile("template/game.css", files_name+"/game.css");
 
             //create page
             director.construct(players[i]);
@@ -118,14 +112,6 @@ public class Game {
         //setup player with team's starting position
         player.setup(team.getStart(), team);
 
-    }
-
-    /**
-     * Getter for game mode
-     * @return game mode
-     */
-    public static GameMode getGameMode() {
-        return gameMode;
     }
 
     /**
@@ -173,9 +159,9 @@ public class Game {
         {
             System.out.println("TEAM "+(i+1)+"\n");
             //get teams players
-            ArrayList<Player> players = (ArrayList<Player>) teams[i].getPlayers();
-            for(Player player : players)
-                System.out.println("PLAYER "+player.getId());
+            ArrayList<Observer> players = (ArrayList<Observer>) teams[i].getObservers();
+            for(Observer player : players)
+                System.out.println("PLAYER "+ ((Player)player).getId());
 
             System.out.println("\n-----------------------\n");
         }
@@ -281,10 +267,10 @@ public class Game {
                 System.out.println("Team " + (index + 1) + " is a winner!");
 
                 //get winning team's players
-                ArrayList<Player> winningPlayers = (ArrayList<Player>) teams[index].getPlayers();
+                ArrayList<Observer> winningPlayers = (ArrayList<Observer>) teams[index].getObservers();
                 //print players
-                for (Player winningPlayer : winningPlayers) {
-                    System.out.println("Player " + winningPlayer.getId() + " is a winner!");
+                for (Observer winningPlayer : winningPlayers) {
+                    System.out.println("Player " + ((Player)winningPlayer).getId() + " is a winner!");
                 }
                 System.out.println("\n=================================\n");
             }
@@ -397,7 +383,7 @@ public class Game {
         //read number of players
         do {
             playersAmt = Helper.integerVal(scanner, "Enter amount of players [2-8]", "Please input a number");
-            amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt);
+            amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt, gameMode);
         }while(!amtOfPlayerValid);
 
         //if collaborative mode, check amount of players
@@ -415,7 +401,7 @@ public class Game {
         }while(!mapTypeValid);
 
         //set map
-        map = MapFactory.getMap(getMapType(mapType));
+        map = MapFactory.getMap(getMapType(mapType), random);
 
         //get map size
         do {

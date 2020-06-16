@@ -1,6 +1,9 @@
 package map;
 
 import exceptions.MapNotSetException;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.TreasureTile;
 
 import java.util.Random;
 
@@ -10,7 +13,9 @@ import java.util.Random;
 public class SafeMap extends Map {
 
     //probability for blue tiles
-    private final double probability = 0.1;
+    private final double maxProbability = 0.1;
+    //probability for blue tiles
+    private double probability = 0.1;
     //probability for blue tiles
     public final MapType mapType = MapType.SAFE;
     //for singleton
@@ -29,9 +34,16 @@ public class SafeMap extends Map {
         return safeMap;
     }
 
+    @Override
+    public void setProbability(Random random)
+    {
+        this.probability = random.nextDouble() * maxProbability;
+    }
+
     /**
      * Map generator
      */
+    @Override
     public void generate(Random random) throws MapNotSetException {
         if(this.size ==0)
             throw new MapNotSetException("Map size should be set before generating map");

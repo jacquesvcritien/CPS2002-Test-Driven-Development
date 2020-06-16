@@ -1,10 +1,10 @@
 import exceptions.MapNotSetException;
 import game.Game;
 import map.*;
-import map.BlueTile;
-import map.GreenTile;
-import map.Tile;
-import map.TreasureTile;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.Tile;
+import map.tile.TreasureTile;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,7 +68,7 @@ public class TeamTest {
             team.attach(player);
         }
 
-        team.notifyAllPlayers();
+        team.notifyAllObservers();
 
         Mockito.verify(players[0], Mockito.times(1)).update();
         Mockito.verify(players[1], Mockito.times(1)).update();
@@ -146,7 +146,7 @@ public class TeamTest {
             Game.setPlayerToTeam(team, players[i]);
         }
 
-        Assert.assertEquals("Asserting number of players in the team", 3, team.getPlayers().size());
+        Assert.assertEquals("Asserting number of players in the team", 3, team.getObservers().size());
 
     }
 
@@ -188,7 +188,7 @@ public class TeamTest {
      */
     @Test
     public void testGetIndex(){
-        Assert.assertEquals("Asserting index", 1, team.getIndex());
+        Assert.assertEquals("Asserting index", 1, team.getId());
     }
 
 }

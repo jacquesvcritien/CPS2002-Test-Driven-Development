@@ -1,10 +1,9 @@
 package team.player;
 
 import exceptions.MapNotSetException;
-import game.GameMode;
 import map.Map;
-import map.Tile;
-import map.TileType;
+import map.tile.Tile;
+import map.tile.TileType;
 import game.Game;
 import team.Team;
 
@@ -22,8 +21,6 @@ public class Player extends Observer{
     private Set<Tile> tilesVisited;
     //stores moves
     private ArrayList<Direction> moves;
-    //stores team
-    private Team team;
     //stores id
     private int id;
 
@@ -135,7 +132,7 @@ public class Player extends Observer{
     public boolean update()
     {
         //get direction and move to that direction
-        return move(this.team.getDirectionState());
+        return move(((Team)this.team).getState());
     }
 
     /**
@@ -218,8 +215,8 @@ public class Player extends Observer{
                 Game.setWinner(this);
 
                 //if collaborative, set winning team
-                if(Game.getGameMode() == GameMode.COLLABORATIVE)
-                    Game.setWinningTeam(team);
+                if(team != null)
+                    Game.setWinningTeam((Team)team);
 
                 //set new position
                 setPosition(newPosition);
@@ -269,14 +266,6 @@ public class Player extends Observer{
      */
     public Position getStart() {
         return start;
-    }
-
-    /**
-     * Getter for team
-     * @return team
-     */
-    public Team getTeam() {
-        return team;
     }
 
 }

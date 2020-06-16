@@ -1,6 +1,10 @@
 
 import exceptions.MapNotSetException;
 import map.*;
+import map.tile.BlueTile;
+import map.tile.GreenTile;
+import map.tile.Tile;
+import map.tile.TreasureTile;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -71,6 +75,8 @@ public class SafeMapTest {
     public void testGenerate() throws MapNotSetException {
         int mapSize =5;
         Mockito.when(randomMocked.nextInt(mapSize)).thenReturn(0,0,1,0,0,1,1,2,2,1,2,2,2,3,4,2,1,0,1,2);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.99999999999);
+        safeMap.setProbability(randomMocked);
         safeMap.setSize(mapSize, randomMocked);
 
         Tile[][] mapTiles = safeMap.getMapTiles();

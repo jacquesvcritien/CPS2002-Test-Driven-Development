@@ -15,20 +15,6 @@ public class Helper {
     private static BufferedWriter bufferedWriter;
 
     /**
-     * Method to returna n absolute path
-     * @param path path from resources
-     * @return the absolute path
-     * @throws URISyntaxException if the uri is null
-     */
-    public static String getAbsPath(String path) throws URISyntaxException {
-        //get absolute path
-        URL url = Helper.class.getClassLoader().getResource(path);
-        File file = Paths.get(url.toURI()).toFile();
-        return file.getAbsolutePath();
-    }
-
-
-    /**
      * Reads file fromresources
      * @param filename filename to read
      * @return String of file contents
@@ -36,11 +22,9 @@ public class Helper {
      * @throws URISyntaxException if the path is incorrect
      */
     public static String readResourcesFileAsString(String filename) throws IOException, URISyntaxException {
-        //get absolute path
-        String absolutePath =getAbsPath(filename);
 
         //read file
-        Helper.fileReader = new FileReader(absolutePath);
+        Helper.fileReader = new FileReader(filename);
         Helper.bufferedReader = new BufferedReader(Helper.fileReader);
         StringBuilder content = new StringBuilder();
         String line;
@@ -83,8 +67,7 @@ public class Helper {
      */
     public static void copyDirectory(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
         //get absolute path
-        String absolutePath =getAbsPath(sourceFilename);
-        File src = new File(absolutePath);
+        File src = new File(sourceFilename);
         File dest = new File(destinationFilename);
 
         FileUtils.copyDirectory(src, dest);
@@ -98,8 +81,7 @@ public class Helper {
      */
     public static void copyFile(String sourceFilename, String destinationFilename) throws IOException, URISyntaxException {
         //get absolute path
-        String absolutePath =getAbsPath(sourceFilename);
-        File src = new File(absolutePath);
+        File src = new File(sourceFilename);
         File dest = new File(destinationFilename);
 
         FileUtils.copyFile(src, dest);
