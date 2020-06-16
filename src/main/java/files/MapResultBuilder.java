@@ -31,7 +31,7 @@ public class MapResultBuilder extends Builder
     @Override
     public void init() throws IOException, URISyntaxException {
         page = new Page();
-        String filename = "game.html";
+        String filename = "template/game.html";
         page.setHTML(Helper.readResourcesFileAsString(filename));
     }
 
