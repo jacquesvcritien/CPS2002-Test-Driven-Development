@@ -34,7 +34,7 @@ public class HazardousMap extends Map {
     }
 
     @Override
-    protected void setProbability(Random random)
+    public void setProbability(Random random)
     {
         this.probability = random.nextDouble()*(maxProbability-0.25)+0.25;
     }

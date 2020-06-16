@@ -48,7 +48,7 @@ public abstract class Map {
      * Method to set probability
      * @param random random number ot set probability
      */
-    protected abstract void setProbability(Random random);
+    public abstract void setProbability(Random random);
 
     /**
      * Getter for map type

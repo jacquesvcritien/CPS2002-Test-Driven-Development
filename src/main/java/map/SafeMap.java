@@ -35,7 +35,7 @@ public class SafeMap extends Map {
     }
 
     @Override
-    protected void setProbability(Random random)
+    public void setProbability(Random random)
     {
         this.probability = random.nextDouble() * maxProbability;
     }
