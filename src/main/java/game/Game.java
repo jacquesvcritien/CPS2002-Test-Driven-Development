@@ -295,7 +295,7 @@ public class Game {
         boolean won = false;
         boolean directionValid;
         int direction; //user direction for moving Up, Down, Left or Right
-        boolean moved;
+        boolean moved = false;
 
         //go on until someone wins
         for(int i = 1; !won; i++) {
@@ -321,17 +321,22 @@ public class Game {
 
                 Direction actualDirection;
 
-                switch(direction)
+                //if direction is valid
+                if(directionValid)
                 {
-                    case 1: actualDirection = Direction.UP;break;
-                    case 2: actualDirection = Direction.DOWN;break;
-                    case 3: actualDirection = Direction.LEFT;break;
-                    default: actualDirection = Direction.RIGHT;break;
-                }
+                    switch(direction)
+                    {
+                        case 1: actualDirection = Direction.UP;break;
+                        case 2: actualDirection = Direction.DOWN;break;
+                        case 3: actualDirection = Direction.LEFT;break;
+                        default: actualDirection = Direction.RIGHT;break;
+                    }
 
-                //if collaborative, move team
-                //if solo move player
-                moved = (gameMode == GameMode.COLLABORATIVE) ? team.setState(actualDirection) : player.move(actualDirection);
+                    //if collaborative, move team
+                    //if solo move player
+                    moved = (gameMode == GameMode.COLLABORATIVE) ? team.setState(actualDirection) : player.move(actualDirection);
+
+                }
 
             } while (!directionValid || !moved);
 
@@ -366,30 +371,32 @@ public class Game {
         boolean amtOfTeamsValid;
         int playersAmt; //amount of players
         int mapSize; //length of map size (square size map)
-        int gameType; //game type; 1.single, 2.collaborative
+        int gameType; //game type; 1.solo, 2.collaborative
         int numOfTeams = 0; //number of teams
         int mapType; //map type; 1.safe, 2.hazardous
 
         ///game type
         do{
             //get game type
-            gameType = Helper.integerVal(scanner, "Game Type:\n1. Single\n2. Collaborative\nEnter your choice: ","Please input a number");
+            gameType = Helper.integerVal(scanner, "Game Type:\n1. Solo\n2. Collaborative\nEnter your choice: ","Please input a number");
             gameTypeValid = MenuValidator.assert1or2(gameType);
         }while(!gameTypeValid);
 
         //set game mode
         gameMode = getGameMode(gameType);
 
+        int minPlayers = (gameMode == GameMode.COLLABORATIVE) ? 3 : 2;
+
         //read number of players
         do {
-            playersAmt = Helper.integerVal(scanner, "Enter amount of players [2-8]", "Please input a number");
+            playersAmt = Helper.integerVal(scanner, "Enter amount of players ["+minPlayers+"-8]", "Please input a number");
             amtOfPlayerValid = MenuValidator.amtPlayersValidator(playersAmt, gameMode);
         }while(!amtOfPlayerValid);
 
         //if collaborative mode, check amount of players
         if (gameMode == GameMode.COLLABORATIVE) {
             do {
-                numOfTeams = Helper.integerVal(scanner, "Enter amount of teams", "Please input a number");
+                numOfTeams = Helper.integerVal(scanner, "Enter amount of teams [2-"+(playersAmt-1)+"]", "Please input a number");
                 amtOfTeamsValid = MenuValidator.amtOfTeamsValid(playersAmt, numOfTeams);
             }while(!amtOfTeamsValid);
         }
