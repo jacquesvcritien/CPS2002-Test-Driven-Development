@@ -1,35 +1,60 @@
 package map;
 
 import exceptions.MapNotSetException;
-import player.Position;
+import game.Game;
+import map.tile.Tile;
+import map.tile.TileType;
+import team.player.Position;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Map {
-    private static Map map = new Map();
-    private int size =0;
-    private Tile[][] mapTiles;
-    private final double blueProbability = 0.2;
-
-    /**
-     * method to return map instance
-     */
-    public static Map getMap()
-    {
-        return map;
-    }
+/**
+ * Class interface for Map for factory
+ */
+public abstract class Map {
+    //size of map
+    protected int size =0;
+    //holds map tiles
+    protected Tile[][] mapTiles;
 
     /**
      * Setter for map size
      * @param size size to set
+     * @throws MapNotSetException if the map is not set
      */
-    public boolean setSize(int size, Random random) throws MapNotSetException {
+    public void setSize(int size, Random random) throws MapNotSetException {
         this.size = size;
         this.mapTiles = new Tile[size][size];
         generate(random);
-        return true;
     }
+
+    /**
+     * Setter for map tiles - FOR TESTING
+     * @param mapTiles map tiles to set
+     */
+    public void setMapTiles(Tile[][] mapTiles) {
+        this.mapTiles = mapTiles;
+    }
+
+    /**
+     * Method to generate map
+     * @param random random number
+     * @throws MapNotSetException if the map is ot set
+     */
+    public abstract void generate(Random random) throws MapNotSetException;
+
+    /**
+     * Method to set probability
+     * @param random random number ot set probability
+     */
+    public abstract void setProbability(Random random);
+
+    /**
+     * Getter for map type
+     * @return type of map
+     */
+    public abstract MapType getMapType();
 
     /**
      * Getter for map size
@@ -38,6 +63,7 @@ public class Map {
     public int getSize() {
         return size;
     }
+
 
     /**
      * Get map tiles
@@ -62,7 +88,7 @@ public class Map {
      */
     public int[] getRandomCoordinates(Random random) throws MapNotSetException {
         if(this.size ==0)
-           throw new MapNotSetException("Map size is not set");
+            throw new MapNotSetException("Map size is not set");
 
         int[] toReturn = new int[2];
         toReturn[0] = random.nextInt(this.size);
@@ -71,66 +97,12 @@ public class Map {
     }
 
     /**
-     * Map generator
-     */
-    public void generate(Random random) throws MapNotSetException {
-        if(this.size ==0)
-            throw new MapNotSetException("Map size should be set before generating map");
-
-        //array to hold coordinates
-        int[] generatedCoordinates = new int[2];
-
-        //get treasure coordinates
-        int[] treasureCoordinates = getRandomCoordinates(random);
-
-        //set water tiles
-        //get number of blue tiles
-        int blueTilesAmt = (int)(blueProbability * (this.size * this.size));
-        //counter for blue tiles added
-        int blueTilesAdded = 1;
-        while(blueTilesAdded < blueTilesAmt){
-            //get new coordinates
-            generatedCoordinates = getRandomCoordinates(random);
-
-            //if not treasure coordinates
-            if(generatedCoordinates[0] != treasureCoordinates[0] || generatedCoordinates[1] != treasureCoordinates[1])
-            {
-                //set tile to blue
-                mapTiles[generatedCoordinates[0]][generatedCoordinates[1]] = new BlueTile();
-                //increment tiles added counter
-                blueTilesAdded++;
-            }
-
-        }
-
-        boolean goodPositionForTreasure;
-        //set treasure coordinates
-        do {
-            goodPositionForTreasure = goodPositionForTreasure(mapTiles, treasureCoordinates[0],treasureCoordinates[1]);
-
-            if(goodPositionForTreasure)
-                mapTiles[treasureCoordinates[0]][treasureCoordinates[1]] = new TreasureTile();
-            else
-                treasureCoordinates = getRandomCoordinates(random);
-
-        }while(!goodPositionForTreasure);
-
-        //set green tiles
-        for(int i=0; i < this.size; i++)
-            for(int j=0; j < this.size; j++)
-                //if does not exist
-                if(mapTiles[i][j] == null)
-                    mapTiles[i][j] = new GreenTile();
-
-    }
-
-    /**
      * Method which checks if a position would be good for a treasure tile
      * @param y coordinate of treasure
      * @param x coordinate of treasure
      * @return true if can be placed as treasure
      */
-    public static boolean goodPositionForTreasure(Tile[][] mapTiles, int y, int x)
+    public boolean goodPositionForTreasure(Tile[][] mapTiles, int y, int x)
     {
         //available options;
         int available = 0;
@@ -163,8 +135,8 @@ public class Map {
      */
     public void reset()
     {
-        map.size = 0;
-        map.mapTiles = null;
+        this.size = 0;
+        this.mapTiles = null;
     }
 
     /**
@@ -174,9 +146,9 @@ public class Map {
      * @param startX starting x position
      * @return true if good
      */
-    public static boolean goodPath(Tile[][] tiles, int startY, int startX)
+    public boolean goodPath(Tile[][] tiles, int startY, int startX)
     {
-        ArrayList<Tile> visited = new ArrayList<Tile>();
+        ArrayList<Tile> visited = new ArrayList<>();
 
         return goodPath(tiles, startY, startX, visited);
 
@@ -190,7 +162,7 @@ public class Map {
      * @param visited visited nodes
      * @return true if good
      */
-    public static boolean goodPath(Tile[][] tiles, int startY, int startX, ArrayList<Tile> visited)
+    public boolean goodPath(Tile[][] tiles, int startY, int startX, ArrayList<Tile> visited)
     {
 
         if((startX < 0) || (startY < 0) ||  (startX > tiles.length-1) ||  (startY > tiles.length-1))
@@ -204,12 +176,35 @@ public class Map {
         if(tiles[startY][startX].getType() == TileType.TREASURE)
             return true;
 
-        if(goodPath(tiles, startY+1, startX, visited) ||
-                goodPath(tiles, startY-1, startX, visited) ||
-                goodPath(tiles, startY, startX+1, visited) ||
-                goodPath(tiles, startY, startX-1, visited))
-            return true;
-
-        return false;
+        return goodPath(tiles, startY + 1, startX, visited) ||
+                goodPath(tiles, startY - 1, startX, visited) ||
+                goodPath(tiles, startY, startX + 1, visited) ||
+                goodPath(tiles, startY, startX - 1, visited);
     }
+
+    /**
+     * Method to generate a starting position
+     *
+     * @param random random generator to use
+     * @return starting position
+     */
+    public static Position generateStarting(Random random) throws MapNotSetException {
+        //generate coordinates
+        int[] generatedCoordinates;
+        //set position
+        Position newPosition;
+        boolean goodPath;
+
+        //do while you find a valid position
+        do {
+            generatedCoordinates = Game.getMap().getRandomCoordinates(random);
+            newPosition = new Position(generatedCoordinates[0], generatedCoordinates[1]);
+            //check if it is a good path
+            goodPath = Game.getMap().goodPath(Game.getMap().getMapTiles(), newPosition.getyCoordinate(), newPosition.getxCoordinate());
+        } while (Game.getMap().getMapTile(newPosition).getType() != TileType.GREEN || !goodPath);
+
+        return newPosition;
+
+    }
+
 }

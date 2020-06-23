@@ -1,12 +1,16 @@
 package files;
 
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * This is the class which is used to direct the builder
+ */
 public class Director {
 
+    //builder to use
     Builder builder;
 
     /**
@@ -19,11 +23,11 @@ public class Director {
 
     /**
      * Method to construct html by calling builders
-     * @param player player for whom html will be created
+     * @param player team.player for whom html will be created
      */
-    public void construct(Player player, int index) throws IOException, URISyntaxException {
+    public void construct(Player player) throws IOException, URISyntaxException {
         builder.init();
-        builder.buildTitle(index);
+        builder.buildTitle(player);
         builder.buildMapView(player);
         builder.buildMoves(player);
         builder.buildWinner(player);

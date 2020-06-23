@@ -1,7 +1,7 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import player.Position;
+import team.player.Position;
 
 import static org.junit.Assert.*;
 

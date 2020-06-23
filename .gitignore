@@ -1,2 +1,5 @@
 /target/
 .idea/
+/map_player_*
+/*.iml
+

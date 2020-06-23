@@ -2,16 +2,18 @@
 import exceptions.MapNotSetException;
 import files.Builder;
 import files.Director;
+import game.Game;
 import map.Map;
+import map.MapFactory;
+import map.MapType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.verification.VerificationMode;
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -35,10 +37,14 @@ public class DirectorTest {
     public void setup() throws MapNotSetException {
         MockitoAnnotations.initMocks(this);
         numOfPlayers= 4;
-        map = Map.getMap();
+        Random randomMocked = Mockito.mock(Random.class);
+        Mockito.when(randomMocked.nextDouble()).thenReturn(0.999999999999);
+        map = MapFactory.getMap(MapType.SAFE, randomMocked);
         map.setSize(5, new Random());
+        Game.setMap(map);
+
         for(int i=0; i < numOfPlayers; i++)
-            players[i] = new Player(new Random());
+            players[i] = new Player(new Random(), i+1);
 
         director = new Director(builder);
     }
@@ -46,7 +52,7 @@ public class DirectorTest {
     @After
     public void teardown()
     {
-       director = null;
+        director = null;
     }
 
     /**
@@ -55,7 +61,7 @@ public class DirectorTest {
     @Test
     public void testConstruct() throws MapNotSetException, IOException, URISyntaxException {
         Mockito.doNothing().when(builder).init();
-        Mockito.doNothing().when(builder).buildTitle(anyInt());
+        Mockito.doNothing().when(builder).buildTitle(any(Player.class));
         Mockito.doNothing().when(builder).buildMapView(any(Player.class));
         Mockito.doNothing().when(builder).buildMoves(any(Player.class));
 
@@ -65,12 +71,12 @@ public class DirectorTest {
 
         for(int i=0; i < amtOfPlayers; i++)
         {
-            director.construct(players[i], i+1);
+            director.construct(players[i]);
 
         }
 
         Mockito.verify(builder, mode).init();
-        Mockito.verify(builder, mode).buildTitle(anyInt());
+        Mockito.verify(builder, mode).buildTitle(any(Player.class));
         Mockito.verify(builder, mode).buildMapView(any(Player.class));
         Mockito.verify(builder, mode).buildMoves(any(Player.class));
 

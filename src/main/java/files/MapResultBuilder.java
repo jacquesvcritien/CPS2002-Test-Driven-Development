@@ -2,48 +2,52 @@ package files;
 
 import game.Game;
 import map.Map;
-import map.Tile;
-import map.TileType;
-import player.Direction;
-import player.Player;
-import player.Position;
+import map.tile.Tile;
+import map.tile.TileType;
+import team.Team;
+import team.player.Direction;
+import team.player.Player;
+import team.player.Position;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.regex.Matcher;
 
+/**
+ * This is the actual class which builds the page showing the map for the team.player, in fact, it extends the builder class
+ */
 public class MapResultBuilder extends Builder
 {
-    private Page mapResultsPage;
-    private final String filename = "game.html";
-    private final String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
-
+    
     @Override
     public Page getPage() {
-        if(mapResultsPage == null)
-            mapResultsPage = new Page();
+        if(page == null)
+            page = new Page();
 
-        return mapResultsPage;
+        return page;
     }
 
     @Override
     public void init() throws IOException, URISyntaxException {
-        mapResultsPage = new Page();
-        mapResultsPage.setHTML(Helper.readResourcesFileAsString(filename));
+        page = new Page();
+        String filename = "template/game.html";
+        page.setHTML(Helper.readResourcesFileAsString(filename));
     }
 
     @Override
-    public void buildTitle(int player) {
-        String newHtml = mapResultsPage.getHTML().replace("$index", String.valueOf(player));
-        mapResultsPage.setHTML(newHtml);
+    public void buildTitle(Player player) {
+        String newHtml = page.getHTML().replace("$index", String.valueOf(player.getId()));
+        //if player does not have a team, then the game mode is collaborative and if so fill team index, else remove it
+        newHtml = (player.getTeam() != null) ? newHtml.replace("$teamTitle", "<div class=\"table-title\">Team "+ ((Team)player.getTeam()).getId()+"</div>") : newHtml.replace("$teamTitle", "");
+
+        page.setHTML(newHtml);
     }
 
     @Override
     public void buildMapView(Player player) {
         //get map
-        Map map = Map.getMap();
+        Map map = Game.getMap();
         //get map size
         int size = map.getSize();
         //get players visited tile
@@ -53,7 +57,7 @@ public class MapResultBuilder extends Builder
         //get map tiles
         Tile[][] mapTiles=  map.getMapTiles();
 
-        //player position
+        //team.player position
         Position playerPosition = player.getPosition();
 
 
@@ -82,9 +86,10 @@ public class MapResultBuilder extends Builder
                 else
                     tileHtml = tileHtml.replace("$class", currentTile.getClassName());
 
-                //if player position, add position html, else remove '$player'
+                //if team.player position, add position html, else remove '$team.player'
+                String playerPosHTML = "<img class=\"tile-img\" src=\"images/user.png\">";
                 tileHtml = (j == playerPosition.getxCoordinate() && i == playerPosition.getyCoordinate()) ?
-                        tileHtml.replace("$player", playerPosHTML) : tileHtml.replace("$player", "");
+                        tileHtml.replace("$team.player", playerPosHTML) : tileHtml.replace("$team.player", "");
 
                 //add html for tile
                 html.append(tileHtml);
@@ -95,8 +100,8 @@ public class MapResultBuilder extends Builder
         }
 
         //replace placeholder
-        String mapResult = mapResultsPage.getHTML().replace("$mapResult", html.toString());
-        mapResultsPage.setHTML(mapResult);
+        String mapResult = page.getHTML().replace("$mapResult", html.toString());
+        page.setHTML(mapResult);
     }
 
     @Override
@@ -107,14 +112,12 @@ public class MapResultBuilder extends Builder
         StringBuilder html = new StringBuilder();
 
         //add moves
-        for (int i=0; i < playerMoves.size(); i++)
-        {
-            Direction direction = playerMoves.get(i);
-            html.append("<p>" + direction + "</p>");
+        for (Direction direction : playerMoves) {
+            html.append("<p>").append(direction).append("</p>");
         }
 
-        String moves = mapResultsPage.getHTML().replace("$moves", html.toString());
-        mapResultsPage.setHTML(moves);
+        String moves = page.getHTML().replace("$moves", html.toString());
+        page.setHTML(moves);
 
     }
 
@@ -122,18 +125,18 @@ public class MapResultBuilder extends Builder
     public void buildWinner(Player player) {
 
         final String winnerHTML = "<h2 class=\"winner\">Congratulations, You found the treasure!</h2>";
-        //if the player is a winner
+        //if the team.player is a winner
         if(Game.isAWinner(player))
         {
-            String winner = mapResultsPage.getHTML().replace("$winner-class", "winner-bg");
+            String winner = page.getHTML().replace("$winner-class", "winner-bg");
             winner = winner.replace("$winner", winnerHTML);
-            mapResultsPage.setHTML(winner);
+            page.setHTML(winner);
         }
         else
         {
-            String winner = mapResultsPage.getHTML().replace("$winner-class", "");
+            String winner = page.getHTML().replace("$winner-class", "");
             winner = winner.replace("$winner", "");
-            mapResultsPage.setHTML(winner);
+            page.setHTML(winner);
         }
 
     }

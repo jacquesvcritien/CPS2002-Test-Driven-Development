@@ -1,11 +1,17 @@
 package files;
 
-import player.Player;
+import team.player.Player;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * This is the builder class which is used to build the page
+ */
 public abstract class Builder {
+
+    //page
+    protected Page page;
 
     /**
      * Method to get page
@@ -19,10 +25,10 @@ public abstract class Builder {
     public abstract void init() throws IOException, URISyntaxException;
 
     /**
-     * Build player title
-     * @param playerIndex index of player
+     * Build team.player title
+     * @param player to build index for
      */
-    public abstract void buildTitle(int playerIndex);
+    public abstract void buildTitle(Player player);
 
     /**
      * Build map view
